@@ -15,10 +15,30 @@ const mono = JetBrains_Mono({
   display: "swap",
 });
 
+// metadataBase is the ORIGIN only; Next already prefixes the basePath
+// (/platform-site) onto the file-based image routes, so including it here
+// too would double it.
+const ORIGIN = "https://elleskay.github.io";
+const SITE = `${ORIGIN}/platform-site`;
+const DESC =
+  "An open-source Next.js and AWS template for AI coding agents. Point your agent at the repo, describe an idea, and it builds the app, sets up your cloud once, and ships it to a live AWS URL, with no stored keys.";
+
 export const metadata: Metadata = {
-  title: "platform, ship Next.js apps to AWS serverless on day one",
-  description:
-    "A reusable TypeScript monorepo template built to pair with coding agents. CI/CD, infrastructure as code via AWS CDK, security scanning, OIDC deploys with no stored keys, and a spec-driven test gate that proves every requirement before anything deploys.",
+  metadataBase: new URL(ORIGIN),
+  title: "platform, ship production-grade apps fast with AI coding agents",
+  description: DESC,
+  openGraph: {
+    title: "platform, ship production-grade apps, fast",
+    description: DESC,
+    url: SITE,
+    siteName: "platform",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "platform, ship production-grade apps, fast",
+    description: DESC,
+  },
 };
 
 export default function RootLayout({
