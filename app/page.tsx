@@ -50,12 +50,6 @@ function Nav() {
 
 /* Hero centerpiece: prompt to live app */
 function PromptConsole() {
-  const lines: [string, string][] = [
-    ["scaffolded from template, apps/web + infra/cdk", "ok"],
-    ["wrote 14 files, spec gate 100% (9/9)", "ok"],
-    ["ci, security, build passed", "ok"],
-    ["deployed to AWS over OIDC", "ok"],
-  ];
   return (
     <div className="card mx-auto max-w-2xl overflow-hidden text-left shadow-2xl shadow-black/40">
       <div className="flex items-center gap-2 border-b border-white/[0.07] px-4 py-2.5">
@@ -69,16 +63,19 @@ function PromptConsole() {
           <span className="text-[var(--color-accent)]">›</span> build a customer feedback portal with login and an admin dashboard
         </div>
         <div className="h-1.5" />
-        {lines.map(([t]) => (
-          <div key={t} className="flex items-start gap-2 text-[var(--color-muted)]">
-            <Check className="mt-[3px] h-3.5 w-3.5" />
-            <span>{t}</span>
-          </div>
-        ))}
+        <div className="flex items-start gap-2 text-[var(--color-muted)]"><Check className="mt-[3px] h-3.5 w-3.5" /><span>scaffolded from the platform template</span></div>
+        <div className="flex items-start gap-2 text-[var(--color-muted)]"><Check className="mt-[3px] h-3.5 w-3.5" /><span>wrote the app and its spec tests</span></div>
+        <div className="h-1.5" />
+        <div className="flex items-start gap-2 text-[var(--color-ink)]">
+          <span className="mt-[1px] text-[var(--color-accent)]">?</span>
+          <span>ready to deploy. connect GitHub and AWS? <span className="text-[var(--color-accent)]">yes</span></span>
+        </div>
+        <div className="flex items-start gap-2 text-[var(--color-muted)]"><Check className="mt-[3px] h-3.5 w-3.5" /><span>connected: OIDC role, database, secrets</span></div>
+        <div className="flex items-start gap-2 text-[var(--color-muted)]"><Check className="mt-[3px] h-3.5 w-3.5" /><span>pushed. github actions: ci, security, gate 100%, deploy</span></div>
         <div className="h-1.5" />
         <div className="flex items-center gap-2 text-[var(--color-ink)]">
           <span className="text-[var(--color-ok)]">●</span>
-          <span>live at <span className="text-[var(--color-accent)]">feedback.cloudfront.net</span></span>
+          <span>live at <span className="text-[var(--color-accent)]">your-app.cloudfront.net</span></span>
           <span className="caret ml-0.5 inline-block h-3.5 w-[7px] bg-[var(--color-accent)]" />
         </div>
       </div>
