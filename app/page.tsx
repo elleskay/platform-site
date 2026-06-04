@@ -60,7 +60,7 @@ function PromptConsole() {
       </div>
       <div className="mono space-y-2 p-5 text-[13px] leading-relaxed">
         <div className="text-[var(--color-ink)]">
-          <span className="text-[var(--color-accent)]">›</span> build a customer feedback portal with login and an admin dashboard
+          <span className="text-[var(--color-accent)]">›</span> use <span className="text-[var(--color-accent)]">github.com/elleskay/platform</span> to build a customer feedback portal with login and an admin dashboard
         </div>
         <div className="h-1.5" />
         <div className="flex items-start gap-2 text-[var(--color-muted)]"><Check className="mt-[3px] h-3.5 w-3.5" /><span>scaffolded from the platform template</span></div>
