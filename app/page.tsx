@@ -90,13 +90,13 @@ function Hero() {
       <div className="pointer-events-none absolute inset-0" style={{ background: "radial-gradient(620px 360px at 50% -8%, rgba(139,149,255,0.18), transparent 60%), radial-gradient(560px 360px at 82% 4%, rgba(192,132,252,0.13), transparent 60%)" }} />
       <div className="relative mx-auto max-w-4xl px-6 pb-20 pt-20 text-center sm:pt-28">
         <a href="#how" className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3.5 py-1.5 text-[13px] text-[var(--color-muted)] transition-colors hover:border-white/20">
-          <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-accent)]" /> No setup. Just prompt your idea.
+          <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-accent)]" /> Open source · Next.js on AWS · for AI agents
         </a>
         <h1 className="mx-auto mt-6 max-w-3xl text-[42px] font-bold leading-[1.05] tracking-tight sm:text-[68px]">
           Ship production-grade apps, <span className="bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-violet)] bg-clip-text text-transparent">fast.</span>
         </h1>
         <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-[var(--color-muted)]">
-          platform is a production-grade template for AI coding agents. Prompt your agent with an idea and it handles the rest: it scaffolds from the template, builds the app, and when it is ready to deploy it walks you through a one-time GitHub and AWS connection (an OIDC deploy role, a database, and a few secrets). From then on, every new idea ships to a live AWS URL, with no stored keys.
+          Your AI agent can write the app in minutes. Shipping it to secure, production AWS is the part that still takes weeks. platform closes that gap: a Next.js and AWS template your agent can deploy to. Prompt it with an idea, and out comes a real, live app, with zero infrastructure work from you.
         </p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
           <a href={REPO} className="rounded-lg bg-[var(--color-accent)] px-6 py-3 text-sm font-semibold text-[#0a0b16] transition-colors hover:bg-[var(--color-accent-strong)]">Use the template</a>
@@ -131,15 +131,15 @@ function Proof() {
 /* How it works, horizontal timeline */
 function How() {
   const steps: [string, string][] = [
-    ["Prompt your idea", "Point your AI coding agent at the platform repo and prompt it with the app you want. It scaffolds from the template and builds it. No setup first."],
-    ["It asks to connect", "The first time it deploys, the agent walks you through a one-time GitHub and AWS connection: an OIDC deploy role, a database, and a few secrets. No stored keys."],
-    ["It ships", "From then on, every new idea you prompt auto-builds, tests, and deploys to a live AWS URL. No more setup, ever."],
+    ["Prompt your idea", "Point your AI coding agent at the platform repo and describe the app you want. It scaffolds from the template and builds it, no boilerplate, no config."],
+    ["It sets up your cloud", "The first time it deploys, the agent wires your GitHub and AWS for you: a least-privilege OIDC role, a database, and the secrets. Once, and never again, with no stored keys."],
+    ["It ships", "From then on, every idea you prompt is built, tested, and deployed to a live AWS URL automatically."],
   ];
   return (
     <section id="how" className="mx-auto max-w-6xl px-6 py-24">
       <div className="mx-auto max-w-2xl text-center">
         <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Prompt your idea. It does the rest.</h2>
-        <p className="mt-4 text-lg text-[var(--color-muted)]">Point your AI coding agent at the platform repo, prompt it with your idea, and it builds the app. When it is ready to deploy, it walks you through the one-time GitHub and AWS connection itself, then ships it to a live AWS URL.</p>
+        <p className="mt-4 text-lg text-[var(--color-muted)]">You describe the app. The agent does the building, the one-time cloud setup, and the deploy.</p>
       </div>
       <div className="relative mt-16 grid gap-12 md:grid-cols-3 md:gap-8">
         <div className="absolute left-0 right-0 top-5 hidden h-px bg-white/10 md:block" />
@@ -158,12 +158,12 @@ function How() {
 /* What's included, checklist of the prebuilt layer */
 function Included() {
   const items: [string, string][] = [
+    ["Spec-driven test gate", "Every requirement is bound to a test. 100% coverage, or it does not ship."],
+    ["OIDC deploys", "GitHub assumes a short-lived role to deploy. No stored AWS keys, ever."],
+    ["Next.js on AWS serverless", "Your app runs on Lambda, S3, and CloudFront, provisioned by one CDK construct."],
     ["CI/CD pipeline", "Typecheck, lint, build, and a full cdk synth on every push."],
-    ["AWS serverless infra", "Lambda, S3, and CloudFront, provisioned by one CDK construct."],
-    ["OIDC deploys", "GitHub assumes a short-lived role. No stored AWS keys."],
     ["Security scanning", "CodeQL, gitleaks, npm audit, and strict security headers."],
-    ["Spec-driven test gate", "Every requirement bound to a test. 100% coverage, or it does not ship."],
-    ["Post-deploy smoke test", "Nine live checks confirm the deploy actually works."],
+    ["Post-deploy smoke test", "Nine live checks confirm every deploy actually works."],
     ["Auth and database", "Auth.js v5 sessions and Neon Postgres, ready to use."],
     ["Observability", "Sentry and PostHog hooks wired and waiting for a key."],
     ["Validation", "Zod at every server action boundary."],
@@ -173,7 +173,7 @@ function Included() {
       <div className="mx-auto max-w-6xl px-6 py-24">
         <div className="max-w-2xl">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Nothing to wire. It's all built.</h2>
-          <p className="mt-4 text-lg text-[var(--color-muted)]">Your agent inherits the entire production layer, so it spends its time on your product, not the plumbing.</p>
+          <p className="mt-4 text-lg text-[var(--color-muted)]">Your agent inherits a complete Next.js and AWS production stack, so it spends its time on your product, not the plumbing.</p>
         </div>
         <div className="mt-12 grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
           {items.map(([t, body]) => (
@@ -229,12 +229,12 @@ function CTA() {
         <div className="pointer-events-none absolute inset-0" style={{ background: "radial-gradient(560px 280px at 50% 120%, rgba(139,149,255,0.2), transparent 65%)" }} />
         <div className="relative text-center">
           <h2 className="mx-auto max-w-2xl text-4xl font-bold tracking-tight sm:text-5xl">Prompt an idea. Ship a live app.</h2>
-          <p className="mx-auto mt-5 max-w-md text-lg text-[var(--color-muted)]">Point your AI coding agent at the platform repo and prompt it with your idea. It handles the rest, even the one-time GitHub and AWS connection. Every new idea ships to a live AWS URL, with no stored keys.</p>
-          <div className="mono mx-auto mt-9 flex max-w-xl items-center gap-3 rounded-xl border border-white/10 bg-black/40 px-5 py-4 text-left text-sm">
-            <span className="text-[var(--color-accent)]">›</span>
-            <span className="truncate text-[var(--color-ink)]">build my app on the elleskay/platform template</span>
-            <a href={REPO} className="ml-auto shrink-0 rounded-md bg-[var(--color-accent)] px-3 py-1.5 text-xs font-semibold text-[#0a0b16] transition-colors hover:bg-[var(--color-accent-strong)]">Template</a>
+          <p className="mx-auto mt-5 max-w-md text-lg text-[var(--color-muted)]">Point your agent at the platform repo and describe your first app. It takes care of the rest.</p>
+          <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
+            <a href={REPO} className="rounded-lg bg-[var(--color-accent)] px-6 py-3 text-sm font-semibold text-[#0a0b16] transition-colors hover:bg-[var(--color-accent-strong)]">Use the template</a>
+            <a href={REPO} className="rounded-lg border border-white/12 bg-white/[0.03] px-6 py-3 text-sm font-semibold transition-colors hover:border-white/25">Browse the code</a>
           </div>
+          <p className="mt-5 text-sm text-[var(--color-faint)]">Free and open source. MIT licensed.</p>
         </div>
       </div>
     </section>
