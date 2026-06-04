@@ -58,14 +58,18 @@ function Hero() {
 }
 
 function Proof() {
-  const apps = ["CoverLens", "Cancer Navigator", "Armoury"];
+  const apps = [
+    { name: "CoverLens", live: "https://d33z7oya883ugt.cloudfront.net" },
+    { name: "Cancer Navigator", live: "https://d1z96o21m62u9i.cloudfront.net" },
+    { name: "Armoury", live: "https://d6a3alh51t58d.cloudfront.net" },
+  ];
   return (
     <section className="border-y border-white/[0.06]">
       <div className="mx-auto flex max-w-6xl flex-col items-center gap-5 px-6 py-8 sm:flex-row sm:justify-center sm:gap-10">
-        <span className="text-[13px] uppercase tracking-[0.14em] text-[var(--color-faint)]">In production</span>
+        <span className="text-[13px] uppercase tracking-[0.14em] text-[var(--color-faint)]">Live in production</span>
         <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm font-medium text-[var(--color-muted)]">
           {apps.map((a) => (
-            <span key={a} className="flex items-center gap-2"><Mark className="h-4 w-4" /> {a}</span>
+            <a key={a.name} href={a.live} className="flex items-center gap-2 transition-colors hover:text-[var(--color-ink)]"><Mark className="h-4 w-4" /> {a.name}</a>
           ))}
         </div>
       </div>
@@ -158,23 +162,26 @@ function Features() {
 /* Showcase */
 function Apps() {
   const apps = [
-    { name: "CoverLens", note: "AI insurance policy checker. Grounded LangGraph extraction, every finding quote-backed.", href: "https://github.com/elleskay/insurance-dashboard" },
-    { name: "Cancer Navigator", note: "A roadmap for newly diagnosed cancer patients in Singapore, with subsidy coverage.", href: "https://github.com/elleskay/cancer-navigator" },
-    { name: "Armoury", note: "Digital equipment checklists for frontline agencies, with an HQ readiness dashboard.", href: "https://github.com/elleskay/armoury" },
+    { name: "CoverLens", note: "AI insurance policy checker. Grounded LangGraph extraction, every finding quote-backed.", live: "https://d33z7oya883ugt.cloudfront.net", repo: "https://github.com/elleskay/insurance-dashboard" },
+    { name: "Cancer Navigator", note: "A roadmap for newly diagnosed cancer patients in Singapore, with subsidy coverage.", live: "https://d1z96o21m62u9i.cloudfront.net", repo: "https://github.com/elleskay/cancer-navigator" },
+    { name: "Armoury", note: "Digital equipment checklists for frontline agencies, with an HQ readiness dashboard.", live: "https://d6a3alh51t58d.cloudfront.net", repo: "https://github.com/elleskay/armoury" },
   ];
   return (
     <section id="apps" className="mx-auto max-w-6xl px-6 py-24">
       <div className="max-w-2xl">
         <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Proven by real apps.</h2>
-        <p className="mt-4 text-lg text-[var(--color-muted)]">Each is a full vertical slice shipped on the template, real auth, real data, a real AWS deploy.</p>
+        <p className="mt-4 text-lg text-[var(--color-muted)]">Each is a full vertical slice shipped on the template, real auth, real data, a real AWS deploy. Every one is live right now.</p>
       </div>
       <div className="mt-12 grid gap-5 sm:grid-cols-3">
         {apps.map((a) => (
-          <a key={a.name} href={a.href} className="card card-hover group flex flex-col p-7">
+          <div key={a.name} className="card card-hover flex flex-col p-7">
             <div className="flex items-center gap-2.5"><Mark className="h-5 w-5" /><span className="font-semibold">{a.name}</span></div>
             <p className="mt-3 flex-1 text-sm leading-relaxed text-[var(--color-muted)]">{a.note}</p>
-            <span className="mt-6 text-sm font-medium text-[var(--color-accent)] group-hover:underline">View repo</span>
-          </a>
+            <div className="mt-6 flex items-center gap-4 text-sm font-medium">
+              <a href={a.live} className="text-[var(--color-accent)] hover:underline">Visit live</a>
+              <a href={a.repo} className="text-[var(--color-muted)] transition-colors hover:text-[var(--color-ink)]">Repo</a>
+            </div>
+          </div>
         ))}
       </div>
     </section>
