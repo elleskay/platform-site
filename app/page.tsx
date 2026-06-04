@@ -40,13 +40,13 @@ function Hero() {
       <div className="pointer-events-none absolute inset-0" style={{ background: "radial-gradient(620px 360px at 50% -8%, rgba(139,149,255,0.18), transparent 60%), radial-gradient(560px 360px at 80% 0%, rgba(192,132,252,0.13), transparent 60%)" }} />
       <div className="relative mx-auto max-w-4xl px-6 pb-20 pt-20 text-center sm:pt-28">
         <a href="#how" className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3.5 py-1.5 text-[13px] text-[var(--color-muted)] transition-colors hover:border-white/20">
-          <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-accent)]" /> Built for AI coding agents
+          <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-accent)]" /> The infrastructure is already built
         </a>
         <h1 className="mx-auto mt-6 max-w-3xl text-[42px] font-bold leading-[1.05] tracking-tight sm:text-[68px]">
-          Ship AI-built apps, <span className="bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-violet)] bg-clip-text text-transparent">fast and clean.</span>
+          Connect an AI, ship a <span className="bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-violet)] bg-clip-text text-transparent">live app.</span>
         </h1>
         <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-[var(--color-muted)]">
-          platform is a TypeScript monorepo template built for coding agents like Claude Code and Codex. Every deploy gotcha, test, and security check is already wired in, so your agent ships production apps to AWS smoothly, and catches the mistakes long before they reach users.
+          platform is a TypeScript monorepo with the entire production layer already built: CI/CD, AWS serverless infrastructure, OIDC deploys, security scanning, and a test gate. Connect a coding agent like Claude Code or Codex, tell it what to build, and it ships a working app to AWS. No setup, no plumbing, no waiting.
         </p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
           <a href={REPO} className="rounded-lg bg-[var(--color-accent)] px-6 py-3 text-sm font-semibold text-[#0a0b16] transition-colors hover:bg-[var(--color-accent-strong)]">Use the template</a>
@@ -76,15 +76,15 @@ function Proof() {
 /* How it works */
 function How() {
   const steps = [
-    ["Build", "Your agent writes against the app's spec, guided by the repo's CLAUDE.md conventions. It knows the stack, the structure, and every deploy gotcha up front, so it gets it right the first time far more often."],
-    ["Catch", "The spec gate, CodeQL, gitleaks, and npm audit run automatically on every change. Mistakes surface in seconds in CI, where they are cheap to fix, instead of in production."],
-    ["Ship", "Green checks trigger an OIDC deploy and a smoke test that verifies the live URL. Your agent ships to AWS in minutes, with no firefighting afterward."],
+    ["The infra is done", "Clone the repo and the entire production layer, CI/CD, AWS infrastructure, OIDC deploys, security scanning, and a test gate, is already wired. You build none of it."],
+    ["Connect your AI", "Point Claude Code, Codex, or any coding agent at the repo. The CLAUDE.md conventions teach it the stack, the structure, and every deploy gotcha instantly."],
+    ["Prompt, and ship", "Tell it what to build. It writes the app, the checks confirm it works, and it deploys to AWS. You get a live URL in minutes."],
   ];
   return (
     <section id="how" className="mx-auto max-w-6xl px-6 py-24">
       <div className="mx-auto max-w-2xl text-center">
-        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">AI ships smoothly when the rails<br />are already laid.</h2>
-        <p className="mt-4 text-lg text-[var(--color-muted)]">The guardrails run on every change, so your agent moves fast without breaking production.</p>
+        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">You bring the idea.<br />The template and your AI do the rest.</h2>
+        <p className="mt-4 text-lg text-[var(--color-muted)]">Everything that normally takes weeks of setup is already done. You just connect an agent and prompt it.</p>
       </div>
       <div className="mt-14 grid gap-5 md:grid-cols-3">
         {steps.map(([t, body], i) => (
@@ -187,8 +187,8 @@ function CTA() {
       <div className="relative mx-auto max-w-6xl overflow-hidden px-6 py-28">
         <div className="pointer-events-none absolute inset-0" style={{ background: "radial-gradient(560px 280px at 50% 120%, rgba(139,149,255,0.2), transparent 65%)" }} />
         <div className="relative text-center">
-          <h2 className="mx-auto max-w-2xl text-4xl font-bold tracking-tight sm:text-5xl">Point your agent at it.</h2>
-          <p className="mx-auto mt-5 max-w-md text-lg text-[var(--color-muted)]">Clone the template and let your AI ship production apps to AWS on day one, fast, and without the breakage.</p>
+          <h2 className="mx-auto max-w-2xl text-4xl font-bold tracking-tight sm:text-5xl">Bring an AI. Get an app.</h2>
+          <p className="mx-auto mt-5 max-w-md text-lg text-[var(--color-muted)]">Clone the template, connect your agent, and prompt it. A live app lands on AWS, with zero infrastructure work from you.</p>
           <div className="mono mx-auto mt-9 flex max-w-xl items-center gap-3 rounded-xl border border-white/10 bg-black/40 px-5 py-4 text-left text-sm">
             <span className="text-[var(--color-accent)]">$</span>
             <span className="truncate text-[var(--color-ink)]">git clone github.com/elleskay/platform</span>
