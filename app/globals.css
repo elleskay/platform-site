@@ -1,21 +1,20 @@
 @import "tailwindcss";
 
-/* Skill: "Vibrant & Block-based" on a dark-slate base.
-   Palette tuned by the design-system recommender: dark slate + run-green,
-   with an electric-purple second accent for the duotone. */
+/* Neo-brutalist, light. Warm paper, hard black borders, offset shadows,
+   flat punchy accents, monospace chrome. 2026 tactile-brutalism + bento. */
 @theme {
-  --color-bg: #0f172a;
-  --color-surface: #1e293b;
-  --color-surface-2: #172033;
-  --color-ink: #f8fafc;
-  --color-muted: #94a3b8;
-  --color-faint: #64748b;
-  --color-border: #334155;
-  --color-green: #22c55e;
-  --color-green-bright: #4ade80;
-  --color-purple: #a855f7;
-  --color-cyan: #22d3ee;
-  --color-destructive: #ef4444;
+  --color-bg: #f3efe4;
+  --color-bg-2: #e9e3d4;
+  --color-ink: #16140f;
+  --color-muted: #4f4d44;
+  --color-faint: #87836f;
+  --color-line: #16140f;
+  --color-green: #1faa59;
+  --color-green-fill: #36d07a;
+  --color-purple: #7c4dff;
+  --color-purple-fill: #b39dff;
+  --color-yellow: #ffd23f;
+  --color-paper-card: #fbf9f2;
   --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-mono), ui-monospace, monospace;
 }
@@ -32,80 +31,71 @@ body {
 }
 
 ::selection {
-  background: var(--color-green);
-  color: #06210f;
+  background: var(--color-yellow);
+  color: var(--color-ink);
 }
 
 .mono {
   font-family: var(--font-mono);
 }
 
-/* Animated duotone block pattern (subtle drift) */
-@keyframes drift {
-  from {
-    background-position: 0 0;
-  }
-  to {
-    background-position: 48px 48px;
-  }
+/* Hard offset shadow (no blur) + press-in interaction */
+.hard {
+  box-shadow: 5px 5px 0 0 var(--color-ink);
 }
-.pattern {
-  background-image:
-    linear-gradient(rgba(34, 197, 94, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(168, 85, 247, 0.06) 1px, transparent 1px);
-  background-size: 48px 48px;
-  animation: drift 14s linear infinite;
+.hard-lg {
+  box-shadow: 8px 8px 0 0 var(--color-ink);
 }
-
-/* Pipeline terminal content swap */
-@keyframes pipeFade {
-  from {
-    opacity: 0;
-    transform: translateY(4px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-.pipe-fade {
-  animation: pipeFade 0.32s ease-out;
-}
-
-/* Block with a bold color-shift hover */
-.block {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
+.press {
   transition:
-    transform 0.2s ease,
-    border-color 0.2s ease,
-    background 0.2s ease,
-    box-shadow 0.2s ease;
+    transform 0.12s ease,
+    box-shadow 0.12s ease;
 }
-.block:hover {
-  transform: translateY(-3px);
-  border-color: var(--color-green);
-  box-shadow: 0 0 0 1px var(--color-green), 0 24px 50px -28px rgba(34, 197, 94, 0.45);
+.press:hover {
+  transform: translate(3px, 3px);
+  box-shadow: 2px 2px 0 0 var(--color-ink);
 }
-.block-purple:hover {
-  border-color: var(--color-purple);
-  box-shadow: 0 0 0 1px var(--color-purple), 0 24px 50px -28px rgba(168, 85, 247, 0.45);
+.lift {
+  transition:
+    transform 0.14s ease,
+    box-shadow 0.14s ease;
+}
+.lift:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 9px 9px 0 0 var(--color-ink);
+}
+
+/* Kinetic marquee */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+}
+
+/* Dotted grid texture behind the hero */
+.dotgrid {
+  background-image: radial-gradient(var(--color-ink) 1.1px, transparent 1.1px);
+  background-size: 22px 22px;
+  opacity: 0.07;
 }
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
-  .pattern {
+  .marquee-track {
     animation: none;
   }
-  .pipe-fade {
-    animation: none;
-  }
-  .block {
-    transition: border-color 0.2s ease;
-  }
-  .block:hover {
+  .press:hover,
+  .lift:hover {
     transform: none;
   }
 }
