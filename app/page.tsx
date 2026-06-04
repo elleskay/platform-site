@@ -93,7 +93,7 @@ function Hero() {
       <div className="pointer-events-none absolute inset-0" style={{ background: "radial-gradient(620px 360px at 50% -8%, rgba(139,149,255,0.18), transparent 60%), radial-gradient(560px 360px at 82% 4%, rgba(192,132,252,0.13), transparent 60%)" }} />
       <div className="relative mx-auto max-w-4xl px-6 pb-20 pt-20 text-center sm:pt-28">
         <a href="#how" className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3.5 py-1.5 text-[13px] text-[var(--color-muted)] transition-colors hover:border-white/20">
-          <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-accent)]" /> The infrastructure is already built
+          <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-accent)]" /> The hard part is already done
         </a>
         <h1 className="mx-auto mt-6 max-w-3xl text-[42px] font-bold leading-[1.05] tracking-tight sm:text-[68px]">
           Connect an AI, ship a <span className="bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-violet)] bg-clip-text text-transparent">live app.</span>
@@ -134,15 +134,15 @@ function Proof() {
 /* How it works, horizontal timeline */
 function How() {
   const steps: [string, string][] = [
-    ["The infra is done", "Clone the repo and the entire production layer, CI/CD, AWS infrastructure, OIDC deploys, security scanning, and a test gate, is already wired. You build none of it."],
-    ["Connect your AI", "Point Claude Code, Codex, or any coding agent at the repo. The CLAUDE.md conventions teach it the stack, the structure, and every deploy gotcha instantly."],
-    ["Prompt, and ship", "Tell it what to build. It writes the app, the checks confirm it works, and it deploys to AWS. You get a live URL in minutes."],
+    ["Clone it", "The entire production layer, CI/CD, AWS infrastructure, OIDC deploys, security, and a test gate, is already wired. You build none of it."],
+    ["Connect it", "Point Claude Code, Codex, or any coding agent at the repo. The CLAUDE.md conventions teach it the whole stack instantly."],
+    ["Prompt it", "Tell it what to build. It writes the app, the checks confirm it works, and it deploys to AWS. A live URL in minutes."],
   ];
   return (
     <section id="how" className="mx-auto max-w-6xl px-6 py-24">
       <div className="mx-auto max-w-2xl text-center">
-        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">You bring the idea.<br />The template and your AI do the rest.</h2>
-        <p className="mt-4 text-lg text-[var(--color-muted)]">Everything that normally takes weeks of setup is already done. You just connect an agent and prompt it.</p>
+        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Clone it. Connect it. Prompt it.</h2>
+        <p className="mt-4 text-lg text-[var(--color-muted)]">Everything that normally takes weeks of setup is already done. You just bring an agent and an idea.</p>
       </div>
       <div className="relative mt-16 grid gap-12 md:grid-cols-3 md:gap-8">
         <div className="absolute left-0 right-0 top-5 hidden h-px bg-white/10 md:block" />
@@ -175,7 +175,7 @@ function Included() {
     <section id="included" className="border-t border-white/[0.06] bg-[var(--color-bg-2)]">
       <div className="mx-auto max-w-6xl px-6 py-24">
         <div className="max-w-2xl">
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Everything is already built.</h2>
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Nothing to wire. It's all built.</h2>
           <p className="mt-4 text-lg text-[var(--color-muted)]">Clone the repo and inherit the entire production layer, so your agent spends its time on your product, not the plumbing.</p>
         </div>
         <div className="mt-12 grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
@@ -206,7 +206,7 @@ function Apps() {
   return (
     <section id="apps" className="mx-auto max-w-6xl px-6 py-24">
       <div className="max-w-2xl">
-        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Built this way, live right now.</h2>
+        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Built this way. Live right now.</h2>
         <p className="mt-4 text-lg text-[var(--color-muted)]">Each is a full vertical slice shipped on the template, real auth, real data, a real AWS deploy.</p>
       </div>
       <div className="mt-12 grid gap-5 sm:grid-cols-3">
