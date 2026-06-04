@@ -96,7 +96,7 @@ function Hero() {
           Ship production-grade apps, <span className="bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-violet)] bg-clip-text text-transparent">fast.</span>
         </h1>
         <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-[var(--color-muted)]">
-          platform is a production-grade template for AI coding agents. Prompt your agent with an idea and it handles the rest: it scaffolds from the template, builds the app, and when it is ready to deploy it walks you through a one-time GitHub and AWS connection (an OIDC deploy role, a database, and a few secrets). From then on, every push ships to a live AWS URL, with no stored keys.
+          platform is a production-grade template for AI coding agents. Prompt your agent with an idea and it handles the rest: it scaffolds from the template, builds the app, and when it is ready to deploy it walks you through a one-time GitHub and AWS connection (an OIDC deploy role, a database, and a few secrets). From then on, every new idea ships to a live AWS URL, with no stored keys.
         </p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
           <a href={REPO} className="rounded-lg bg-[var(--color-accent)] px-6 py-3 text-sm font-semibold text-[#0a0b16] transition-colors hover:bg-[var(--color-accent-strong)]">Use the template</a>
@@ -133,7 +133,7 @@ function How() {
   const steps: [string, string][] = [
     ["Prompt your idea", "Point your AI coding agent at the platform repo and prompt it with the app you want. It scaffolds from the template and builds it. No setup first."],
     ["It asks to connect", "The first time it deploys, the agent walks you through a one-time GitHub and AWS connection: an OIDC deploy role, a database, and a few secrets. No stored keys."],
-    ["It ships", "From then on, every push auto-builds, tests, and deploys to a live AWS URL. You just prompt the next idea."],
+    ["It ships", "From then on, every new idea you prompt auto-builds, tests, and deploys to a live AWS URL. No more setup, ever."],
   ];
   return (
     <section id="how" className="mx-auto max-w-6xl px-6 py-24">
@@ -229,7 +229,7 @@ function CTA() {
         <div className="pointer-events-none absolute inset-0" style={{ background: "radial-gradient(560px 280px at 50% 120%, rgba(139,149,255,0.2), transparent 65%)" }} />
         <div className="relative text-center">
           <h2 className="mx-auto max-w-2xl text-4xl font-bold tracking-tight sm:text-5xl">Prompt an idea. Ship a live app.</h2>
-          <p className="mx-auto mt-5 max-w-md text-lg text-[var(--color-muted)]">Point your AI coding agent at the platform repo and prompt it with your idea. It handles the rest, even the one-time GitHub and AWS connection. Every push ships to a live AWS URL, with no stored keys.</p>
+          <p className="mx-auto mt-5 max-w-md text-lg text-[var(--color-muted)]">Point your AI coding agent at the platform repo and prompt it with your idea. It handles the rest, even the one-time GitHub and AWS connection. Every new idea ships to a live AWS URL, with no stored keys.</p>
           <div className="mono mx-auto mt-9 flex max-w-xl items-center gap-3 rounded-xl border border-white/10 bg-black/40 px-5 py-4 text-left text-sm">
             <span className="text-[var(--color-accent)]">›</span>
             <span className="truncate text-[var(--color-ink)]">build my app on the elleskay/platform template</span>
