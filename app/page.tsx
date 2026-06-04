@@ -34,46 +34,6 @@ function Nav() {
   );
 }
 
-/* Hero product shot: a clean CI "checks" panel telling the two-PR story */
-function ChecksPanel({ className = "" }: { className?: string }) {
-  return (
-    <div className={`card overflow-hidden text-left ${className}`}>
-      <div className="flex items-center gap-2 border-b border-white/[0.07] px-4 py-3">
-        <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
-        <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
-        <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
-        <span className="mono ml-2 text-[12px] text-[var(--color-faint)]">my-app · checks</span>
-      </div>
-      <div className="divide-y divide-white/[0.06]">
-        <div className="flex items-start gap-3 px-4 py-4">
-          <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-red-500/15 text-red-400">
-            <svg viewBox="0 0 24 24" className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth="3"><path d="M6 6l12 12M18 6L6 18" /></svg>
-          </span>
-          <div className="min-w-0 flex-1">
-            <div className="flex items-center justify-between gap-3">
-              <span className="text-sm font-medium">PR #128 · spec-gate</span>
-              <span className="mono text-[12px] text-red-400">66.7% (2/3)</span>
-            </div>
-            <p className="mono mt-1 text-[12px] text-[var(--color-faint)]">EX-API-002 has no test · deploy blocked</p>
-          </div>
-        </div>
-        <div className="flex items-start gap-3 px-4 py-4">
-          <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-[var(--color-ok)]/15 text-[var(--color-ok)]">
-            <svg viewBox="0 0 24 24" className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth="3"><path d="M20 6L9 17l-5-5" /></svg>
-          </span>
-          <div className="min-w-0 flex-1">
-            <div className="flex items-center justify-between gap-3">
-              <span className="text-sm font-medium">PR #129 · spec-gate</span>
-              <span className="mono text-[12px] text-[var(--color-ok)]">100% (3/3)</span>
-            </div>
-            <p className="mono mt-1 text-[12px] text-[var(--color-faint)]">agent added the test · deployed to cloudfront</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 function Hero() {
   return (
     <section id="top" className="relative overflow-hidden">
@@ -92,7 +52,6 @@ function Hero() {
           <a href={REPO} className="rounded-lg bg-[var(--color-accent)] px-6 py-3 text-sm font-semibold text-[#0a0b16] transition-colors hover:bg-[var(--color-accent-strong)]">Use the template</a>
           <a href="#how" className="rounded-lg border border-white/12 bg-white/[0.03] px-6 py-3 text-sm font-semibold transition-colors hover:border-white/25">See how it works</a>
         </div>
-        <div className="mt-14"><ChecksPanel className="mx-auto max-w-2xl" /></div>
       </div>
     </section>
   );
