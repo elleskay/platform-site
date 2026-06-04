@@ -37,6 +37,7 @@ function Nav() {
         </a>
         <div className="mono ml-auto hidden items-center gap-6 text-[12px] uppercase tracking-[0.12em] text-[var(--color-muted)] md:flex">
           <a href="#diagram" className="hover:text-[var(--color-accent)]">diagram</a>
+          <a href="#loop" className="hover:text-[var(--color-accent)]">agents</a>
           <a href="#notes" className="hover:text-[var(--color-accent)]">notes</a>
           <a href="#spec" className="hover:text-[var(--color-accent)]">spec</a>
           <a href="#refs" className="hover:text-[var(--color-accent)]">as-built</a>
@@ -84,6 +85,11 @@ function Diagram() {
         {/* AWS account container */}
         <rect x={300} y={36} width={676} height={410} fill="none" stroke={S} strokeWidth={1.2} strokeDasharray="2 5" opacity={0.7} />
         <text x={316} y={60} className="mono" fill="var(--color-muted)" fontSize={12} letterSpacing="2">AWS ACCOUNT</text>
+
+        {/* author: coding agent */}
+        <Box x={24} y={60} w={184} h={66} t="Claude Code · Codex" sub="authors to spec" />
+        <line x1={116} y1={126} x2={116} y2={168} stroke={S} strokeWidth={1.4} markerEnd="url(#ah)" />
+        <text x={126} y={150} className="mono" fill="var(--color-faint)" fontSize={10}>commits</text>
 
         {/* source */}
         <Box x={24} y={168} w={184} h={132} t="GitHub Actions" sub="ci · security · deploy" />
@@ -139,14 +145,20 @@ function Hero() {
           <span className="h-2 w-2 bg-[var(--color-accent)]" /> system blueprint · sheet 01
         </div>
         <h1 className="mt-6 max-w-4xl text-[40px] font-extrabold leading-[0.98] tracking-tight sm:text-[68px]">
-          The whole deployment, <span className="text-[var(--color-accent)]">drawn to spec.</span>
+          A harness your <span className="text-[var(--color-accent)]">coding agent</span> can ship from.
         </h1>
         <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[var(--color-muted)]">
-          platform is a TypeScript monorepo template. Clone it and inherit this exact architecture: CI/CD, infrastructure as code via AWS CDK, OIDC deploys with no stored keys, and a spec-driven test gate. The diagram below is what you get, wired on day one.
+          platform is a TypeScript monorepo template built to pair with coding agents like Claude Code and Codex. Point your agent at the repo and it inherits this architecture plus the guardrails to ship safely: CI/CD, infrastructure as code via AWS CDK, OIDC deploys with no stored keys, and a spec-driven test gate that blocks anything unproven. The diagram below is what it deploys, wired on day one.
         </p>
         <div className="mt-8 flex flex-wrap gap-3">
           <a href={REPO} className="mono border border-[var(--color-accent)] bg-[var(--color-accent)] px-6 py-3 text-sm font-bold uppercase tracking-[0.1em] text-[var(--color-bg)] transition-opacity hover:opacity-90">use the template</a>
-          <a href="#notes" className="mono border border-[var(--color-stroke)] px-6 py-3 text-sm font-bold uppercase tracking-[0.1em] text-[var(--color-ink)] transition-colors hover:bg-[var(--color-stroke)] hover:text-[var(--color-bg)]">read the notes</a>
+          <a href="#loop" className="mono border border-[var(--color-stroke)] px-6 py-3 text-sm font-bold uppercase tracking-[0.1em] text-[var(--color-ink)] transition-colors hover:bg-[var(--color-stroke)] hover:text-[var(--color-bg)]">the agent loop</a>
+        </div>
+        <div className="mono mt-6 flex flex-wrap items-center gap-2.5 text-[12px] text-[var(--color-faint)]">
+          <span className="uppercase tracking-[0.14em]">pairs with</span>
+          {["Claude Code", "Codex", "Cursor", "any agent"].map((t) => (
+            <span key={t} className="border border-[color-mix(in_srgb,var(--color-stroke)_35%,transparent)] px-2.5 py-1 text-[var(--color-muted)]">{t}</span>
+          ))}
         </div>
 
         {/* the drawing */}
@@ -157,6 +169,38 @@ function Hero() {
             <span>scale 1:1</span>
           </div>
           <Diagram />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* Built for coding agents: the control loop */
+function AgentLoop() {
+  const steps: [string, string, string][] = [
+    ["01", "Author", "Your coding agent (Claude Code, Codex, Cursor) writes code against the app's spec file, guided by the repo's CLAUDE.md conventions. It knows the structure, the stack, and the deploy gotchas before it writes a line."],
+    ["02", "Prove", "The spec gate binds every requirement to a test and fails the build below 100 percent coverage. CodeQL, gitleaks, and npm audit scan in parallel. An agent cannot mark its own homework."],
+    ["03", "Ship", "A green gate triggers an OIDC deploy and the smoke test verifies the live URL. Anything the agent could not prove never reaches production."],
+  ];
+  return (
+    <section id="loop" className="border-b border-[color-mix(in_srgb,var(--color-stroke)_22%,transparent)] bg-[color-mix(in_srgb,var(--color-bg-2)_50%,transparent)]">
+      <div className="mx-auto max-w-6xl px-5 py-16">
+        <h2 className="mono mb-4 text-[12px] font-bold uppercase tracking-[0.2em] text-[var(--color-accent)]">// built for coding agents</h2>
+        <p className="max-w-2xl text-2xl font-bold leading-snug tracking-tight sm:text-3xl">
+          An agent can write anything. The gate decides what <span className="text-[var(--color-accent)]">ships.</span>
+        </p>
+        <p className="mt-4 max-w-2xl text-lg leading-relaxed text-[var(--color-muted)]">
+          platform is the harness that turns an autonomous coding agent into a safe contributor: it writes, the template proves, then it deploys.
+        </p>
+        <div className="mt-10 grid gap-4 md:grid-cols-3">
+          {steps.map(([n, t, body]) => (
+            <div key={n} className="frame p-6">
+              <Ticks />
+              <div className="mono text-[12px] font-bold uppercase tracking-[0.16em] text-[var(--color-accent)]">step {n}</div>
+              <h3 className="mt-3 text-xl font-bold">{t}</h3>
+              <p className="mt-3 text-sm leading-relaxed text-[var(--color-muted)]">{body}</p>
+            </div>
+          ))}
         </div>
       </div>
     </section>
@@ -315,6 +359,7 @@ export default function Page() {
     <main>
       <Nav />
       <Hero />
+      <AgentLoop />
       <Notes />
       <Spec />
       <Refs />
