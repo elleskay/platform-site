@@ -15,8 +15,23 @@
   --color-purple-fill: #b39dff;
   --color-yellow: #ffd23f;
   --color-paper-card: #fbf9f2;
+  --color-on-accent: #16140f;
   --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-mono), ui-monospace, monospace;
+}
+
+/* Dark neo-brutalist variant: near-black paper, white borders + shadows,
+   accents stay vivid (their text stays --color-on-accent, fixed dark). */
+[data-theme="dark"] {
+  --color-bg: #131310;
+  --color-bg-2: #1b1b15;
+  --color-ink: #f3efe4;
+  --color-muted: #bcb8aa;
+  --color-faint: #807d6d;
+  --color-line: #f3efe4;
+  --color-green: #3ad684;
+  --color-purple: #a98bff;
+  --color-paper-card: #1d1d16;
 }
 
 html {
@@ -28,6 +43,9 @@ body {
   color: var(--color-ink);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
 }
 
 ::selection {
