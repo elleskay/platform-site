@@ -1,22 +1,16 @@
 @import "tailwindcss";
 
-/* Technical blueprint / cyanotype. Deep blueprint blue, graph-paper grid,
-   white line-art, amber drafting-pencil accent. */
+/* Clean modern product site: near-black, restrained, one emerald accent,
+   subtle gradient glow, soft rounded surfaces. */
 @theme {
-  --color-bg: #0b2540;
-  --color-bg-2: #0e2c4d;
-  --color-panel: #103357;
-  --color-ink: #eef5fd;
-  --color-muted: #c2d6ec;
-  --color-faint: #82a1c5;
-  --color-stroke: #c4dbf2;
-  --color-line: #2f567f;
-  --color-accent: #ffd166;
-  --color-accent-2: #5fd0f2;
-  --color-ok: #5fd39a;
-  --color-bad: #ff8a8a;
-  --color-grid-fine: rgba(185, 211, 238, 0.045);
-  --color-grid-coarse: rgba(185, 211, 238, 0.09);
+  --color-bg: #08090b;
+  --color-bg-2: #0b0d10;
+  --color-ink: #f4f6f8;
+  --color-muted: #a4abb5;
+  --color-faint: #6c727c;
+  --color-accent: #34d399;
+  --color-accent-strong: #10b981;
+  --color-violet: #8b5cf6;
   --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-mono), ui-monospace, monospace;
 }
@@ -26,45 +20,48 @@ html {
 }
 
 body {
-  background-color: var(--color-bg);
-  background-image:
-    linear-gradient(var(--color-grid-fine) 1px, transparent 1px),
-    linear-gradient(90deg, var(--color-grid-fine) 1px, transparent 1px),
-    linear-gradient(var(--color-grid-coarse) 1px, transparent 1px),
-    linear-gradient(90deg, var(--color-grid-coarse) 1px, transparent 1px);
-  background-size:
-    25px 25px,
-    25px 25px,
-    100px 100px,
-    100px 100px;
+  background: var(--color-bg);
   color: var(--color-ink);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
+  letter-spacing: -0.011em;
 }
 
 ::selection {
-  background: var(--color-accent);
-  color: var(--color-bg);
+  background: color-mix(in srgb, var(--color-accent) 30%, transparent);
+  color: var(--color-ink);
 }
 
 .mono {
   font-family: var(--font-mono);
 }
 
-/* Drafting frame with corner ticks */
-.frame {
-  position: relative;
-  border: 1px solid color-mix(in srgb, var(--color-stroke) 38%, transparent);
+/* Soft surface card */
+.card {
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    transform 0.2s ease;
 }
-.tick {
-  position: absolute;
-  width: 11px;
-  height: 11px;
-  border-color: var(--color-stroke);
+.card-hover:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.045);
+  transform: translateY(-2px);
+}
+
+/* Hairline used for section separators and frames */
+.hair {
+  border-color: rgba(255, 255, 255, 0.08);
 }
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+  .card-hover:hover {
+    transform: none;
   }
 }

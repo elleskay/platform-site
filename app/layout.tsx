@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { Archivo, JetBrains_Mono } from "next/font/google";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
-const sans = Archivo({
+const sans = Inter({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800"],
   variable: "--font-sans",
@@ -10,7 +10,7 @@ const sans = Archivo({
 });
 const mono = JetBrains_Mono({
   subsets: ["latin"],
-  weight: ["400", "500", "700"],
+  weight: ["400", "500", "600"],
   variable: "--font-mono",
   display: "swap",
 });
@@ -18,7 +18,7 @@ const mono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "platform, ship Next.js apps to AWS serverless on day one",
   description:
-    "A reusable TypeScript monorepo template for shipping Next.js apps to AWS serverless. CI/CD, infrastructure as code via AWS CDK, security scanning, OIDC deploys with no stored keys, and a spec-driven test gate, all wired the day you clone it.",
+    "A reusable TypeScript monorepo template built to pair with coding agents. CI/CD, infrastructure as code via AWS CDK, security scanning, OIDC deploys with no stored keys, and a spec-driven test gate that proves every requirement before anything deploys.",
 };
 
 export default function RootLayout({
