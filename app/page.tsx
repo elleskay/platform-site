@@ -1,6 +1,3 @@
-import Image from "next/image";
-import coverShot from "./coverlens.png";
-
 const REPO = "https://github.com/elleskay/platform";
 
 function Mark({ className = "h-6 w-6", color = "var(--color-accent)" }: { className?: string; color?: string }) {
@@ -95,36 +92,9 @@ function Hero() {
           <a href={REPO} className="rounded-lg bg-[var(--color-accent)] px-6 py-3 text-sm font-semibold text-[#0a0b16] transition-colors hover:bg-[var(--color-accent-strong)]">Use the template</a>
           <a href="#how" className="rounded-lg border border-white/12 bg-white/[0.03] px-6 py-3 text-sm font-semibold transition-colors hover:border-white/25">See how it works</a>
         </div>
-        <HeroVisual />
+        <div className="mt-14"><ChecksPanel className="mx-auto max-w-2xl" /></div>
       </div>
     </section>
-  );
-}
-
-/* Real app screenshot in a browser frame, with the checks panel floating */
-function HeroVisual() {
-  return (
-    <div className="relative mx-auto mt-16 max-w-4xl">
-      <div className="card overflow-hidden shadow-2xl shadow-black/40">
-        <div className="flex items-center gap-2 border-b border-white/[0.07] px-4 py-2.5">
-          <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
-          <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
-          <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
-          <span className="mono ml-2 truncate text-[12px] text-[var(--color-faint)]">coverlens.app · built on platform</span>
-        </div>
-        <div className="relative h-[280px] w-full sm:h-[440px]">
-          <Image src={coverShot} alt="CoverLens, an AI insurance policy checker built on the platform template" fill sizes="(max-width: 768px) 100vw, 900px" className="object-cover object-top" priority />
-        </div>
-      </div>
-      {/* floating checks panel (desktop) */}
-      <div className="absolute -bottom-8 -right-2 hidden w-[380px] sm:block lg:-right-10">
-        <ChecksPanel />
-      </div>
-      {/* stacked checks panel (mobile) */}
-      <div className="mt-5 sm:hidden">
-        <ChecksPanel />
-      </div>
-    </div>
   );
 }
 
