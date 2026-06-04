@@ -1,13 +1,8 @@
-import ThemeToggle from "./components/ThemeToggle";
-
 const REPO = "https://github.com/elleskay/platform";
 
-const INK = "border-2 border-[var(--color-ink)]";
-const ON = "text-[var(--color-on-accent)]";
-
-function Mark({ className = "h-6 w-6", color = "var(--color-ink)" }: { className?: string; color?: string }) {
+function Mark({ className = "h-6 w-6", color = "var(--color-green)" }: { className?: string; color?: string }) {
   return (
-    <svg viewBox="0 0 24 24" className={className} fill="none" stroke={color} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+    <svg viewBox="0 0 24 24" className={className} fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M12 2l9 5-9 5-9-5 9-5z" />
       <path d="M3 12l9 5 9-5" />
       <path d="M3 17l9 5 9-5" />
@@ -15,171 +10,109 @@ function Mark({ className = "h-6 w-6", color = "var(--color-ink)" }: { className
   );
 }
 
-function Btn({ href, children, fill = "green" }: { href: string; children: React.ReactNode; fill?: "green" | "ink" | "paper" }) {
-  const bg =
-    fill === "green"
-      ? `bg-[var(--color-green-fill)] ${ON}`
-      : fill === "ink"
-        ? "bg-[var(--color-ink)] text-[var(--color-bg)]"
-        : "bg-[var(--color-paper-card)] text-[var(--color-ink)]";
-  return (
-    <a href={href} className={`mono ${INK} ${bg} hard press inline-flex items-center gap-2 px-6 py-3.5 text-sm font-bold`}>
-      {children}
-    </a>
-  );
-}
-
-/* Brutalist top bar */
 function Nav() {
   return (
-    <header className="sticky top-0 z-50 border-b-2 border-[var(--color-ink)] bg-[var(--color-bg)]">
-      <nav className="mx-auto flex max-w-6xl items-center gap-3 px-5 py-3">
+    <header className="sticky top-0 z-50 border-b border-[var(--color-border)] bg-[var(--color-bg)]/85 backdrop-blur">
+      <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <a href="#top" className="flex items-center gap-2.5">
-          <span className={`${INK} bg-[var(--color-green-fill)] flex h-9 w-9 items-center justify-center`}><Mark className="h-5 w-5" color="var(--color-on-accent)" /></span>
+          <Mark className="h-6 w-6" />
           <span className="text-lg font-bold tracking-tight">platform</span>
         </a>
-        <div className="mono ml-auto hidden items-center gap-6 text-[13px] font-medium md:flex">
-          <a href="#grid" className="hover:underline">what you get</a>
-          <a href="#math" className="hover:underline">the math</a>
-          <a href="#apps" className="hover:underline">apps</a>
+        <div className="mono hidden items-center gap-8 text-sm font-medium text-[var(--color-muted)] md:flex">
+          <a href="#features" className="transition-colors hover:text-[var(--color-green-bright)]">features</a>
+          <a href="#how" className="transition-colors hover:text-[var(--color-green-bright)]">how</a>
+          <a href="#gate" className="transition-colors hover:text-[var(--color-green-bright)]">gate</a>
+          <a href="#apps" className="transition-colors hover:text-[var(--color-green-bright)]">apps</a>
         </div>
-        <div className="ml-auto flex items-center gap-3 md:ml-0">
-          <ThemeToggle />
-          <a href={REPO} className={`mono ${INK} bg-[var(--color-ink)] press px-4 py-2 text-sm font-bold text-[var(--color-bg)]`} style={{ boxShadow: "4px 4px 0 0 var(--color-ink)" }}>
-            use template
-          </a>
-        </div>
+        <a href={REPO} className="mono bg-[var(--color-green)] px-4 py-2 text-sm font-bold text-[#06210f] transition-colors hover:bg-[var(--color-green-bright)]">
+          use template
+        </a>
       </nav>
     </header>
   );
 }
 
-/* Oversized brutalist hero with highlighter headline */
+function Terminal() {
+  const Row = ({ label, children, hi }: { label?: string; children: React.ReactNode; hi?: boolean }) => (
+    <div className="flex gap-3">
+      <span className="text-[var(--color-green)]">{"✓"}</span>
+      {label ? <span className="w-[78px] shrink-0 text-[var(--color-ink)]">{label}</span> : null}
+      <span className={hi ? "text-[var(--color-green-bright)]" : "text-[var(--color-faint)]"}>{children}</span>
+    </div>
+  );
+  return (
+    <div className="border-2 border-[var(--color-border)] bg-[#0b1324]">
+      <div className="flex items-center gap-2 border-b-2 border-[var(--color-border)] px-4 py-3">
+        <span className="h-3 w-3 rounded-full bg-[var(--color-destructive)]" />
+        <span className="h-3 w-3 rounded-full bg-[#eab308]" />
+        <span className="h-3 w-3 rounded-full bg-[var(--color-green)]" />
+        <span className="mono ml-3 text-[12px] text-[var(--color-faint)]">my-app ~ cloned from elleskay/platform</span>
+      </div>
+      <div className="mono space-y-2 p-6 text-[13px] leading-relaxed">
+        <div className="text-[var(--color-ink)]"><span className="text-[var(--color-green)]">$</span> git push origin main</div>
+        <div className="h-2" />
+        <Row label="ci">typecheck · lint · build · cdk synth</Row>
+        <Row label="security">codeql · gitleaks · npm audit</Row>
+        <Row label="spec gate" hi>example v1: 100% covered (3/3)</Row>
+        <Row label="deploy">oidc · cdk deploy · smoke test 9/9</Row>
+        <div className="h-2" />
+        <div className="flex gap-3"><span className="text-[var(--color-purple)]">{"●"}</span><span className="text-[var(--color-ink)]">live on cloudfront, zero stored aws keys</span></div>
+      </div>
+    </div>
+  );
+}
+
 function Hero() {
   return (
-    <section id="top" className="relative overflow-hidden border-b-2 border-[var(--color-ink)]">
-      <div className="dotgrid pointer-events-none absolute inset-0" />
-      <div className="relative mx-auto max-w-6xl px-5 py-16 sm:py-24">
-        <span className={`mono ${INK} ${ON} bg-[var(--color-yellow)] inline-flex items-center gap-2 px-3 py-1.5 text-xs font-bold uppercase tracking-[0.14em]`} style={{ boxShadow: "4px 4px 0 0 var(--color-ink)" }}>
-          a template, not a product
-        </span>
-        <h1 className="mt-7 max-w-4xl text-[44px] font-bold leading-[0.92] tracking-tight sm:text-[80px]">
-          The boring parts of{" "}
-          <span className={`mono ${ON} inline-block -rotate-1 border-2 border-[var(--color-ink)] bg-[var(--color-green-fill)] px-2.5 leading-tight`}>shipping</span>,
-          <br className="hidden sm:block" /> already{" "}
-          <span className={`mono ${ON} inline-block rotate-1 border-2 border-[var(--color-ink)] bg-[var(--color-purple-fill)] px-2.5 leading-tight`}>solved</span>.
-        </h1>
-        <p className="mt-8 max-w-xl text-lg leading-relaxed text-[var(--color-muted)]">
-          Clone one repo and inherit a Next.js app on AWS serverless: CI/CD, infrastructure as code, security scanning, OIDC deploys, and a spec-driven test gate. Wired the day you start, proven by real apps in production.
-        </p>
-        <div className="mt-9 flex flex-wrap gap-4">
-          <Btn href={REPO} fill="green">use the template</Btn>
-          <Btn href="#grid" fill="paper">see what is inside</Btn>
+    <section id="top" className="relative overflow-hidden border-b border-[var(--color-border)]">
+      <div className="pattern pointer-events-none absolute inset-0 [mask-image:radial-gradient(900px_500px_at_50%_-10%,#000,transparent)]" />
+      <div className="pointer-events-none absolute inset-0" style={{ background: "radial-gradient(620px 320px at 78% -10%, rgba(34,197,94,0.14), transparent 65%), radial-gradient(560px 320px at 12% 20%, rgba(168,85,247,0.12), transparent 65%)" }} />
+      <div className="relative mx-auto max-w-6xl px-6 pb-24 pt-20 sm:pt-28">
+        <div className="max-w-3xl">
+          <span className="mono inline-flex items-center gap-2 border border-[var(--color-border)] bg-[var(--color-surface)] px-3.5 py-1.5 text-xs font-bold uppercase tracking-[0.18em] text-[var(--color-green-bright)]">
+            <span className="h-1.5 w-1.5 bg-[var(--color-green)]" /> a template, not a product
+          </span>
+          <h1 className="mt-7 text-[46px] font-bold leading-[0.98] tracking-tight sm:text-[82px]">
+            Ship Next.js to <span className="text-[var(--color-green)]">AWS serverless,</span> on <span className="text-[var(--color-purple)]">day one.</span>
+          </h1>
+          <p className="mt-7 max-w-xl text-lg leading-relaxed text-[var(--color-muted)]">
+            A reusable TypeScript monorepo. Clone it per app and inherit a working CI/CD pipeline, infrastructure as code via AWS CDK, security scanning, OIDC deploys with no stored keys, and a spec-driven test gate that blocks merges until every requirement is covered.
+          </p>
+          <div className="mt-9 flex flex-wrap items-center gap-3">
+            <a href={REPO} className="mono bg-[var(--color-green)] px-6 py-3.5 text-sm font-bold text-[#06210f] transition-colors hover:bg-[var(--color-green-bright)]">
+              use the template
+            </a>
+            <a href="#how" className="mono border-2 border-[var(--color-purple)] px-6 py-3.5 text-sm font-bold text-[var(--color-ink)] transition-colors hover:bg-[var(--color-purple)] hover:text-white">
+              how it works
+            </a>
+          </div>
+          <div className="mono mt-6 inline-flex items-center gap-2 border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-2 text-[13px] text-[var(--color-muted)]">
+            <span className="text-[var(--color-green)]">$</span> git clone github.com/elleskay/platform my-app
+          </div>
         </div>
+        <div className="mt-16 max-w-3xl"><Terminal /></div>
       </div>
     </section>
   );
 }
 
-/* Kinetic marquee strip */
-function Marquee() {
-  const tags = ["CI / CD", "AWS CDK", "OPEN-NEXT", "OIDC DEPLOYS", "SPEC GATE", "SMOKE TEST", "NEON POSTGRES", "AUTH.JS V5", "ZOD", "CODEQL", "GITLEAKS", "SENTRY"];
-  const Strip = () => (
-    <div className="flex shrink-0 items-center">
-      {tags.map((t) => (
-        <span key={t} className="mono flex items-center gap-6 px-6 text-sm font-bold uppercase tracking-[0.12em] text-[var(--color-bg)]">
-          {t} <span className="text-[var(--color-green-fill)]">/</span>
-        </span>
-      ))}
-    </div>
-  );
+function Apps() {
+  const apps = [
+    { name: "CoverLens", href: "https://github.com/elleskay/insurance-dashboard", note: "AI insurance policy checker" },
+    { name: "Cancer Navigator", href: "https://github.com/elleskay/cancer-navigator", note: "Singapore cancer roadmap" },
+    { name: "Armoury", href: "https://github.com/elleskay/armoury", note: "Frontline equipment checklists" },
+  ];
   return (
-    <div className="overflow-hidden border-b-2 border-[var(--color-ink)] bg-[var(--color-ink)] py-3">
-      <div className="marquee-track">
-        <Strip />
-        <Strip />
-      </div>
-    </div>
-  );
-}
-
-function CellHead({ tag, color, onFill = false }: { tag: string; color?: string; onFill?: boolean }) {
-  return (
-    <div className={`mono mb-3 flex items-center gap-2 text-[12px] font-bold uppercase tracking-[0.14em] ${onFill ? ON : "text-[var(--color-faint)]"}`}>
-      <span className="h-2.5 w-2.5 border border-[var(--color-ink)]" style={{ background: onFill ? "var(--color-on-accent)" : (color ?? "var(--color-ink)") }} /> {tag}
-    </div>
-  );
-}
-
-/* Asymmetric bento grid */
-function Bento() {
-  return (
-    <section id="grid" className="border-b-2 border-[var(--color-ink)]">
-      <div className="mx-auto max-w-6xl px-5 py-16 sm:py-24">
-        <h2 className="max-w-2xl text-3xl font-bold leading-[1.05] tracking-tight sm:text-5xl">
-          One clone, the whole <span className={`mono ${ON} border-2 border-[var(--color-ink)] bg-[var(--color-yellow)] px-2`}>stack</span>.
-        </h2>
-
-        {/* Row 1: big code cell + stacked accent cells */}
-        <div className="mt-10 grid gap-4 md:grid-cols-3">
-          <div className={`${INK} hard lift bg-[var(--color-paper-card)] md:col-span-2`}>
-            <div className="mono flex items-center justify-between border-b-2 border-[var(--color-ink)] px-4 py-2.5 text-[12px] font-bold">
-              <span>infra/cdk/web/lib/web-stack.ts</span>
-              <span className="text-[var(--color-faint)]">the construct</span>
-            </div>
-            <pre className="mono overflow-x-auto p-5 text-[13px] leading-[1.85] text-[var(--color-muted)]">
-{`new `}<span className="text-[var(--color-purple)]">NextjsServerless</span>{`(this, "Web", {
-  appPath: resolve("apps/web"),
-  serverTimeoutSeconds: 60,
-  customDomain: "app.example.com",
-  environment: { DATABASE_URL, AUTH_SECRET, AUTH_URL },
-});
-`}<span className="text-[var(--color-green)]">{`// Lambda + S3 + CloudFront, every gotcha baked in`}</span>
-            </pre>
-          </div>
-
-          <div className="flex flex-col gap-4">
-            <div className={`${INK} hard lift ${ON} bg-[var(--color-green-fill)] flex-1 p-5`}>
-              <CellHead tag="infra" onFill />
-              <div className="text-[56px] font-bold leading-none">1</div>
-              <p className="mt-2 text-sm font-medium">CDK call deploys the entire serverless stack.</p>
-            </div>
-            <div className={`${INK} hard lift ${ON} bg-[var(--color-purple-fill)] flex-1 p-5`}>
-              <CellHead tag="spec gate" onFill />
-              <div className="text-[56px] font-bold leading-none">100%</div>
-              <p className="mt-2 text-sm font-medium">coverage, or the build does not deploy.</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Row 2: three equal cells */}
-        <div className="mt-4 grid gap-4 md:grid-cols-3">
-          <div className={`${INK} hard lift bg-[var(--color-paper-card)] p-5`}>
-            <CellHead tag="pipeline" color="var(--color-green-fill)" />
-            <ul className="mono space-y-1.5 text-[13px] text-[var(--color-muted)]">
-              <li><span className="text-[var(--color-green)]">✓</span> ci: typecheck · lint · build · synth</li>
-              <li><span className="text-[var(--color-green)]">✓</span> security: codeql · gitleaks · audit</li>
-              <li><span className="text-[var(--color-green)]">✓</span> deploy: oidc · cdk · smoke test</li>
-            </ul>
-          </div>
-          <div className={`${INK} hard lift bg-[var(--color-paper-card)] p-5`}>
-            <CellHead tag="oidc" color="var(--color-purple-fill)" />
-            <div className="text-[40px] font-bold leading-none">0</div>
-            <p className="mt-2 text-sm font-medium text-[var(--color-muted)]">stored AWS keys. GitHub assumes a least-privilege role over OIDC, 1-hour credentials.</p>
-          </div>
-          <div className={`${INK} hard lift ${ON} bg-[var(--color-yellow)] p-5`}>
-            <CellHead tag="smoke test" onFill />
-            <div className="text-[40px] font-bold leading-none">9/9</div>
-            <p className="mt-2 text-sm font-medium">live checks after every deploy. Non-zero exit blocks the release.</p>
-          </div>
-        </div>
-
-        {/* Row 3: full-width batteries */}
-        <div className={`${INK} hard lift mt-4 bg-[var(--color-paper-card)] p-5`}>
-          <CellHead tag="batteries included" color="var(--color-green-fill)" />
-          <div className="mono flex flex-wrap gap-2.5 text-[13px] font-bold">
-            {["Auth.js v5", "Neon Postgres", "Zod validation", "Sentry", "PostHog", "Security headers", "Rate limiting", "Dependabot"].map((b) => (
-              <span key={b} className="border-2 border-[var(--color-ink)] bg-[var(--color-bg)] px-3 py-1.5">{b}</span>
+    <section id="apps" className="border-b border-[var(--color-border)] bg-[var(--color-surface-2)]">
+      <div className="mx-auto max-w-6xl px-6 py-7">
+        <div className="mono flex flex-col gap-4 text-sm text-[var(--color-faint)] sm:flex-row sm:items-center sm:gap-8">
+          <span className="shrink-0 font-bold uppercase tracking-[0.16em] text-[var(--color-muted)]">cloned by, in production</span>
+          <div className="flex flex-wrap gap-x-8 gap-y-2">
+            {apps.map((a) => (
+              <a key={a.name} href={a.href} className="group flex items-center gap-2 text-[var(--color-ink)] transition-colors hover:text-[var(--color-green-bright)]">
+                <span className="h-2 w-2 bg-[var(--color-green)] transition-colors group-hover:bg-[var(--color-purple)]" />
+                {a.name}<span className="text-[var(--color-faint)]">, {a.note}</span>
+              </a>
             ))}
           </div>
         </div>
@@ -188,73 +121,73 @@ function Bento() {
   );
 }
 
-/* The math: from-scratch invoice vs git clone */
-function Math() {
-  const items: [string, string][] = [
-    ["GitHub Actions for CI", "~6h"],
-    ["CDK for Lambda + S3 + CloudFront", "~2d"],
-    ["OIDC + least-privilege deploy role", "~4h"],
-    ["CodeQL, gitleaks, npm audit wiring", "~3h"],
-    ["Spec gate + coverage tooling", "~1d"],
-    ["Post-deploy smoke test", "~3h"],
-    ["Relearning the deploy gotchas", "priceless"],
-  ];
+function Heading({ kicker, children }: { kicker: string; children: React.ReactNode }) {
   return (
-    <section id="math" className="border-b-2 border-[var(--color-ink)] bg-[var(--color-bg-2)]">
-      <div className="mx-auto max-w-6xl px-5 py-16 sm:py-24">
-        <div className="grid items-center gap-10 lg:grid-cols-2">
-          <div>
-            <h2 className="text-3xl font-bold leading-[1.05] tracking-tight sm:text-5xl">
-              The bill for <span className={`mono ${ON} inline-block -rotate-1 border-2 border-[var(--color-ink)] bg-[var(--color-green-fill)] px-2`}>not</span> using a template.
-            </h2>
-            <p className="mt-5 max-w-md text-lg text-[var(--color-muted)]">
-              Every line is a thing you would otherwise build, debug, and maintain before writing a single product feature. Cloning zeroes the invoice.
-            </p>
-            <div className="mt-8"><Btn href={REPO} fill="green">skip the bill</Btn></div>
+    <div className="mb-12">
+      <div className="mono mb-4 flex items-center gap-3 text-sm font-bold uppercase tracking-[0.18em] text-[var(--color-green)]">
+        <span className="h-3 w-3 bg-[var(--color-green)]" /> {kicker}
+      </div>
+      <h2 className="max-w-2xl text-3xl font-bold leading-tight tracking-tight sm:text-5xl">{children}</h2>
+    </div>
+  );
+}
+
+function Features() {
+  const Block = ({ className = "", purple, n, t, d, children }: { className?: string; purple?: boolean; n: string; t: string; d: string; children?: React.ReactNode }) => (
+    <div className={`block ${purple ? "block-purple" : ""} flex flex-col p-7 ${className}`}>
+      <span className={`mono text-[13px] font-bold ${purple ? "text-[var(--color-purple)]" : "text-[var(--color-green)]"}`}>{n}</span>
+      <h3 className="mt-3 text-xl font-bold">{t}</h3>
+      <p className="mt-2 text-sm leading-relaxed text-[var(--color-muted)]">{d}</p>
+      {children}
+    </div>
+  );
+  return (
+    <section id="features" className="mx-auto max-w-6xl px-6 py-24 sm:py-32">
+      <Heading kicker="what you get">Everything you would otherwise rebuild, the day you clone.</Heading>
+      <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+        <Block className="md:col-span-2" n="// construct" t="One CDK construct, a whole stack" d="NextjsServerless deploys a Next.js app as Lambda, S3, and CloudFront via OpenNext, auto-routing every public asset to S3. It encodes every production gotcha this template learned the hard way.">
+          <pre className="mono mt-5 overflow-x-auto border border-[var(--color-border)] bg-[#0b1324] p-4 text-[12.5px] leading-relaxed text-[var(--color-muted)]">
+{`new NextjsServerless(this, "Web", {
+  appPath: resolve("apps/web"),
+  serverTimeoutSeconds: 60,
+  environment: { DATABASE_URL, AUTH_SECRET, AUTH_URL },
+});`}
+          </pre>
+        </Block>
+        <Block purple n="// pipeline" t="Three workflows, wired" d="CI, security, and deploy, green from the very first push.">
+          <div className="mono mt-5 space-y-3 text-sm">
+            {[["ci", "typecheck · lint · synth"], ["security", "codeql · gitleaks · audit"], ["deploy", "oidc · cdk · smoke test"]].map(([k, v]) => (
+              <div key={k} className="border-l-2 border-[var(--color-purple)] pl-3"><div className="font-bold text-[var(--color-ink)]">{k}</div><div className="text-[var(--color-faint)]">{v}</div></div>
+            ))}
           </div>
-          <div className={`${INK} hard-lg bg-[var(--color-paper-card)]`}>
-            <div className="mono border-b-2 border-dashed border-[var(--color-ink)] px-6 py-4 text-center text-[12px] font-bold uppercase tracking-[0.2em]">
-              from-scratch invoice
-            </div>
-            <ul className="mono px-6 py-5 text-[13px]">
-              {items.map(([label, cost]) => (
-                <li key={label} className="flex items-baseline gap-3 py-2.5">
-                  <span className="text-[var(--color-muted)]">{label}</span>
-                  <span className="mx-1 flex-1 translate-y-[-3px] border-b border-dotted border-[var(--color-faint)]" />
-                  <span className="font-bold text-[var(--color-faint)] line-through">{cost}</span>
-                </li>
-              ))}
-            </ul>
-            <div className="mono flex items-baseline justify-between border-t-2 border-dashed border-[var(--color-ink)] px-6 py-4">
-              <span className="text-sm font-bold uppercase tracking-[0.16em]">your total</span>
-              <span className={`${ON} border-2 border-[var(--color-ink)] bg-[var(--color-green-fill)] px-2 text-xl font-bold`}>git clone</span>
-            </div>
-          </div>
-        </div>
+        </Block>
+        <Block n="// oidc" t="OIDC deploys" d="A setup stack provisions a GitHub OIDC role. Deploys assume into AWS with short-lived credentials, no long-lived keys in the repo." />
+        <Block purple n="// gate" t="Spec-driven gate" d="Requirements in YAML first, code and tests together. CI refuses to merge below 100 percent coverage." />
+        <Block n="// smoke" t="Post-deploy smoke test" d="Probes the live URL after every deploy and exits non-zero on any failure, so a broken deploy never goes green." />
+        <Block purple className="md:col-span-3" n="// overlays" t="Batteries, not lock-in" d="Reference overlays for Auth.js, security headers, middleware, Sentry, PostHog, email, and rate limiting. Each no-ops without keys, so you wire only what you need." />
       </div>
     </section>
   );
 }
 
-/* Proof: apps */
-function Apps() {
-  const apps = [
-    { name: "CoverLens", note: "AI insurance policy checker", href: "https://github.com/elleskay/insurance-dashboard", c: "var(--color-green-fill)" },
-    { name: "Cancer Navigator", note: "Singapore cancer roadmap", href: "https://github.com/elleskay/cancer-navigator", c: "var(--color-purple-fill)" },
-    { name: "Armoury", note: "Frontline equipment checklists", href: "https://github.com/elleskay/armoury", c: "var(--color-yellow)" },
+function How() {
+  const steps = [
+    ["01", "Clone the template", "The workflows, the CDK construct, the spec-test package, and the reference overlays all come with it."],
+    ["02", "Write the spec first", "Translate the brief into YAML requirements, each with an ID and given / when / then. No code until the spec exists."],
+    ["03", "Code and tests together", "Implement each requirement and its test in the same change. The gate fails the build if anything is uncovered."],
+    ["04", "git push deploys it", "Build with OpenNext, deploy via CDK over OIDC, and smoke-test the live URL before it counts as shipped."],
   ];
   return (
-    <section id="apps" className="border-b-2 border-[var(--color-ink)]">
-      <div className="mx-auto max-w-6xl px-5 py-16">
-        <div className="mono mb-8 text-sm font-bold uppercase tracking-[0.16em] text-[var(--color-faint)]">// cloned into production by</div>
-        <div className="grid gap-4 sm:grid-cols-3">
-          {apps.map((a) => (
-            <a key={a.name} href={a.href} className={`${INK} hard lift group flex flex-col bg-[var(--color-paper-card)] p-6`}>
-              <span className="mb-6 h-8 w-8 border-2 border-[var(--color-ink)]" style={{ background: a.c }} />
-              <div className="text-lg font-bold">{a.name}</div>
-              <p className="mono mt-1.5 text-sm text-[var(--color-faint)]">{a.note}</p>
-              <span className="mono mt-6 text-sm font-bold group-hover:underline">view repo</span>
-            </a>
+    <section id="how" className="border-y border-[var(--color-border)] bg-[var(--color-surface-2)]">
+      <div className="mx-auto max-w-6xl px-6 py-24 sm:py-32">
+        <Heading kicker="how it works">From an empty clone to a deployed app.</Heading>
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {steps.map(([n, t, d], i) => (
+            <div key={n} className={`block ${i % 2 ? "block-purple" : ""} p-7`}>
+              <span className={`text-5xl font-bold ${i % 2 ? "text-[var(--color-purple)]" : "text-[var(--color-green)]"}`}>{n}</span>
+              <h3 className="mt-4 text-lg font-bold">{t}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-[var(--color-muted)]">{d}</p>
+            </div>
           ))}
         </div>
       </div>
@@ -262,21 +195,63 @@ function Apps() {
   );
 }
 
-/* CTA */
+function Gate() {
+  return (
+    <section id="gate" className="mx-auto max-w-6xl px-6 py-24 sm:py-32">
+      <Heading kicker="spec gate">The build does not pass until every requirement is proven.</Heading>
+      <div className="grid items-start gap-5 lg:grid-cols-2">
+        <div className="block p-8">
+          <p className="text-lg leading-relaxed text-[var(--color-muted)]">
+            Requirements live as data, not prose. Each has an ID bound to a test, and a coverage tool cross-checks the spec against the tests that actually ran. Below 100 percent, CI fails.
+          </p>
+          <ul className="mono mt-7 space-y-3 text-sm text-[var(--color-muted)]">
+            {["every requirement carries a unique id and category", "tests claim a requirement by id; empty assertions fail lint", "category mismatches and stale coverage fail too"].map((li) => (
+              <li key={li} className="flex gap-3"><span className="text-[var(--color-green)]">✓</span>{li}</li>
+            ))}
+          </ul>
+        </div>
+        <div className="space-y-5">
+          <div className="border-2 border-[var(--color-green)] bg-[#0b1324]">
+            <div className="mono border-b border-[var(--color-border)] px-4 py-2.5 text-[12px] font-bold text-[var(--color-green)]">green gate, exit 0</div>
+            <pre className="mono p-5 text-[13px] leading-relaxed text-[var(--color-green-bright)]">
+{`example v1: 100% covered (3/3)
+all requirements proven, deploy allowed`}
+            </pre>
+          </div>
+          <div className="border-2 border-[var(--color-destructive)]/60 bg-[#0b1324]">
+            <div className="mono border-b border-[var(--color-border)] px-4 py-2.5 text-[12px] font-bold text-[var(--color-destructive)]">one uncovered, nonzero exit</div>
+            <pre className="mono p-5 text-[13px] leading-relaxed text-[#fca5a5]">
+{`example v1: 66.7% covered (2/3)
+  uncovered: EX-UI-001
+build blocked`}
+            </pre>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function CTA() {
   return (
-    <section className="relative overflow-hidden border-b-2 border-[var(--color-ink)] bg-[var(--color-green-fill)]">
-      <div className="dotgrid pointer-events-none absolute inset-0" />
-      <div className={`relative mx-auto max-w-3xl px-5 py-24 text-center ${ON}`}>
-        <h2 className="text-4xl font-bold leading-[1] tracking-tight sm:text-6xl">
-          Day one starts at <br className="hidden sm:block" />
-          <span className="mono mt-3 inline-block border-2 border-[var(--color-ink)] bg-[var(--color-paper-card)] px-3 text-[var(--color-ink)]">git clone</span>.
+    <section className="relative overflow-hidden border-t border-[var(--color-border)]">
+      <div className="pattern pointer-events-none absolute inset-0 [mask-image:radial-gradient(700px_360px_at_50%_120%,#000,transparent)]" />
+      <div className="pointer-events-none absolute inset-0" style={{ background: "radial-gradient(560px 300px at 50% 130%, rgba(34,197,94,0.16), transparent 70%)" }} />
+      <div className="relative mx-auto max-w-6xl px-6 py-28 text-center">
+        <Mark className="mx-auto h-10 w-10" />
+        <h2 className="mt-7 text-4xl font-bold tracking-tight sm:text-6xl">
+          Stop re-solving the <span className="text-[var(--color-green)]">plumbing.</span>
         </h2>
-        <p className="mx-auto mt-6 max-w-lg text-lg font-medium">Take the plumbing. Spend your time on the product.</p>
-        <div className={`mono ${INK} hard-lg mx-auto mt-9 flex max-w-xl items-center gap-3 bg-[var(--color-ink)] px-5 py-4 text-left text-sm text-[var(--color-bg)]`}>
-          <span className="text-[var(--color-green-fill)]">$</span>
-          <span className="truncate">git clone github.com/elleskay/platform</span>
-          <a href={REPO} className={`mono press ${ON} ml-auto shrink-0 border-2 border-[var(--color-bg)] bg-[var(--color-green-fill)] px-3 py-1.5 text-xs font-bold`}>open</a>
+        <p className="mx-auto mt-5 max-w-xl text-lg text-[var(--color-muted)]">
+          Clone the template and spend day one on your product, not on CI, infrastructure, security, and deploys.
+        </p>
+        <div className="mt-9 flex flex-wrap justify-center gap-3">
+          <a href={REPO} className="mono bg-[var(--color-green)] px-7 py-4 text-sm font-bold text-[#06210f] transition-colors hover:bg-[var(--color-green-bright)]">
+            get the template
+          </a>
+          <a href="https://github.com/elleskay" className="mono border-2 border-[var(--color-purple)] px-7 py-4 text-sm font-bold text-[var(--color-ink)] transition-colors hover:bg-[var(--color-purple)] hover:text-white">
+            apps built on it
+          </a>
         </div>
       </div>
     </section>
@@ -285,12 +260,12 @@ function CTA() {
 
 function Footer() {
   return (
-    <footer className="bg-[var(--color-bg)]">
-      <div className="mono mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-5 py-8 text-sm text-[var(--color-faint)] sm:flex-row">
+    <footer className="border-t border-[var(--color-border)]">
+      <div className="mono mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 py-8 text-sm text-[var(--color-faint)] sm:flex-row">
         <div className="flex items-center gap-2.5"><Mark className="h-4 w-4" /> platform, an open-source template. MIT.</div>
         <div className="flex items-center gap-6">
-          <a href={REPO} className="font-bold hover:underline">github</a>
-          <a href="https://github.com/elleskay" className="font-bold hover:underline">elleskay</a>
+          <a href={REPO} className="transition-colors hover:text-[var(--color-green-bright)]">github</a>
+          <a href="https://github.com/elleskay" className="transition-colors hover:text-[var(--color-green-bright)]">elleskay</a>
         </div>
       </div>
     </footer>
@@ -302,10 +277,10 @@ export default function Page() {
     <main>
       <Nav />
       <Hero />
-      <Marquee />
-      <Bento />
-      <Math />
       <Apps />
+      <Features />
+      <How />
+      <Gate />
       <CTA />
       <Footer />
     </main>
