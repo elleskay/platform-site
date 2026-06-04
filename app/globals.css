@@ -6,15 +6,17 @@
   --color-bg: #0b2540;
   --color-bg-2: #0e2c4d;
   --color-panel: #103357;
-  --color-ink: #eaf3fc;
-  --color-muted: #a7c2de;
-  --color-faint: #5f80a6;
-  --color-stroke: #b9d3ee;
+  --color-ink: #eef5fd;
+  --color-muted: #c2d6ec;
+  --color-faint: #82a1c5;
+  --color-stroke: #c4dbf2;
   --color-line: #2f567f;
-  --color-accent: #ffcf5c;
+  --color-accent: #ffd166;
   --color-accent-2: #5fd0f2;
-  --color-grid-fine: rgba(185, 211, 238, 0.05);
-  --color-grid-coarse: rgba(185, 211, 238, 0.1);
+  --color-ok: #5fd39a;
+  --color-bad: #ff8a8a;
+  --color-grid-fine: rgba(185, 211, 238, 0.045);
+  --color-grid-coarse: rgba(185, 211, 238, 0.09);
   --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-mono), ui-monospace, monospace;
 }
