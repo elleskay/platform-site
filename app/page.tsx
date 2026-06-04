@@ -203,7 +203,7 @@ function Apps() {
   return (
     <section id="apps" className="mx-auto max-w-6xl px-6 py-24">
       <div className="max-w-2xl">
-        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Built this way. Live right now.</h2>
+        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Built on the platform. Live right now.</h2>
         <p className="mt-4 text-lg text-[var(--color-muted)]">Each is a full vertical slice shipped on the template, real auth, real data, a real AWS deploy.</p>
       </div>
       <div className="mt-12 grid gap-5 sm:grid-cols-3">
