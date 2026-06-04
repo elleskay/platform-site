@@ -1,17 +1,23 @@
 @import "tailwindcss";
 
+/* Skill: "Vibrant & Block-based" on a dark-slate base.
+   Palette tuned by the design-system recommender: dark slate + run-green,
+   with an electric-purple second accent for the duotone. */
 @theme {
-  --color-bg: #08080a;
-  --color-panel: #0e0e11;
-  --color-ink: #fafafa;
-  --color-muted: #8a8a93;
-  --color-faint: #5a5a63;
-  --color-line: rgba(255, 255, 255, 0.09);
-  --color-line-strong: rgba(255, 255, 255, 0.16);
-  --color-acid: #c4f042;
-  --color-acid-dim: #a6cf2e;
-  --font-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Monaco, Consolas,
-    monospace;
+  --color-bg: #0f172a;
+  --color-surface: #1e293b;
+  --color-surface-2: #172033;
+  --color-ink: #f8fafc;
+  --color-muted: #94a3b8;
+  --color-faint: #64748b;
+  --color-border: #334155;
+  --color-green: #22c55e;
+  --color-green-bright: #4ade80;
+  --color-purple: #a855f7;
+  --color-cyan: #22d3ee;
+  --color-destructive: #ef4444;
+  --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-mono), ui-monospace, monospace;
 }
 
 html {
@@ -21,44 +27,67 @@ html {
 body {
   background: var(--color-bg);
   color: var(--color-ink);
+  font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
-  font-family:
-    "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial,
-    sans-serif;
 }
 
 ::selection {
-  background: var(--color-acid);
-  color: #0b0b0d;
-}
-
-/* Dotted engineering grid */
-.dots {
-  background-image: radial-gradient(
-    rgba(255, 255, 255, 0.07) 1px,
-    transparent 1px
-  );
-  background-size: 22px 22px;
-}
-
-.hairline {
-  border: 1px solid var(--color-line);
-}
-
-/* A thin acid underline accent on hover */
-.cell {
-  position: relative;
-  background: var(--color-panel);
-  border: 1px solid var(--color-line);
-  transition:
-    border-color 0.2s ease,
-    background 0.2s ease;
-}
-.cell:hover {
-  border-color: var(--color-line-strong);
-  background: #111114;
+  background: var(--color-green);
+  color: #06210f;
 }
 
 .mono {
   font-family: var(--font-mono);
+}
+
+/* Animated duotone block pattern (subtle drift) */
+@keyframes drift {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 48px 48px;
+  }
+}
+.pattern {
+  background-image:
+    linear-gradient(rgba(34, 197, 94, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(168, 85, 247, 0.06) 1px, transparent 1px);
+  background-size: 48px 48px;
+  animation: drift 14s linear infinite;
+}
+
+/* Block with a bold color-shift hover */
+.block {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.block:hover {
+  transform: translateY(-3px);
+  border-color: var(--color-green);
+  box-shadow: 0 0 0 1px var(--color-green), 0 24px 50px -28px rgba(34, 197, 94, 0.45);
+}
+.block-purple:hover {
+  border-color: var(--color-purple);
+  box-shadow: 0 0 0 1px var(--color-purple), 0 24px 50px -28px rgba(168, 85, 247, 0.45);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .pattern {
+    animation: none;
+  }
+  .block {
+    transition: border-color 0.2s ease;
+  }
+  .block:hover {
+    transform: none;
+  }
 }
