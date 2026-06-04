@@ -93,13 +93,13 @@ function Hero() {
       <div className="pointer-events-none absolute inset-0" style={{ background: "radial-gradient(620px 360px at 50% -8%, rgba(139,149,255,0.18), transparent 60%), radial-gradient(560px 360px at 82% 4%, rgba(192,132,252,0.13), transparent 60%)" }} />
       <div className="relative mx-auto max-w-4xl px-6 pb-20 pt-20 text-center sm:pt-28">
         <a href="#how" className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3.5 py-1.5 text-[13px] text-[var(--color-muted)] transition-colors hover:border-white/20">
-          <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-accent)]" /> The hard part is already done
+          <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-accent)]" /> No setup. Just prompt.
         </a>
         <h1 className="mx-auto mt-6 max-w-3xl text-[42px] font-bold leading-[1.05] tracking-tight sm:text-[68px]">
           From prompt to <span className="bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-violet)] bg-clip-text text-transparent">live app.</span>
         </h1>
         <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-[var(--color-muted)]">
-          platform is a production-ready template for AI coding agents. Just prompt Claude Code, and it scaffolds straight from the template, no cloning by hand. With a one-time GitHub and AWS connection (an OIDC deploy role, a database, and a few secrets), every push then auto-builds, tests, and deploys to a live AWS URL, with no stored keys.
+          platform is a production-ready template for AI coding agents. Point Claude Code at the repo and just start prompting, no setup first. It scaffolds from the template, and when it is ready to deploy it walks you through a one-time GitHub and AWS connection (an OIDC deploy role, a database, and a few secrets). From then on, every push ships to a live AWS URL, with no stored keys.
         </p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
           <a href={REPO} className="rounded-lg bg-[var(--color-accent)] px-6 py-3 text-sm font-semibold text-[#0a0b16] transition-colors hover:bg-[var(--color-accent-strong)]">Use the template</a>
@@ -134,15 +134,15 @@ function Proof() {
 /* How it works, horizontal timeline */
 function How() {
   const steps: [string, string][] = [
-    ["Connect it, once", "Give your agent access to GitHub and AWS the first time: an OIDC deploy role, a database, and a few secrets. No stored keys after that."],
-    ["Prompt it", "Tell Claude Code what to build. It scaffolds straight from the template, no manual clone, and writes the app."],
-    ["It ships", "Every push auto-builds, tests, and deploys to a live AWS URL. You get the link. You never touched the infrastructure."],
+    ["Prompt it", "Point Claude Code at the platform repo and tell it what to build. It scaffolds from the template and writes the app. No setup first."],
+    ["It asks to connect", "The first time it deploys, the agent walks you through a one-time GitHub and AWS connection: an OIDC deploy role, a database, and a few secrets. No stored keys."],
+    ["It ships", "From then on, every push auto-builds, tests, and deploys to a live AWS URL. You just keep prompting."],
   ];
   return (
     <section id="how" className="mx-auto max-w-6xl px-6 py-24">
       <div className="mx-auto max-w-2xl text-center">
-        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Connect it. Prompt it. Ship it.</h2>
-        <p className="mt-4 text-lg text-[var(--color-muted)]">One connection, then it runs itself. You never clone or configure a thing.</p>
+        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Just start prompting.</h2>
+        <p className="mt-4 text-lg text-[var(--color-muted)]">No setup first. Point your agent at the platform repo and prompt. It walks you through the one-time connection itself, right when it is ready to deploy.</p>
       </div>
       <div className="relative mt-16 grid gap-12 md:grid-cols-3 md:gap-8">
         <div className="absolute left-0 right-0 top-5 hidden h-px bg-white/10 md:block" />
@@ -232,7 +232,7 @@ function CTA() {
         <div className="pointer-events-none absolute inset-0" style={{ background: "radial-gradient(560px 280px at 50% 120%, rgba(139,149,255,0.2), transparent 65%)" }} />
         <div className="relative text-center">
           <h2 className="mx-auto max-w-2xl text-4xl font-bold tracking-tight sm:text-5xl">Bring an AI. Get an app.</h2>
-          <p className="mx-auto mt-5 max-w-md text-lg text-[var(--color-muted)]">Connect GitHub and AWS once, then just prompt Claude Code. It scaffolds from the template and ships to a live AWS URL on every push, with no stored keys.</p>
+          <p className="mx-auto mt-5 max-w-md text-lg text-[var(--color-muted)]">Point your agent at the platform repo and start prompting. It handles the rest, even the one-time GitHub and AWS connection. Every push ships to a live AWS URL, with no stored keys.</p>
           <div className="mono mx-auto mt-9 flex max-w-xl items-center gap-3 rounded-xl border border-white/10 bg-black/40 px-5 py-4 text-left text-sm">
             <span className="text-[var(--color-accent)]">›</span>
             <span className="truncate text-[var(--color-ink)]">build my app on the elleskay/platform template</span>
