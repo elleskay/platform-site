@@ -139,7 +139,7 @@ function How() {
     <section id="how" className="mx-auto max-w-6xl px-6 py-24">
       <div className="mx-auto max-w-2xl text-center">
         <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Prompt your idea. It does the rest.</h2>
-        <p className="mt-4 text-lg text-[var(--color-muted)]">No setup first. Point your AI coding agent at the platform repo and prompt it with your idea. It walks you through the one-time connection itself, right when it is ready to deploy.</p>
+        <p className="mt-4 text-lg text-[var(--color-muted)]">You set up nothing in advance. Point your AI coding agent at the platform repo, prompt it with your idea, and it builds the app. When it is ready to deploy, it walks you through the one-time GitHub and AWS connection itself.</p>
       </div>
       <div className="relative mt-16 grid gap-12 md:grid-cols-3 md:gap-8">
         <div className="absolute left-0 right-0 top-5 hidden h-px bg-white/10 md:block" />
