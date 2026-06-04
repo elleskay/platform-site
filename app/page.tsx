@@ -1,11 +1,25 @@
 const REPO = "https://github.com/elleskay/platform";
 
+const LIVE = {
+  coverlens: "https://d33z7oya883ugt.cloudfront.net",
+  cancer: "https://d1z96o21m62u9i.cloudfront.net",
+  armoury: "https://d6a3alh51t58d.cloudfront.net",
+};
+
 function Mark({ className = "h-6 w-6", color = "var(--color-accent)" }: { className?: string; color?: string }) {
   return (
     <svg viewBox="0 0 24 24" className={className} fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M12 2l9 5-9 5-9-5 9-5z" />
       <path d="M3 12l9 5 9-5" />
       <path d="M3 17l9 5 9-5" />
+    </svg>
+  );
+}
+
+function Check({ className = "h-4 w-4", color = "var(--color-ok)" }: { className?: string; color?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="none" stroke={color} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M20 6L9 17l-5-5" />
     </svg>
   );
 }
@@ -20,7 +34,7 @@ function Nav() {
         </a>
         <div className="ml-2 hidden items-center gap-7 text-sm text-[var(--color-muted)] md:flex">
           <a href="#how" className="transition-colors hover:text-[var(--color-ink)]">How it works</a>
-          <a href="#features" className="transition-colors hover:text-[var(--color-ink)]">Features</a>
+          <a href="#included" className="transition-colors hover:text-[var(--color-ink)]">What's included</a>
           <a href="#apps" className="transition-colors hover:text-[var(--color-ink)]">Showcase</a>
         </div>
         <div className="ml-auto flex items-center gap-3">
@@ -34,10 +48,49 @@ function Nav() {
   );
 }
 
+/* Hero centerpiece: prompt to live app */
+function PromptConsole() {
+  const lines: [string, string][] = [
+    ["scaffolded from template, apps/web + infra/cdk", "ok"],
+    ["wrote 14 files, spec gate 100% (9/9)", "ok"],
+    ["ci, security, build passed", "ok"],
+    ["deployed to AWS over OIDC", "ok"],
+  ];
+  return (
+    <div className="card mx-auto max-w-2xl overflow-hidden text-left shadow-2xl shadow-black/40">
+      <div className="flex items-center gap-2 border-b border-white/[0.07] px-4 py-2.5">
+        <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
+        <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
+        <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
+        <span className="mono ml-2 text-[12px] text-[var(--color-faint)]">claude code</span>
+      </div>
+      <div className="mono space-y-2 p-5 text-[13px] leading-relaxed">
+        <div className="text-[var(--color-ink)]">
+          <span className="text-[var(--color-accent)]">›</span> build a customer feedback portal with login and an admin dashboard
+        </div>
+        <div className="h-1.5" />
+        {lines.map(([t]) => (
+          <div key={t} className="flex items-start gap-2 text-[var(--color-muted)]">
+            <Check className="mt-[3px] h-3.5 w-3.5" />
+            <span>{t}</span>
+          </div>
+        ))}
+        <div className="h-1.5" />
+        <div className="flex items-center gap-2 text-[var(--color-ink)]">
+          <span className="text-[var(--color-ok)]">●</span>
+          <span>live at <span className="text-[var(--color-accent)]">feedback.cloudfront.net</span></span>
+          <span className="caret ml-0.5 inline-block h-3.5 w-[7px] bg-[var(--color-accent)]" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function Hero() {
   return (
     <section id="top" className="relative overflow-hidden">
-      <div className="pointer-events-none absolute inset-0" style={{ background: "radial-gradient(620px 360px at 50% -8%, rgba(139,149,255,0.18), transparent 60%), radial-gradient(560px 360px at 80% 0%, rgba(192,132,252,0.13), transparent 60%)" }} />
+      <div className="dots pointer-events-none absolute inset-0 [mask-image:radial-gradient(700px_420px_at_50%_0%,#000,transparent)]" />
+      <div className="pointer-events-none absolute inset-0" style={{ background: "radial-gradient(620px 360px at 50% -8%, rgba(139,149,255,0.18), transparent 60%), radial-gradient(560px 360px at 82% 4%, rgba(192,132,252,0.13), transparent 60%)" }} />
       <div className="relative mx-auto max-w-4xl px-6 pb-20 pt-20 text-center sm:pt-28">
         <a href="#how" className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3.5 py-1.5 text-[13px] text-[var(--color-muted)] transition-colors hover:border-white/20">
           <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-accent)]" /> The infrastructure is already built
@@ -52,6 +105,7 @@ function Hero() {
           <a href={REPO} className="rounded-lg bg-[var(--color-accent)] px-6 py-3 text-sm font-semibold text-[#0a0b16] transition-colors hover:bg-[var(--color-accent-strong)]">Use the template</a>
           <a href="#how" className="rounded-lg border border-white/12 bg-white/[0.03] px-6 py-3 text-sm font-semibold transition-colors hover:border-white/25">See how it works</a>
         </div>
+        <div className="mt-14"><PromptConsole /></div>
       </div>
     </section>
   );
@@ -59,9 +113,9 @@ function Hero() {
 
 function Proof() {
   const apps = [
-    { name: "CoverLens", live: "https://d33z7oya883ugt.cloudfront.net" },
-    { name: "Cancer Navigator", live: "https://d1z96o21m62u9i.cloudfront.net" },
-    { name: "Armoury", live: "https://d6a3alh51t58d.cloudfront.net" },
+    { name: "CoverLens", live: LIVE.coverlens },
+    { name: "Cancer Navigator", live: LIVE.cancer },
+    { name: "Armoury", live: LIVE.armoury },
   ];
   return (
     <section className="border-y border-white/[0.06]">
@@ -77,9 +131,9 @@ function Proof() {
   );
 }
 
-/* How it works */
+/* How it works, horizontal timeline */
 function How() {
-  const steps = [
+  const steps: [string, string][] = [
     ["The infra is done", "Clone the repo and the entire production layer, CI/CD, AWS infrastructure, OIDC deploys, security scanning, and a test gate, is already wired. You build none of it."],
     ["Connect your AI", "Point Claude Code, Codex, or any coding agent at the repo. The CLAUDE.md conventions teach it the stack, the structure, and every deploy gotcha instantly."],
     ["Prompt, and ship", "Tell it what to build. It writes the app, the checks confirm it works, and it deploys to AWS. You get a live URL in minutes."],
@@ -90,11 +144,12 @@ function How() {
         <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">You bring the idea.<br />The template and your AI do the rest.</h2>
         <p className="mt-4 text-lg text-[var(--color-muted)]">Everything that normally takes weeks of setup is already done. You just connect an agent and prompt it.</p>
       </div>
-      <div className="mt-14 grid gap-5 md:grid-cols-3">
+      <div className="relative mt-16 grid gap-12 md:grid-cols-3 md:gap-8">
+        <div className="absolute left-0 right-0 top-5 hidden h-px bg-white/10 md:block" />
         {steps.map(([t, body], i) => (
-          <div key={t} className="card p-7">
-            <div className="mono text-sm text-[var(--color-accent)]">0{i + 1}</div>
-            <h3 className="mt-3 text-lg font-semibold">{t}</h3>
+          <div key={t} className="relative text-center md:text-left">
+            <div className="relative z-10 mx-auto grid h-10 w-10 place-items-center rounded-full border border-white/15 bg-[var(--color-bg)] text-sm font-semibold text-[var(--color-accent)] md:mx-0">{i + 1}</div>
+            <h3 className="mt-5 text-lg font-semibold">{t}</h3>
             <p className="mt-2.5 text-sm leading-relaxed text-[var(--color-muted)]">{body}</p>
           </div>
         ))}
@@ -103,54 +158,36 @@ function How() {
   );
 }
 
-/* Feature bento */
-function Icon({ name, className = "h-5 w-5" }: { name: string; className?: string }) {
-  const p: Record<string, React.ReactNode> = {
-    gate: <><circle cx="12" cy="12" r="9" /><path d="M8 12l3 3 5-6" /></>,
-    oidc: <><circle cx="8" cy="12" r="3" /><path d="M11 12h9l-2 2m2-2l-2-2" /></>,
-    cdk: <><path d="M12 2l9 5-9 5-9-5 9-5z" /><path d="M3 12l9 5 9-5" /></>,
-    sec: <path d="M12 3l8 3v6c0 4.5-3.2 7.6-8 9-4.8-1.4-8-4.5-8-9V6l8-3z" />,
-    smoke: <path d="M3 12h4l2 6 4-14 2 8h6" />,
-    batt: <><rect x="3" y="8" width="16" height="8" rx="2" /><path d="M22 11v2" /></>,
-  };
-  return <svg viewBox="0 0 24 24" className={className} fill="none" stroke="var(--color-accent)" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">{p[name]}</svg>;
-}
-
-function Features() {
-  const small = [
-    ["oidc", "OIDC deploys", "GitHub assumes a least-privilege role with 1-hour credentials. No stored AWS keys."],
-    ["cdk", "One CDK construct", "NextjsServerless provisions Lambda, S3, and CloudFront via OpenNext, every gotcha baked in."],
-    ["sec", "Security scanning", "CodeQL, gitleaks, and npm audit on every change, plus strict security headers."],
-    ["smoke", "Smoke test", "Nine live checks probe the deploy. A non-zero exit blocks the release."],
-    ["batt", "Batteries included", "Auth.js v5, Neon Postgres, Zod, Sentry, and PostHog, wired and ready."],
+/* What's included, checklist of the prebuilt layer */
+function Included() {
+  const items: [string, string][] = [
+    ["CI/CD pipeline", "Typecheck, lint, build, and a full cdk synth on every push."],
+    ["AWS serverless infra", "Lambda, S3, and CloudFront, provisioned by one CDK construct."],
+    ["OIDC deploys", "GitHub assumes a short-lived role. No stored AWS keys."],
+    ["Security scanning", "CodeQL, gitleaks, npm audit, and strict security headers."],
+    ["Spec-driven test gate", "Every requirement bound to a test. 100% coverage, or it does not ship."],
+    ["Post-deploy smoke test", "Nine live checks confirm the deploy actually works."],
+    ["Auth and database", "Auth.js v5 sessions and Neon Postgres, ready to use."],
+    ["Observability", "Sentry and PostHog hooks wired and waiting for a key."],
+    ["Validation", "Zod at every server action boundary."],
   ];
   return (
-    <section id="features" className="border-t border-white/[0.06] bg-[var(--color-bg-2)]">
+    <section id="included" className="border-t border-white/[0.06] bg-[var(--color-bg-2)]">
       <div className="mx-auto max-w-6xl px-6 py-24">
         <div className="max-w-2xl">
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Everything wired on day one.</h2>
-          <p className="mt-4 text-lg text-[var(--color-muted)]">Clone the repo and inherit the whole production layer, so your agent spends its tokens on your product, not the plumbing.</p>
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Everything is already built.</h2>
+          <p className="mt-4 text-lg text-[var(--color-muted)]">Clone the repo and inherit the entire production layer, so your agent spends its time on your product, not the plumbing.</p>
         </div>
-        <div className="mt-12 grid gap-5 lg:grid-cols-3">
-          {/* hero feature */}
-          <div className="card lg:col-span-1 lg:row-span-2 flex flex-col p-7">
-            <Icon name="gate" className="h-6 w-6" />
-            <h3 className="mt-4 text-xl font-semibold">The spec gate</h3>
-            <p className="mt-2.5 text-sm leading-relaxed text-[var(--color-muted)]">Every requirement is bound to a test and checked automatically on each change, so your agent catches its own regressions in CI, well before a user ever could.</p>
-            <div className="mt-6 rounded-xl border border-white/[0.07] bg-black/30 p-4">
-              <div className="mono flex items-center justify-between text-[12px]"><span className="text-[var(--color-muted)]">coverage</span><span className="text-[var(--color-ok)]">100%</span></div>
-              <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-white/[0.07]"><div className="h-full w-full rounded-full bg-[var(--color-ok)]" /></div>
-              <div className="mono mt-3 space-y-1 text-[12px] text-[var(--color-faint)]">
-                <div><span className="text-[var(--color-ok)]">✓</span> EX-API-001 · EX-API-002 · EX-UI-001</div>
-                <div className="text-[var(--color-ok)]">gate green, deploy allowed</div>
+        <div className="mt-12 grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
+          {items.map(([t, body]) => (
+            <div key={t} className="flex gap-3.5">
+              <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[var(--color-accent)]/12">
+                <Check className="h-3.5 w-3.5" color="var(--color-accent)" />
+              </span>
+              <div>
+                <h3 className="font-semibold">{t}</h3>
+                <p className="mt-1 text-sm leading-relaxed text-[var(--color-muted)]">{body}</p>
               </div>
-            </div>
-          </div>
-          {small.map(([icon, t, body]) => (
-            <div key={t} className="card card-hover p-6">
-              <Icon name={icon} />
-              <h3 className="mt-3.5 font-semibold">{t}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-[var(--color-muted)]">{body}</p>
             </div>
           ))}
         </div>
@@ -159,18 +196,18 @@ function Features() {
   );
 }
 
-/* Showcase */
+/* Showcase, live apps */
 function Apps() {
   const apps = [
-    { name: "CoverLens", note: "AI insurance policy checker. Grounded LangGraph extraction, every finding quote-backed.", live: "https://d33z7oya883ugt.cloudfront.net", repo: "https://github.com/elleskay/insurance-dashboard" },
-    { name: "Cancer Navigator", note: "A roadmap for newly diagnosed cancer patients in Singapore, with subsidy coverage.", live: "https://d1z96o21m62u9i.cloudfront.net", repo: "https://github.com/elleskay/cancer-navigator" },
-    { name: "Armoury", note: "Digital equipment checklists for frontline agencies, with an HQ readiness dashboard.", live: "https://d6a3alh51t58d.cloudfront.net", repo: "https://github.com/elleskay/armoury" },
+    { name: "CoverLens", note: "AI insurance policy checker. Grounded LangGraph extraction, every finding quote-backed.", live: LIVE.coverlens, repo: "https://github.com/elleskay/insurance-dashboard" },
+    { name: "Cancer Navigator", note: "A roadmap for newly diagnosed cancer patients in Singapore, with subsidy coverage.", live: LIVE.cancer, repo: "https://github.com/elleskay/cancer-navigator" },
+    { name: "Armoury", note: "Digital equipment checklists for frontline agencies, with an HQ readiness dashboard.", live: LIVE.armoury, repo: "https://github.com/elleskay/armoury" },
   ];
   return (
     <section id="apps" className="mx-auto max-w-6xl px-6 py-24">
       <div className="max-w-2xl">
-        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Proven by real apps.</h2>
-        <p className="mt-4 text-lg text-[var(--color-muted)]">Each is a full vertical slice shipped on the template, real auth, real data, a real AWS deploy. Every one is live right now.</p>
+        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Built this way, live right now.</h2>
+        <p className="mt-4 text-lg text-[var(--color-muted)]">Each is a full vertical slice shipped on the template, real auth, real data, a real AWS deploy.</p>
       </div>
       <div className="mt-12 grid gap-5 sm:grid-cols-3">
         {apps.map((a) => (
@@ -228,7 +265,7 @@ export default function Page() {
       <Hero />
       <Proof />
       <How />
-      <Features />
+      <Included />
       <Apps />
       <CTA />
       <Footer />
