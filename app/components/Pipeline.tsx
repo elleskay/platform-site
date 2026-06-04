@@ -182,7 +182,7 @@ export default function Pipeline() {
                   ref={(el) => {
                     refs.current[i] = el;
                   }}
-                  className="relative flex min-h-[58vh] flex-col justify-center pl-12"
+                  className="relative flex min-h-[42vh] flex-col justify-center py-6 pl-12"
                 >
                   <span
                     className="absolute left-0 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center border-2 text-[11px] font-bold transition-colors duration-300"
