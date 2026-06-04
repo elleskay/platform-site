@@ -1,3 +1,6 @@
+import Image from "next/image";
+import coverShot from "./coverlens.png";
+
 const REPO = "https://github.com/elleskay/platform";
 
 function Mark({ className = "h-6 w-6", color = "var(--color-accent)" }: { className?: string; color?: string }) {
@@ -25,7 +28,7 @@ function Nav() {
         </div>
         <div className="ml-auto flex items-center gap-3">
           <a href={REPO} className="hidden text-sm text-[var(--color-muted)] transition-colors hover:text-[var(--color-ink)] sm:block">GitHub</a>
-          <a href={REPO} className="rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-[#06251a] transition-colors hover:bg-[var(--color-accent-strong)]">
+          <a href={REPO} className="rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-[#0a0b16] transition-colors hover:bg-[var(--color-accent-strong)]">
             Use template
           </a>
         </div>
@@ -35,9 +38,9 @@ function Nav() {
 }
 
 /* Hero product shot: a clean CI "checks" panel telling the two-PR story */
-function ChecksPanel() {
+function ChecksPanel({ className = "" }: { className?: string }) {
   return (
-    <div className="card mx-auto max-w-2xl overflow-hidden text-left">
+    <div className={`card overflow-hidden text-left ${className}`}>
       <div className="flex items-center gap-2 border-b border-white/[0.07] px-4 py-3">
         <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
         <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
@@ -58,13 +61,13 @@ function ChecksPanel() {
           </div>
         </div>
         <div className="flex items-start gap-3 px-4 py-4">
-          <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-[var(--color-accent)]/15 text-[var(--color-accent)]">
+          <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-[var(--color-ok)]/15 text-[var(--color-ok)]">
             <svg viewBox="0 0 24 24" className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth="3"><path d="M20 6L9 17l-5-5" /></svg>
           </span>
           <div className="min-w-0 flex-1">
             <div className="flex items-center justify-between gap-3">
               <span className="text-sm font-medium">PR #129 · spec-gate</span>
-              <span className="mono text-[12px] text-[var(--color-accent)]">100% (3/3)</span>
+              <span className="mono text-[12px] text-[var(--color-ok)]">100% (3/3)</span>
             </div>
             <p className="mono mt-1 text-[12px] text-[var(--color-faint)]">agent added the test · deployed to cloudfront</p>
           </div>
@@ -77,7 +80,7 @@ function ChecksPanel() {
 function Hero() {
   return (
     <section id="top" className="relative overflow-hidden">
-      <div className="pointer-events-none absolute inset-0" style={{ background: "radial-gradient(620px 360px at 50% -8%, rgba(52,211,153,0.16), transparent 60%), radial-gradient(560px 360px at 80% 0%, rgba(139,92,246,0.12), transparent 60%)" }} />
+      <div className="pointer-events-none absolute inset-0" style={{ background: "radial-gradient(620px 360px at 50% -8%, rgba(139,149,255,0.18), transparent 60%), radial-gradient(560px 360px at 80% 0%, rgba(192,132,252,0.13), transparent 60%)" }} />
       <div className="relative mx-auto max-w-4xl px-6 pb-20 pt-20 text-center sm:pt-28">
         <a href="#how" className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3.5 py-1.5 text-[13px] text-[var(--color-muted)] transition-colors hover:border-white/20">
           <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-accent)]" /> Built to pair with coding agents
@@ -89,12 +92,39 @@ function Hero() {
           platform is a TypeScript monorepo template that pairs with Claude Code and Codex. Your agent writes against a spec; the template proves every requirement, then deploys to AWS serverless. No green gate, no production.
         </p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-          <a href={REPO} className="rounded-lg bg-[var(--color-accent)] px-6 py-3 text-sm font-semibold text-[#06251a] transition-colors hover:bg-[var(--color-accent-strong)]">Use the template</a>
+          <a href={REPO} className="rounded-lg bg-[var(--color-accent)] px-6 py-3 text-sm font-semibold text-[#0a0b16] transition-colors hover:bg-[var(--color-accent-strong)]">Use the template</a>
           <a href="#how" className="rounded-lg border border-white/12 bg-white/[0.03] px-6 py-3 text-sm font-semibold transition-colors hover:border-white/25">See how it works</a>
         </div>
-        <div className="mt-14"><ChecksPanel /></div>
+        <HeroVisual />
       </div>
     </section>
+  );
+}
+
+/* Real app screenshot in a browser frame, with the checks panel floating */
+function HeroVisual() {
+  return (
+    <div className="relative mx-auto mt-16 max-w-4xl">
+      <div className="card overflow-hidden shadow-2xl shadow-black/40">
+        <div className="flex items-center gap-2 border-b border-white/[0.07] px-4 py-2.5">
+          <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
+          <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
+          <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
+          <span className="mono ml-2 truncate text-[12px] text-[var(--color-faint)]">coverlens.app · built on platform</span>
+        </div>
+        <div className="relative h-[280px] w-full sm:h-[440px]">
+          <Image src={coverShot} alt="CoverLens, an AI insurance policy checker built on the platform template" fill sizes="(max-width: 768px) 100vw, 900px" className="object-cover object-top" priority />
+        </div>
+      </div>
+      {/* floating checks panel (desktop) */}
+      <div className="absolute -bottom-8 -right-2 hidden w-[380px] sm:block lg:-right-10">
+        <ChecksPanel />
+      </div>
+      {/* stacked checks panel (mobile) */}
+      <div className="mt-5 sm:hidden">
+        <ChecksPanel />
+      </div>
+    </div>
   );
 }
 
@@ -175,11 +205,11 @@ function Features() {
             <h3 className="mt-4 text-xl font-semibold">The spec gate</h3>
             <p className="mt-2.5 text-sm leading-relaxed text-[var(--color-muted)]">Requirements are data, each with an ID bound to a test. The build refuses to deploy until coverage hits 100%.</p>
             <div className="mt-6 rounded-xl border border-white/[0.07] bg-black/30 p-4">
-              <div className="mono flex items-center justify-between text-[12px]"><span className="text-[var(--color-muted)]">coverage</span><span className="text-[var(--color-accent)]">100%</span></div>
-              <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-white/[0.07]"><div className="h-full w-full rounded-full bg-[var(--color-accent)]" /></div>
+              <div className="mono flex items-center justify-between text-[12px]"><span className="text-[var(--color-muted)]">coverage</span><span className="text-[var(--color-ok)]">100%</span></div>
+              <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-white/[0.07]"><div className="h-full w-full rounded-full bg-[var(--color-ok)]" /></div>
               <div className="mono mt-3 space-y-1 text-[12px] text-[var(--color-faint)]">
-                <div><span className="text-[var(--color-accent)]">✓</span> EX-API-001 · EX-API-002 · EX-UI-001</div>
-                <div className="text-[var(--color-accent)]">gate green, deploy allowed</div>
+                <div><span className="text-[var(--color-ok)]">✓</span> EX-API-001 · EX-API-002 · EX-UI-001</div>
+                <div className="text-[var(--color-ok)]">gate green, deploy allowed</div>
               </div>
             </div>
           </div>
@@ -226,14 +256,14 @@ function CTA() {
   return (
     <section className="border-t border-white/[0.06]">
       <div className="relative mx-auto max-w-6xl overflow-hidden px-6 py-28">
-        <div className="pointer-events-none absolute inset-0" style={{ background: "radial-gradient(560px 280px at 50% 120%, rgba(52,211,153,0.18), transparent 65%)" }} />
+        <div className="pointer-events-none absolute inset-0" style={{ background: "radial-gradient(560px 280px at 50% 120%, rgba(139,149,255,0.2), transparent 65%)" }} />
         <div className="relative text-center">
           <h2 className="mx-auto max-w-2xl text-4xl font-bold tracking-tight sm:text-5xl">Point your agent at it.</h2>
           <p className="mx-auto mt-5 max-w-md text-lg text-[var(--color-muted)]">Clone the template and let your agent ship on day one, only what it can prove.</p>
           <div className="mono mx-auto mt-9 flex max-w-xl items-center gap-3 rounded-xl border border-white/10 bg-black/40 px-5 py-4 text-left text-sm">
             <span className="text-[var(--color-accent)]">$</span>
             <span className="truncate text-[var(--color-ink)]">git clone github.com/elleskay/platform</span>
-            <a href={REPO} className="ml-auto shrink-0 rounded-md bg-[var(--color-accent)] px-3 py-1.5 text-xs font-semibold text-[#06251a] transition-colors hover:bg-[var(--color-accent-strong)]">Open</a>
+            <a href={REPO} className="ml-auto shrink-0 rounded-md bg-[var(--color-accent)] px-3 py-1.5 text-xs font-semibold text-[#0a0b16] transition-colors hover:bg-[var(--color-accent-strong)]">Open</a>
           </div>
         </div>
       </div>

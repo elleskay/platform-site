@@ -8,9 +8,10 @@
   --color-ink: #f4f6f8;
   --color-muted: #a4abb5;
   --color-faint: #6c727c;
-  --color-accent: #34d399;
-  --color-accent-strong: #10b981;
-  --color-violet: #8b5cf6;
+  --color-accent: #8b95ff;
+  --color-accent-strong: #6f7bf7;
+  --color-violet: #c084fc;
+  --color-ok: #34d399;
   --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-mono), ui-monospace, monospace;
 }
