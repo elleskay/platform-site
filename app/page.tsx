@@ -99,7 +99,7 @@ function Hero() {
           Connect an AI, ship a <span className="bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-violet)] bg-clip-text text-transparent">live app.</span>
         </h1>
         <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-[var(--color-muted)]">
-          platform is a TypeScript monorepo with the whole production layer already built. Prompt Claude Code to build on it. With a one-time GitHub and AWS connection (an OIDC deploy role, a database, and a few secrets), every push then auto-builds, tests, and deploys to a live AWS URL, with no stored keys.
+          platform is a production-ready template for AI coding agents. Just prompt Claude Code, and it scaffolds straight from the template, no cloning by hand. With a one-time GitHub and AWS connection (an OIDC deploy role, a database, and a few secrets), every push then auto-builds, tests, and deploys to a live AWS URL, with no stored keys.
         </p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
           <a href={REPO} className="rounded-lg bg-[var(--color-accent)] px-6 py-3 text-sm font-semibold text-[#0a0b16] transition-colors hover:bg-[var(--color-accent-strong)]">Use the template</a>
@@ -134,15 +134,15 @@ function Proof() {
 /* How it works, horizontal timeline */
 function How() {
   const steps: [string, string][] = [
-    ["Clone it", "The whole production layer, CI/CD, AWS infrastructure, OIDC deploys, security, and a test gate, is already built. You write none of it."],
-    ["Connect it", "A one-time GitHub and AWS connection: an OIDC deploy role, a database, and a few secrets. From then on, deploys use short-lived credentials, with no stored keys."],
-    ["Prompt it", "Prompt Claude Code to build on the template. Every push then auto-builds, tests, and deploys to a live AWS URL."],
+    ["Connect it, once", "Give your agent access to GitHub and AWS the first time: an OIDC deploy role, a database, and a few secrets. No stored keys after that."],
+    ["Prompt it", "Tell Claude Code what to build. It scaffolds straight from the template, no manual clone, and writes the app."],
+    ["It ships", "Every push auto-builds, tests, and deploys to a live AWS URL. You get the link. You never touched the infrastructure."],
   ];
   return (
     <section id="how" className="mx-auto max-w-6xl px-6 py-24">
       <div className="mx-auto max-w-2xl text-center">
-        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Clone it. Connect it. Prompt it.</h2>
-        <p className="mt-4 text-lg text-[var(--color-muted)]">Set it up once. After that, every prompt becomes a live deploy.</p>
+        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Connect it. Prompt it. Ship it.</h2>
+        <p className="mt-4 text-lg text-[var(--color-muted)]">One connection, then it runs itself. You never clone or configure a thing.</p>
       </div>
       <div className="relative mt-16 grid gap-12 md:grid-cols-3 md:gap-8">
         <div className="absolute left-0 right-0 top-5 hidden h-px bg-white/10 md:block" />
@@ -176,7 +176,7 @@ function Included() {
       <div className="mx-auto max-w-6xl px-6 py-24">
         <div className="max-w-2xl">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Nothing to wire. It's all built.</h2>
-          <p className="mt-4 text-lg text-[var(--color-muted)]">Clone the repo and inherit the entire production layer, so your agent spends its time on your product, not the plumbing.</p>
+          <p className="mt-4 text-lg text-[var(--color-muted)]">Your agent inherits the entire production layer, so it spends its time on your product, not the plumbing.</p>
         </div>
         <div className="mt-12 grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
           {items.map(([t, body]) => (
@@ -232,11 +232,11 @@ function CTA() {
         <div className="pointer-events-none absolute inset-0" style={{ background: "radial-gradient(560px 280px at 50% 120%, rgba(139,149,255,0.2), transparent 65%)" }} />
         <div className="relative text-center">
           <h2 className="mx-auto max-w-2xl text-4xl font-bold tracking-tight sm:text-5xl">Bring an AI. Get an app.</h2>
-          <p className="mx-auto mt-5 max-w-md text-lg text-[var(--color-muted)]">Clone the template, connect GitHub and AWS once, and prompt Claude Code. Every push then ships to a live AWS URL, with no stored keys.</p>
+          <p className="mx-auto mt-5 max-w-md text-lg text-[var(--color-muted)]">Connect GitHub and AWS once, then just prompt Claude Code. It scaffolds from the template and ships to a live AWS URL on every push, with no stored keys.</p>
           <div className="mono mx-auto mt-9 flex max-w-xl items-center gap-3 rounded-xl border border-white/10 bg-black/40 px-5 py-4 text-left text-sm">
-            <span className="text-[var(--color-accent)]">$</span>
-            <span className="truncate text-[var(--color-ink)]">git clone github.com/elleskay/platform</span>
-            <a href={REPO} className="ml-auto shrink-0 rounded-md bg-[var(--color-accent)] px-3 py-1.5 text-xs font-semibold text-[#0a0b16] transition-colors hover:bg-[var(--color-accent-strong)]">Open</a>
+            <span className="text-[var(--color-accent)]">›</span>
+            <span className="truncate text-[var(--color-ink)]">build my app on the elleskay/platform template</span>
+            <a href={REPO} className="ml-auto shrink-0 rounded-md bg-[var(--color-accent)] px-3 py-1.5 text-xs font-semibold text-[#0a0b16] transition-colors hover:bg-[var(--color-accent-strong)]">Template</a>
           </div>
         </div>
       </div>
