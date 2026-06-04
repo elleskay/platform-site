@@ -1,8 +1,12 @@
 const REPO = "https://github.com/elleskay/platform";
 
-function Mark({ className = "h-6 w-6", color = "var(--color-green)" }: { className?: string; color?: string }) {
+const S = "var(--color-stroke)";
+const A = "var(--color-accent)";
+const BG = "var(--color-bg)";
+
+function Mark({ className = "h-6 w-6", color = "var(--color-stroke)" }: { className?: string; color?: string }) {
   return (
-    <svg viewBox="0 0 24 24" className={className} fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg viewBox="0 0 24 24" className={className} fill="none" stroke={color} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
       <path d="M12 2l9 5-9 5-9-5 9-5z" />
       <path d="M3 12l9 5 9-5" />
       <path d="M3 17l9 5 9-5" />
@@ -10,220 +14,177 @@ function Mark({ className = "h-6 w-6", color = "var(--color-green)" }: { classNa
   );
 }
 
-function Check({ className = "h-4 w-4" }: { className?: string }) {
+/* Corner ticks for a drafting frame */
+function Ticks() {
   return (
-    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="var(--color-green)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M20 6L9 17l-5-5" />
-    </svg>
+    <>
+      <span className="tick absolute left-0 top-0 border-l border-t" />
+      <span className="tick absolute right-0 top-0 border-r border-t" />
+      <span className="tick absolute bottom-0 left-0 border-b border-l" />
+      <span className="tick absolute bottom-0 right-0 border-b border-r" />
+    </>
   );
 }
 
-/* App icon tile, the listing identity */
-function AppIcon({ className = "h-24 w-24" }: { className?: string }) {
-  return (
-    <div className={`${className} grid place-items-center rounded-[22%] border border-[var(--color-border)]`} style={{ background: "linear-gradient(140deg, #22c55e 0%, #0f172a 55%, #a855f7 100%)", boxShadow: "0 20px 50px -24px rgba(34,197,94,0.5)" }}>
-      <Mark className="h-1/2 w-1/2" color="#f8fafc" />
-    </div>
-  );
-}
-
+/* Title-block nav */
 function Nav() {
   return (
-    <header className="sticky top-0 z-50 border-b border-[var(--color-border)] bg-[var(--color-bg)]/85 backdrop-blur">
-      <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+    <header className="sticky top-0 z-50 border-b border-[color-mix(in_srgb,var(--color-stroke)_30%,transparent)] bg-[var(--color-bg)]/90 backdrop-blur">
+      <nav className="mx-auto flex max-w-6xl items-center gap-4 px-5 py-3">
         <a href="#top" className="flex items-center gap-2.5">
           <Mark className="h-6 w-6" />
           <span className="text-lg font-bold tracking-tight">platform</span>
         </a>
-        <div className="mono hidden items-center gap-8 text-sm font-medium text-[var(--color-muted)] md:flex">
-          <a href="#screens" className="transition-colors hover:text-[var(--color-green-bright)]">preview</a>
-          <a href="#features" className="transition-colors hover:text-[var(--color-green-bright)]">features</a>
-          <a href="#proof" className="transition-colors hover:text-[var(--color-green-bright)]">proof</a>
-          <a href="#info" className="transition-colors hover:text-[var(--color-green-bright)]">info</a>
+        <div className="mono ml-auto hidden items-center gap-6 text-[12px] uppercase tracking-[0.12em] text-[var(--color-muted)] md:flex">
+          <a href="#diagram" className="hover:text-[var(--color-accent)]">diagram</a>
+          <a href="#notes" className="hover:text-[var(--color-accent)]">notes</a>
+          <a href="#spec" className="hover:text-[var(--color-accent)]">spec</a>
+          <a href="#refs" className="hover:text-[var(--color-accent)]">as-built</a>
         </div>
-        <a href={REPO} className="mono rounded-full bg-[var(--color-green)] px-5 py-2 text-sm font-bold text-[#06210f] transition-colors hover:bg-[var(--color-green-bright)]">
-          GET
+        <a href={REPO} className="mono ml-auto border border-[var(--color-stroke)] px-4 py-2 text-[12px] font-bold uppercase tracking-[0.12em] text-[var(--color-ink)] transition-colors hover:bg-[var(--color-stroke)] hover:text-[var(--color-bg)] md:ml-0">
+          use template
         </a>
       </nav>
     </header>
   );
 }
 
-/* Hero, an app-store listing header */
-function Hero() {
-  const meta = [
-    ["category", "Developer Tools"],
-    ["price", "Free · MIT"],
-    ["in production", "3 apps"],
-  ];
+/* SVG node helpers */
+function Box({ x, y, w, h, t, sub, dash }: { x: number; y: number; w: number; h: number; t: string; sub?: string; dash?: boolean }) {
   return (
-    <section id="top" className="relative overflow-hidden border-b border-[var(--color-border)]">
-      <div className="pattern pointer-events-none absolute inset-0 [mask-image:radial-gradient(900px_500px_at_50%_-10%,#000,transparent)]" />
-      <div className="pointer-events-none absolute inset-0" style={{ background: "radial-gradient(620px 320px at 80% -10%, rgba(34,197,94,0.14), transparent 65%), radial-gradient(560px 320px at 14% 10%, rgba(168,85,247,0.12), transparent 65%)" }} />
-      <div className="relative mx-auto max-w-6xl px-6 pb-16 pt-16 sm:pt-20">
-        <div className="flex flex-col items-start gap-7 sm:flex-row sm:items-center sm:gap-8">
-          <AppIcon className="h-24 w-24 shrink-0 sm:h-28 sm:w-28" />
-          <div className="min-w-0 flex-1">
-            <h1 className="text-3xl font-bold tracking-tight sm:text-5xl">platform</h1>
-            <p className="mono mt-2 text-sm text-[var(--color-muted)] sm:text-base">Ship Next.js to AWS serverless, on day one</p>
-            <div className="mono mt-4 flex flex-wrap items-center gap-x-3 gap-y-2 text-[13px] text-[var(--color-faint)]">
-              <span className="inline-flex items-center gap-1.5 text-[var(--color-green-bright)]"><Check className="h-3.5 w-3.5" /> open source</span>
-              <span className="text-[var(--color-border)]">·</span>
-              <span>Developer Tools</span>
-              <span className="text-[var(--color-border)]">·</span>
-              <span>TypeScript monorepo</span>
-            </div>
-          </div>
-          <div className="flex w-full shrink-0 flex-col gap-3 sm:w-auto">
-            <a href={REPO} className="mono rounded-full bg-[var(--color-green)] px-8 py-3 text-center text-sm font-bold text-[#06210f] transition-colors hover:bg-[var(--color-green-bright)]">
-              USE TEMPLATE
-            </a>
-            <a href="#screens" className="mono rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] px-8 py-3 text-center text-sm font-bold text-[var(--color-ink)] transition-colors hover:border-[var(--color-purple)]">
-              preview
-            </a>
-          </div>
-        </div>
-
-        {/* meta strip, like an app-store sub-header */}
-        <div className="mono mt-10 grid grid-cols-3 divide-x divide-[var(--color-border)] border-y border-[var(--color-border)] text-center">
-          {meta.map(([k, v]) => (
-            <div key={k} className="px-3 py-4">
-              <div className="text-[11px] uppercase tracking-[0.16em] text-[var(--color-faint)]">{k}</div>
-              <div className="mt-1.5 text-base font-bold text-[var(--color-ink)]">{v}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
+    <g>
+      <rect x={x} y={y} width={w} height={h} fill="var(--color-panel)" stroke={S} strokeWidth={1.4} strokeDasharray={dash ? "6 4" : undefined} />
+      <text x={x + 14} y={y + 26} className="mono" fill="var(--color-ink)" fontSize={14} fontWeight={700}>{t}</text>
+      {sub ? <text x={x + 14} y={y + 45} className="mono" fill="var(--color-muted)" fontSize={11}>{sub}</text> : null}
+    </g>
+  );
+}
+function Tag({ x, y, n }: { x: number; y: number; n: number }) {
+  return (
+    <g>
+      <circle cx={x} cy={y} r={12} fill={A} stroke={BG} strokeWidth={1.5} />
+      <text x={x} y={y + 4} textAnchor="middle" className="mono" fill={BG} fontSize={13} fontWeight={800}>{n}</text>
+    </g>
   );
 }
 
-/* Window frame for screenshots */
-function Shot({ title, accent = "green", children }: { title: string; accent?: "green" | "purple"; children: React.ReactNode }) {
-  const c = accent === "green" ? "var(--color-green)" : "var(--color-purple)";
+function Diagram() {
   return (
-    <div className="block snap-start w-[300px] shrink-0 sm:w-[380px]">
-      <div className="border-2 border-[var(--color-border)] bg-[#0b1324]">
-        <div className="flex items-center gap-2 border-b-2 border-[var(--color-border)] px-3 py-2.5">
-          <span className="h-2.5 w-2.5 rounded-full" style={{ background: c }} />
-          <span className="h-2.5 w-2.5 rounded-full bg-[#eab308]" />
-          <span className="h-2.5 w-2.5 rounded-full bg-[var(--color-faint)]" />
-          <span className="mono ml-2 truncate text-[11px] text-[var(--color-faint)]">{title}</span>
-        </div>
-        <div className="mono h-[230px] overflow-hidden p-4 text-[12px] leading-relaxed">{children}</div>
-      </div>
+    <div className="overflow-x-auto pb-2">
+      <svg viewBox="0 0 1000 470" className="block h-auto w-full min-w-[820px]" role="img" aria-label="Architecture: GitHub Actions deploys over OIDC to an AWS account running Lambda, S3, and CloudFront, backed by Neon Postgres, verified by a post-deploy smoke test.">
+        <defs>
+          <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0 0 L10 5 L0 10 z" fill={S} />
+          </marker>
+          <marker id="aha" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0 0 L10 5 L0 10 z" fill={A} />
+          </marker>
+        </defs>
+
+        {/* AWS account container */}
+        <rect x={300} y={36} width={676} height={410} fill="none" stroke={S} strokeWidth={1.2} strokeDasharray="2 5" opacity={0.7} />
+        <text x={316} y={60} className="mono" fill="var(--color-muted)" fontSize={12} letterSpacing="2">AWS ACCOUNT</text>
+
+        {/* source */}
+        <Box x={24} y={168} w={184} h={132} t="GitHub Actions" sub="ci · security · deploy" />
+        <text x={36} y={232} className="mono" fill="var(--color-faint)" fontSize={11}>push to main</text>
+        <text x={36} y={284} className="mono" fill="var(--color-accent)" fontSize={11}>gate: 100% or block</text>
+
+        {/* OIDC edge */}
+        <line x1={208} y1={234} x2={324} y2={234} stroke={A} strokeWidth={1.6} markerEnd="url(#aha)" />
+        <text x={266} y={224} textAnchor="middle" className="mono" fill="var(--color-accent)" fontSize={11}>OIDC · 1h creds</text>
+
+        {/* CDK + provision */}
+        <Box x={330} y={80} w={186} h={58} t="cdk deploy" sub="synth + provision" />
+        <line x1={372} y1={138} x2={372} y2={200} stroke={S} strokeWidth={1.2} strokeDasharray="5 4" markerEnd="url(#ah)" />
+        <line x1={430} y1={138} x2={430} y2={320} stroke={S} strokeWidth={1.2} strokeDasharray="5 4" markerEnd="url(#ah)" />
+        <text x={440} y={172} className="mono" fill="var(--color-faint)" fontSize={10}>provisions</text>
+
+        {/* runtime */}
+        <Box x={330} y={200} w={170} h={84} t="Lambda" sub="SSR / API" />
+        <Box x={330} y={320} w={170} h={84} t="S3" sub="static assets" />
+        <Box x={638} y={236} w={196} h={116} t="CloudFront" sub="CDN + TLS" />
+        <Box x={760} y={80} w={196} h={64} t="Neon" sub="Postgres" />
+
+        {/* runtime edges */}
+        <line x1={500} y1={242} x2={638} y2={272} stroke={S} strokeWidth={1.5} markerEnd="url(#ah)" />
+        <line x1={500} y1={360} x2={638} y2={320} stroke={S} strokeWidth={1.5} markerEnd="url(#ah)" />
+        <line x1={500} y1={214} x2={760} y2={120} stroke={S} strokeWidth={1.3} markerEnd="url(#ah)" />
+        <text x={612} y={150} className="mono" fill="var(--color-faint)" fontSize={10}>sql</text>
+
+        {/* serve users */}
+        <line x1={834} y1={294} x2={930} y2={294} stroke={S} strokeWidth={1.6} markerEnd="url(#ah)" />
+        <text x={902} y={284} textAnchor="middle" className="mono" fill="var(--color-muted)" fontSize={11}>users</text>
+
+        {/* smoke test */}
+        <line x1={736} y1={352} x2={736} y2={426} stroke={A} strokeWidth={1.3} strokeDasharray="3 4" markerEnd="url(#aha)" />
+        <text x={748} y={418} className="mono" fill="var(--color-accent)" fontSize={11}>verify-deploy.sh · 9/9</text>
+
+        {/* callouts */}
+        <Tag x={30} y={174} n={1} />
+        <Tag x={266} y={250} n={2} />
+        <Tag x={336} y={86} n={3} />
+        <Tag x={644} y={242} n={4} />
+        <Tag x={730} y={420} n={5} />
+      </svg>
     </div>
   );
 }
 
-/* Screenshot carousel */
-function Screens() {
-  const R = ({ l, children, hi }: { l?: string; children: React.ReactNode; hi?: boolean }) => (
-    <div className="flex gap-2"><span className="text-[var(--color-green)]">✓</span>{l ? <span className="w-[68px] shrink-0 text-[var(--color-ink)]">{l}</span> : null}<span className={hi ? "text-[var(--color-green-bright)]" : "text-[var(--color-faint)]"}>{children}</span></div>
-  );
+function Hero() {
   return (
-    <section id="screens" className="border-b border-[var(--color-border)]">
-      <div className="mx-auto max-w-6xl px-6 py-14">
-        <div className="mono mb-6 flex items-baseline justify-between">
-          <h2 className="text-sm font-bold uppercase tracking-[0.18em] text-[var(--color-green)]">preview</h2>
-          <span className="text-[12px] text-[var(--color-faint)]">scroll to see more</span>
+    <section id="top" className="border-b border-[color-mix(in_srgb,var(--color-stroke)_22%,transparent)]">
+      <div className="mx-auto max-w-6xl px-5 py-14 sm:py-20">
+        <div className="mono flex items-center gap-3 text-[12px] uppercase tracking-[0.2em] text-[var(--color-accent)]">
+          <span className="h-2 w-2 bg-[var(--color-accent)]" /> system blueprint · sheet 01
         </div>
-        <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 [scrollbar-width:thin]">
-          <Shot title="my-app ~ git push origin main">
-            <div className="space-y-1.5">
-              <div className="text-[var(--color-ink)]"><span className="text-[var(--color-green)]">$</span> git push origin main</div>
-              <div className="h-1" />
-              <R l="ci">typecheck · lint · build · synth</R>
-              <R l="security">codeql · gitleaks · audit</R>
-              <R l="gate" hi>100% covered (3/3)</R>
-              <R l="deploy">oidc · cdk · smoke 9/9</R>
-              <div className="h-1" />
-              <div className="flex gap-2"><span className="text-[var(--color-purple)]">●</span><span className="text-[var(--color-ink)]">live on cloudfront</span></div>
-            </div>
-          </Shot>
-          <Shot title="infra/cdk/web/lib/web-stack.ts" accent="purple">
-            <pre className="text-[var(--color-muted)]">{`new `}<span className="text-[var(--color-purple)]">NextjsServerless</span>{`(this, "Web", {
-  appPath: resolve("apps/web"),
-  serverTimeoutSeconds: 60,
-  customDomain: "app.example.com",
-  environment: {
-    DATABASE_URL,
-    AUTH_SECRET,
-    AUTH_URL,
-  },
-});`}</pre>
-          </Shot>
-          <Shot title="npm run test:spec">
-            <div className="space-y-1.5 text-[var(--color-muted)]">
-              <div>EX-API-001 payload validated <span className="text-[var(--color-green)]">✓</span></div>
-              <div>EX-UI-001 empty state <span className="text-[var(--color-green)]">✓</span></div>
-              <div>EX-SEC-001 headers <span className="text-[var(--color-green)]">✓</span></div>
-              <div className="h-1" />
-              <div className="text-[var(--color-purple)]">coverage 100% (3/3)</div>
-              <div className="text-[var(--color-green-bright)]">gate green, deploy allowed</div>
-              <div className="h-2" />
-              <div className="text-[#fca5a5]">on miss: 66.7% (2/3), build blocked</div>
-            </div>
-          </Shot>
-          <Shot title="github actions" accent="purple">
-            <div className="space-y-3">
-              {[["ci", "typecheck · lint · build · synth", "green"], ["security", "codeql · gitleaks · npm audit", "purple"], ["deploy", "oidc · cdk deploy · smoke", "green"]].map(([k, v, col]) => (
-                <div key={k} className="border-l-2 pl-2.5" style={{ borderColor: col === "green" ? "var(--color-green)" : "var(--color-purple)" }}>
-                  <div className="font-bold text-[var(--color-ink)]">{k}</div>
-                  <div className="text-[var(--color-faint)]">{v}</div>
-                </div>
-              ))}
-            </div>
-          </Shot>
-          <Shot title="scripts/verify-deploy.sh">
-            <div className="space-y-1.5 text-[var(--color-muted)]">
-              <div><span className="text-[var(--color-green)]">✓</span> health endpoint 200</div>
-              <div><span className="text-[var(--color-green)]">✓</span> security headers</div>
-              <div><span className="text-[var(--color-green)]">✓</span> stylesheet text/css</div>
-              <div><span className="text-[var(--color-green)]">✓</span> no lambda-url leaked</div>
-              <div className="h-1" />
-              <div className="text-[var(--color-green-bright)]">9/9 checks, deploy verified</div>
-            </div>
-          </Shot>
+        <h1 className="mt-6 max-w-4xl text-[40px] font-extrabold leading-[0.98] tracking-tight sm:text-[68px]">
+          The whole deployment, <span className="text-[var(--color-accent)]">drawn to spec.</span>
+        </h1>
+        <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[var(--color-muted)]">
+          platform is a TypeScript monorepo template. Clone it and inherit this exact architecture: CI/CD, infrastructure as code via AWS CDK, OIDC deploys with no stored keys, and a spec-driven test gate. The diagram below is what you get, wired on day one.
+        </p>
+        <div className="mt-8 flex flex-wrap gap-3">
+          <a href={REPO} className="mono border border-[var(--color-accent)] bg-[var(--color-accent)] px-6 py-3 text-sm font-bold uppercase tracking-[0.1em] text-[var(--color-bg)] transition-opacity hover:opacity-90">use the template</a>
+          <a href="#notes" className="mono border border-[var(--color-stroke)] px-6 py-3 text-sm font-bold uppercase tracking-[0.1em] text-[var(--color-ink)] transition-colors hover:bg-[var(--color-stroke)] hover:text-[var(--color-bg)]">read the notes</a>
+        </div>
+
+        {/* the drawing */}
+        <div id="diagram" className="frame mt-12 bg-[color-mix(in_srgb,var(--color-bg-2)_60%,transparent)] p-4 sm:p-7">
+          <Ticks />
+          <div className="mono mb-4 flex items-center justify-between border-b border-[color-mix(in_srgb,var(--color-stroke)_25%,transparent)] pb-3 text-[11px] uppercase tracking-[0.16em] text-[var(--color-faint)]">
+            <span>fig. 01 — deploy architecture</span>
+            <span>scale 1:1</span>
+          </div>
+          <Diagram />
         </div>
       </div>
     </section>
   );
 }
 
-/* Features with icons */
-function Icon({ name }: { name: string }) {
-  const common = { className: "h-6 w-6", fill: "none", stroke: "var(--color-green)", strokeWidth: 1.8, strokeLinecap: "round" as const, strokeLinejoin: "round" as const };
-  const paths: Record<string, React.ReactNode> = {
-    cicd: <><path d="M21 12a9 9 0 1 1-3-6.7" /><path d="M21 4v4h-4" /></>,
-    infra: <><path d="M12 2l9 5-9 5-9-5 9-5z" /><path d="M3 12l9 5 9-5" /></>,
-    security: <><path d="M12 3l8 3v6c0 4.5-3.2 7.6-8 9-4.8-1.4-8-4.5-8-9V6l8-3z" /></>,
-    oidc: <><circle cx="8" cy="12" r="3" /><path d="M11 12h9l-2 2m2-2l-2-2" /></>,
-    gate: <><circle cx="12" cy="12" r="9" /><path d="M8 12l3 3 5-6" /></>,
-    smoke: <><path d="M3 12h4l2 6 4-14 2 8h6" /></>,
-  };
-  return <svg viewBox="0 0 24 24" {...common}>{paths[name]}</svg>;
-}
-
-function Features() {
-  const items = [
-    ["cicd", "CI/CD pipeline", "Typecheck, lint, build, and a full cdk synth on every push, then an OIDC deploy."],
-    ["infra", "Infrastructure as code", "One NextjsServerless CDK construct: Lambda, S3, and CloudFront via OpenNext."],
-    ["security", "Security scanning", "CodeQL, gitleaks, and npm audit in their own workflow, plus strict headers."],
-    ["oidc", "OIDC deploys", "GitHub assumes a least-privilege role with 1-hour credentials. No stored keys."],
-    ["gate", "Spec-driven gate", "Requirements are data bound to tests. Below 100% coverage, the build fails."],
-    ["smoke", "Post-deploy smoke test", "Nine live checks probe the deploy. A non-zero exit blocks the release."],
+/* Keyed engineering notes */
+function Notes() {
+  const notes: [number, string, string][] = [
+    [1, "Pipeline", "GitHub Actions runs ci, security, and deploy on every push to main. Three workflows, green from the first commit."],
+    [2, "OIDC deploy", "The deploy job assumes a least-privilege role over OIDC with 1-hour credentials. No long-lived AWS keys ever live in the repo."],
+    [3, "CDK construct", "One NextjsServerless call synthesizes and provisions Lambda, S3, and CloudFront via OpenNext, every deploy gotcha baked in."],
+    [4, "Edge runtime", "CloudFront serves SSR from the Lambda origin and static assets from S3 over TLS. Server timeout is raised on both for long routes."],
+    [5, "Smoke test", "After deploy, verify-deploy.sh probes the live URL. Nine checks; a non-zero exit blocks the release."],
+    [6, "Spec gate", "Requirements are data bound to tests. Below 100 percent coverage the build never reaches the deploy stage."],
   ];
   return (
-    <section id="features" className="border-b border-[var(--color-border)] bg-[var(--color-surface-2)]">
-      <div className="mx-auto max-w-6xl px-6 py-16">
-        <h2 className="mono mb-10 text-sm font-bold uppercase tracking-[0.18em] text-[var(--color-green)]">what is inside</h2>
-        <div className="grid gap-px overflow-hidden border border-[var(--color-border)] bg-[var(--color-border)] sm:grid-cols-2 lg:grid-cols-3">
-          {items.map(([icon, title, body]) => (
-            <div key={title} className="bg-[var(--color-bg)] p-6">
-              <div className="inline-flex border border-[var(--color-border)] bg-[var(--color-surface)] p-2.5"><Icon name={icon} /></div>
-              <h3 className="mt-4 text-lg font-bold">{title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-[var(--color-muted)]">{body}</p>
+    <section id="notes" className="border-b border-[color-mix(in_srgb,var(--color-stroke)_22%,transparent)]">
+      <div className="mx-auto max-w-6xl px-5 py-16">
+        <h2 className="mono mb-10 text-[12px] font-bold uppercase tracking-[0.2em] text-[var(--color-accent)]">// drawing notes</h2>
+        <div className="grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
+          {notes.map(([n, t, body]) => (
+            <div key={n} className="border-t border-[color-mix(in_srgb,var(--color-stroke)_30%,transparent)] pt-5">
+              <div className="flex items-center gap-3">
+                <span className="mono grid h-7 w-7 place-items-center rounded-full bg-[var(--color-accent)] text-[13px] font-extrabold text-[var(--color-bg)]">{n}</span>
+                <h3 className="text-lg font-bold">{t}</h3>
+              </div>
+              <p className="mt-3 text-sm leading-relaxed text-[var(--color-muted)]">{body}</p>
             </div>
           ))}
         </div>
@@ -232,118 +193,117 @@ function Features() {
   );
 }
 
-/* Ratings & reviews, adapted honestly: real metrics + real apps shipped on it */
-function Proof() {
-  const stats = [
-    ["apps in production", "3"],
-    ["spec coverage gate", "100%"],
-    ["post-deploy checks", "9/9"],
-    ["stored AWS keys", "0"],
+/* Specifications sheet */
+function Spec() {
+  const rows: [string, string, string][] = [
+    ["01", "Language", "TypeScript (strict)"],
+    ["02", "Runtime", "Node 20+"],
+    ["03", "Compute", "AWS Lambda (OpenNext SSR)"],
+    ["04", "Delivery", "S3 + CloudFront CDN"],
+    ["05", "Infra as code", "AWS CDK"],
+    ["06", "Auth", "Auth.js v5 (JWT)"],
+    ["07", "Database", "PostgreSQL (Neon)"],
+    ["08", "CI/CD", "GitHub Actions + OIDC"],
+    ["09", "Security", "CodeQL · gitleaks · npm audit"],
+    ["10", "License", "MIT"],
   ];
+  return (
+    <section id="spec" className="border-b border-[color-mix(in_srgb,var(--color-stroke)_22%,transparent)] bg-[color-mix(in_srgb,var(--color-bg-2)_50%,transparent)]">
+      <div className="mx-auto max-w-6xl px-5 py-16">
+        <h2 className="mono mb-8 text-[12px] font-bold uppercase tracking-[0.2em] text-[var(--color-accent)]">// specifications</h2>
+        <div className="frame">
+          <Ticks />
+          <table className="mono w-full text-left text-sm">
+            <tbody>
+              {rows.map(([n, k, v], i) => (
+                <tr key={n} className={i % 2 ? "bg-[color-mix(in_srgb,var(--color-stroke)_5%,transparent)]" : ""}>
+                  <td className="w-12 border-r border-[color-mix(in_srgb,var(--color-stroke)_20%,transparent)] px-4 py-3 text-[var(--color-faint)]">{n}</td>
+                  <td className="w-1/3 px-4 py-3 uppercase tracking-[0.08em] text-[var(--color-muted)]">{k}</td>
+                  <td className="px-4 py-3 font-bold text-[var(--color-ink)]">{v}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* As-built references */
+function Refs() {
   const apps = [
-    { name: "CoverLens", note: "AI insurance policy checker. Grounded LangGraph extraction, every finding quote-backed.", href: "https://github.com/elleskay/insurance-dashboard" },
-    { name: "Cancer Navigator", note: "A roadmap for newly diagnosed cancer patients in Singapore, with subsidy coverage.", href: "https://github.com/elleskay/cancer-navigator" },
-    { name: "Armoury", note: "Digital equipment checklists for frontline agencies, with an HQ readiness dashboard.", href: "https://github.com/elleskay/armoury" },
+    { sheet: "REF-01", name: "CoverLens", note: "AI insurance policy checker. Grounded LangGraph extraction, every finding quote-backed.", href: "https://github.com/elleskay/insurance-dashboard" },
+    { sheet: "REF-02", name: "Cancer Navigator", note: "A roadmap for newly diagnosed cancer patients in Singapore, with subsidy coverage.", href: "https://github.com/elleskay/cancer-navigator" },
+    { sheet: "REF-03", name: "Armoury", note: "Digital equipment checklists for frontline agencies, with an HQ readiness dashboard.", href: "https://github.com/elleskay/armoury" },
   ];
   return (
-    <section id="proof" className="border-b border-[var(--color-border)]">
-      <div className="mx-auto max-w-6xl px-6 py-16">
-        <h2 className="mono mb-10 text-sm font-bold uppercase tracking-[0.18em] text-[var(--color-green)]">proven in production</h2>
-        <div className="grid gap-8 lg:grid-cols-[280px_1fr] lg:gap-12">
-          {/* summary rail */}
-          <div className="block border border-[var(--color-border)] bg-[var(--color-surface)] p-6">
-            <div className="text-5xl font-bold tracking-tight">3</div>
-            <div className="mono mt-1 text-sm text-[var(--color-faint)]">full apps shipped on it</div>
-            <div className="mono mt-6 space-y-3 border-t border-[var(--color-border)] pt-5 text-sm">
-              {stats.slice(1).map(([k, v]) => (
-                <div key={k} className="flex items-center justify-between">
-                  <span className="text-[var(--color-muted)]">{k}</span>
-                  <span className="font-bold text-[var(--color-green-bright)]">{v}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-          {/* review-style cards = real apps */}
-          <div className="grid gap-4 sm:grid-cols-2">
-            {apps.map((a) => (
-              <a key={a.name} href={a.href} className="block block block-purple border border-[var(--color-border)] bg-[var(--color-surface)] p-5">
-                <div className="flex items-center gap-2">
-                  <span className="inline-flex items-center gap-1.5 rounded-full border border-[var(--color-border)] px-2 py-0.5 text-[11px] font-bold text-[var(--color-green-bright)]"><Check className="h-3 w-3" /> verified ship</span>
-                </div>
-                <h3 className="mt-3 text-lg font-bold">{a.name}</h3>
-                <p className="mt-1.5 text-sm leading-relaxed text-[var(--color-muted)]">{a.note}</p>
-                <span className="mono mt-4 inline-block text-sm text-[var(--color-faint)]">open repo</span>
-              </a>
-            ))}
-            <div className="block border border-dashed border-[var(--color-border)] bg-transparent p-5">
-              <h3 className="text-lg font-bold text-[var(--color-muted)]">Your app here</h3>
-              <p className="mt-1.5 text-sm leading-relaxed text-[var(--color-faint)]">Clone the template and ship the next one.</p>
-              <a href={REPO} className="mono mt-4 inline-block text-sm text-[var(--color-green-bright)]">use template</a>
-            </div>
-          </div>
+    <section id="refs" className="border-b border-[color-mix(in_srgb,var(--color-stroke)_22%,transparent)]">
+      <div className="mx-auto max-w-6xl px-5 py-16">
+        <h2 className="mono mb-10 text-[12px] font-bold uppercase tracking-[0.2em] text-[var(--color-accent)]">// as-built, in production</h2>
+        <div className="grid gap-4 sm:grid-cols-3">
+          {apps.map((a) => (
+            <a key={a.sheet} href={a.href} className="frame group block p-6 transition-colors hover:bg-[color-mix(in_srgb,var(--color-stroke)_6%,transparent)]">
+              <Ticks />
+              <div className="mono flex items-center justify-between text-[11px] uppercase tracking-[0.14em] text-[var(--color-faint)]">
+                <span>{a.sheet}</span>
+                <span className="text-[var(--color-accent)]">built to spec</span>
+              </div>
+              <h3 className="mt-5 text-lg font-bold">{a.name}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-[var(--color-muted)]">{a.note}</p>
+              <span className="mono mt-5 inline-block text-[12px] uppercase tracking-[0.12em] text-[var(--color-ink)] group-hover:text-[var(--color-accent)]">open repo</span>
+            </a>
+          ))}
         </div>
       </div>
     </section>
   );
 }
 
-/* Information table, like an app-store details panel */
-function Info() {
-  const rows = [
-    ["Type", "Monorepo template"],
-    ["Language", "TypeScript (strict)"],
-    ["Runtime", "Node 20+"],
-    ["Cloud", "AWS Lambda · S3 · CloudFront"],
-    ["IaC", "AWS CDK (via OpenNext)"],
-    ["Auth", "Auth.js v5 (JWT sessions)"],
-    ["Database", "PostgreSQL (Neon)"],
-    ["CI/CD", "GitHub Actions + OIDC"],
-    ["License", "MIT"],
-  ];
-  return (
-    <section id="info" className="border-b border-[var(--color-border)] bg-[var(--color-surface-2)]">
-      <div className="mx-auto max-w-6xl px-6 py-16">
-        <h2 className="mono mb-8 text-sm font-bold uppercase tracking-[0.18em] text-[var(--color-green)]">information</h2>
-        <dl className="mono grid gap-px overflow-hidden border border-[var(--color-border)] bg-[var(--color-border)] sm:grid-cols-2 lg:grid-cols-3">
-          {rows.map(([k, v]) => (
-            <div key={k} className="bg-[var(--color-bg)] px-5 py-4">
-              <dt className="text-[11px] uppercase tracking-[0.16em] text-[var(--color-faint)]">{k}</dt>
-              <dd className="mt-1.5 text-sm font-bold text-[var(--color-ink)]">{v}</dd>
-            </div>
-          ))}
-        </dl>
-      </div>
-    </section>
-  );
-}
-
-/* Download CTA */
+/* CTA */
 function CTA() {
   return (
-    <section className="relative overflow-hidden">
-      <div className="pattern pointer-events-none absolute inset-0 [mask-image:radial-gradient(720px_360px_at_50%_120%,#000,transparent)]" />
-      <div className="pointer-events-none absolute inset-0" style={{ background: "radial-gradient(540px 280px at 50% 130%, rgba(34,197,94,0.16), transparent 70%)" }} />
-      <div className="relative mx-auto max-w-3xl px-6 py-24 text-center">
-        <AppIcon className="mx-auto h-20 w-20" />
-        <h2 className="mt-7 text-3xl font-bold tracking-tight sm:text-5xl">Get the template.</h2>
-        <p className="mx-auto mt-4 max-w-md text-lg text-[var(--color-muted)]">Free and open source. Clone it and ship on day one.</p>
-        <div className="mt-8 flex flex-wrap justify-center gap-3">
-          <a href={REPO} className="mono rounded-full bg-[var(--color-green)] px-8 py-3.5 text-sm font-bold text-[#06210f] transition-colors hover:bg-[var(--color-green-bright)]">USE TEMPLATE</a>
-          <a href="https://github.com/elleskay" className="mono rounded-full border border-[var(--color-purple)] px-8 py-3.5 text-sm font-bold text-[var(--color-ink)] transition-colors hover:bg-[var(--color-purple)] hover:text-white">more by elleskay</a>
+    <section className="border-b border-[color-mix(in_srgb,var(--color-stroke)_22%,transparent)]">
+      <div className="mx-auto max-w-3xl px-5 py-24 text-center">
+        <Mark className="mx-auto h-10 w-10" />
+        <h2 className="mt-7 text-3xl font-extrabold tracking-tight sm:text-5xl">Issue the build.</h2>
+        <p className="mx-auto mt-4 max-w-md text-lg text-[var(--color-muted)]">Clone the blueprint and ship this architecture on day one.</p>
+        <div className="mono mx-auto mt-9 flex max-w-xl items-center gap-3 border border-[var(--color-stroke)] bg-[var(--color-bg-2)] px-5 py-4 text-left text-sm">
+          <span className="text-[var(--color-accent)]">$</span>
+          <span className="truncate">git clone github.com/elleskay/platform</span>
+          <a href={REPO} className="mono ml-auto shrink-0 border border-[var(--color-accent)] bg-[var(--color-accent)] px-3 py-1.5 text-[12px] font-bold uppercase tracking-[0.1em] text-[var(--color-bg)]">open</a>
         </div>
       </div>
     </section>
   );
 }
 
+/* Drafting title-block footer */
 function Footer() {
+  const block: [string, string][] = [
+    ["drawn by", "elleskay"],
+    ["project", "platform"],
+    ["scale", "1:1"],
+    ["rev", "1.0"],
+    ["license", "MIT"],
+  ];
   return (
-    <footer className="border-t border-[var(--color-border)]">
-      <div className="mono mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 py-8 text-sm text-[var(--color-faint)] sm:flex-row">
-        <div className="flex items-center gap-2.5"><Mark className="h-4 w-4" /> platform, an open-source template. MIT.</div>
-        <div className="flex items-center gap-6">
-          <a href={REPO} className="transition-colors hover:text-[var(--color-green-bright)]">github</a>
-          <a href="https://github.com/elleskay" className="transition-colors hover:text-[var(--color-green-bright)]">elleskay</a>
+    <footer>
+      <div className="mx-auto max-w-6xl px-5 py-8">
+        <div className="frame">
+          <Ticks />
+          <dl className="mono grid grid-cols-2 divide-x divide-y divide-[color-mix(in_srgb,var(--color-stroke)_18%,transparent)] sm:grid-cols-5 sm:divide-y-0">
+            {block.map(([k, v]) => (
+              <div key={k} className="px-4 py-4">
+                <dt className="text-[10px] uppercase tracking-[0.16em] text-[var(--color-faint)]">{k}</dt>
+                <dd className="mt-1 text-sm font-bold text-[var(--color-ink)]">{v}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+        <div className="mono mt-5 flex items-center justify-between text-[12px] text-[var(--color-faint)]">
+          <span>platform, an open-source template.</span>
+          <a href={REPO} className="hover:text-[var(--color-accent)]">github</a>
         </div>
       </div>
     </footer>
@@ -355,10 +315,9 @@ export default function Page() {
     <main>
       <Nav />
       <Hero />
-      <Screens />
-      <Features />
-      <Proof />
-      <Info />
+      <Notes />
+      <Spec />
+      <Refs />
       <CTA />
       <Footer />
     </main>
