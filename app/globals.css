@@ -57,6 +57,21 @@ body {
   animation: drift 14s linear infinite;
 }
 
+/* Pipeline terminal content swap */
+@keyframes pipeFade {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.pipe-fade {
+  animation: pipeFade 0.32s ease-out;
+}
+
 /* Block with a bold color-shift hover */
 .block {
   background: var(--color-surface);
@@ -82,6 +97,9 @@ body {
     scroll-behavior: auto;
   }
   .pattern {
+    animation: none;
+  }
+  .pipe-fade {
     animation: none;
   }
   .block {
