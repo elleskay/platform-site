@@ -40,13 +40,13 @@ function Hero() {
       <div className="pointer-events-none absolute inset-0" style={{ background: "radial-gradient(620px 360px at 50% -8%, rgba(139,149,255,0.18), transparent 60%), radial-gradient(560px 360px at 80% 0%, rgba(192,132,252,0.13), transparent 60%)" }} />
       <div className="relative mx-auto max-w-4xl px-6 pb-20 pt-20 text-center sm:pt-28">
         <a href="#how" className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3.5 py-1.5 text-[13px] text-[var(--color-muted)] transition-colors hover:border-white/20">
-          <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-accent)]" /> Built to pair with coding agents
+          <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-accent)]" /> Built for AI coding agents
         </a>
         <h1 className="mx-auto mt-6 max-w-3xl text-[42px] font-bold leading-[1.05] tracking-tight sm:text-[68px]">
-          Ship what your agent <span className="bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-violet)] bg-clip-text text-transparent">can prove.</span>
+          Ship AI-built apps, <span className="bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-violet)] bg-clip-text text-transparent">fast and clean.</span>
         </h1>
         <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-[var(--color-muted)]">
-          platform is a TypeScript monorepo template that pairs with Claude Code and Codex. Your agent writes against a spec; the template proves every requirement, then deploys to AWS serverless. No green gate, no production.
+          platform is a TypeScript monorepo template built for coding agents like Claude Code and Codex. Every deploy gotcha, test, and security check is already wired in, so your agent ships production apps to AWS smoothly, and catches the mistakes long before they reach users.
         </p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
           <a href={REPO} className="rounded-lg bg-[var(--color-accent)] px-6 py-3 text-sm font-semibold text-[#0a0b16] transition-colors hover:bg-[var(--color-accent-strong)]">Use the template</a>
@@ -76,15 +76,15 @@ function Proof() {
 /* How it works */
 function How() {
   const steps = [
-    ["Author", "Your coding agent writes against the app's spec file, guided by the repo's CLAUDE.md conventions. It knows the stack and the deploy gotchas before it writes a line."],
-    ["Prove", "The spec gate binds every requirement to a test and fails below 100% coverage. CodeQL, gitleaks, and npm audit run in parallel. An agent cannot mark its own homework."],
-    ["Ship", "A green gate triggers an OIDC deploy and a smoke test verifies the live URL. Anything the agent could not prove never reaches production."],
+    ["Build", "Your agent writes against the app's spec, guided by the repo's CLAUDE.md conventions. It knows the stack, the structure, and every deploy gotcha up front, so it gets it right the first time far more often."],
+    ["Catch", "The spec gate, CodeQL, gitleaks, and npm audit run automatically on every change. Mistakes surface in seconds in CI, where they are cheap to fix, instead of in production."],
+    ["Ship", "Green checks trigger an OIDC deploy and a smoke test that verifies the live URL. Your agent ships to AWS in minutes, with no firefighting afterward."],
   ];
   return (
     <section id="how" className="mx-auto max-w-6xl px-6 py-24">
       <div className="mx-auto max-w-2xl text-center">
-        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">An agent can write anything.<br />The gate decides what ships.</h2>
-        <p className="mt-4 text-lg text-[var(--color-muted)]">The same gate applies to human and agent pull requests alike.</p>
+        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">AI ships smoothly when the rails<br />are already laid.</h2>
+        <p className="mt-4 text-lg text-[var(--color-muted)]">The guardrails run on every change, so your agent moves fast without breaking production.</p>
       </div>
       <div className="mt-14 grid gap-5 md:grid-cols-3">
         {steps.map(([t, body], i) => (
@@ -132,7 +132,7 @@ function Features() {
           <div className="card lg:col-span-1 lg:row-span-2 flex flex-col p-7">
             <Icon name="gate" className="h-6 w-6" />
             <h3 className="mt-4 text-xl font-semibold">The spec gate</h3>
-            <p className="mt-2.5 text-sm leading-relaxed text-[var(--color-muted)]">Requirements are data, each with an ID bound to a test. The build refuses to deploy until coverage hits 100%.</p>
+            <p className="mt-2.5 text-sm leading-relaxed text-[var(--color-muted)]">Every requirement is bound to a test and checked automatically on each change, so your agent catches its own regressions in CI, well before a user ever could.</p>
             <div className="mt-6 rounded-xl border border-white/[0.07] bg-black/30 p-4">
               <div className="mono flex items-center justify-between text-[12px]"><span className="text-[var(--color-muted)]">coverage</span><span className="text-[var(--color-ok)]">100%</span></div>
               <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-white/[0.07]"><div className="h-full w-full rounded-full bg-[var(--color-ok)]" /></div>
@@ -188,7 +188,7 @@ function CTA() {
         <div className="pointer-events-none absolute inset-0" style={{ background: "radial-gradient(560px 280px at 50% 120%, rgba(139,149,255,0.2), transparent 65%)" }} />
         <div className="relative text-center">
           <h2 className="mx-auto max-w-2xl text-4xl font-bold tracking-tight sm:text-5xl">Point your agent at it.</h2>
-          <p className="mx-auto mt-5 max-w-md text-lg text-[var(--color-muted)]">Clone the template and let your agent ship on day one, only what it can prove.</p>
+          <p className="mx-auto mt-5 max-w-md text-lg text-[var(--color-muted)]">Clone the template and let your AI ship production apps to AWS on day one, fast, and without the breakage.</p>
           <div className="mono mx-auto mt-9 flex max-w-xl items-center gap-3 rounded-xl border border-white/10 bg-black/40 px-5 py-4 text-left text-sm">
             <span className="text-[var(--color-accent)]">$</span>
             <span className="truncate text-[var(--color-ink)]">git clone github.com/elleskay/platform</span>
