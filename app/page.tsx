@@ -96,7 +96,7 @@ function Hero() {
           <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-accent)]" /> The hard part is already done
         </a>
         <h1 className="mx-auto mt-6 max-w-3xl text-[42px] font-bold leading-[1.05] tracking-tight sm:text-[68px]">
-          Connect an AI, ship a <span className="bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-violet)] bg-clip-text text-transparent">live app.</span>
+          From prompt to <span className="bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-violet)] bg-clip-text text-transparent">live app.</span>
         </h1>
         <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-[var(--color-muted)]">
           platform is a production-ready template for AI coding agents. Just prompt Claude Code, and it scaffolds straight from the template, no cloning by hand. With a one-time GitHub and AWS connection (an OIDC deploy role, a database, and a few secrets), every push then auto-builds, tests, and deploys to a live AWS URL, with no stored keys.
