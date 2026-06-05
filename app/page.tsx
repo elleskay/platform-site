@@ -265,7 +265,7 @@ function CTA() {
           <h2 className="mx-auto max-w-2xl text-4xl font-bold tracking-tight sm:text-5xl">Prompt an idea. Ship a live app.</h2>
           <p className="mx-auto mt-5 max-w-md text-lg text-[var(--color-muted)]">Point your agent at the platform repo and describe your first app. It builds, connects, and ships to a live AWS URL.</p>
           <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
-            <a href={REPO} className="rounded-lg bg-[var(--color-accent)] px-6 py-3 text-sm font-semibold text-[#0a0b16] transition-colors hover:bg-[var(--color-accent-strong)]">Use the template</a>
+            <UseTemplate variant="hero" label="Use the template" />
             <a href={REPO} className="rounded-lg border border-white/12 bg-white/[0.03] px-6 py-3 text-sm font-semibold transition-colors hover:border-white/25">Browse the code</a>
           </div>
           <p className="mt-5 text-sm text-[var(--color-faint)]">Free and open source. MIT licensed.</p>
