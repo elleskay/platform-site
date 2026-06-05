@@ -21,7 +21,7 @@ export default function Gallery() {
   return (
     <section id="apps" className="border-t border-white/[0.06]">
       <div className="mx-auto max-w-6xl px-6 py-24">
-        <div className="max-w-2xl">
+        <div className="mx-auto max-w-2xl text-center">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Built on the platform. Live right now.</h2>
           <p className="mt-4 text-lg text-[var(--color-muted)]">Real apps shipped on the template, real auth, real data, a real AWS deploy. Open any of them.</p>
         </div>
