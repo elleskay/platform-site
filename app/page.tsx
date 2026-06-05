@@ -1,3 +1,5 @@
+import UseTemplate from "./components/UseTemplate";
+
 const REPO = "https://github.com/elleskay/platform";
 
 const LIVE = {
@@ -40,9 +42,7 @@ function Nav() {
         </div>
         <div className="ml-auto flex items-center gap-3">
           <a href={REPO} className="hidden text-sm text-[var(--color-muted)] transition-colors hover:text-[var(--color-ink)] sm:block">GitHub</a>
-          <a href={REPO} className="rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-[#0a0b16] transition-colors hover:bg-[var(--color-accent-strong)]">
-            Use template
-          </a>
+          <UseTemplate variant="nav" label="Use template" />
         </div>
       </nav>
     </header>
@@ -100,7 +100,7 @@ function Hero() {
           Your AI agent can write the app in minutes. Shipping it to secure, production AWS is the part that still takes weeks. platform closes that gap: a Next.js and AWS template your agent can deploy to. Prompt it with an idea, and it ships a real, live app, with no infrastructure to build.
         </p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-          <a href={REPO} className="rounded-lg bg-[var(--color-accent)] px-6 py-3 text-sm font-semibold text-[#0a0b16] transition-colors hover:bg-[var(--color-accent-strong)]">Use the template</a>
+          <UseTemplate variant="hero" label="Use the template" />
           <a href="#how" className="rounded-lg border border-white/12 bg-white/[0.03] px-6 py-3 text-sm font-semibold transition-colors hover:border-white/25">See how it works</a>
         </div>
         <div className="mt-14"><PromptConsole /></div>
