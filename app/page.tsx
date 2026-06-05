@@ -35,6 +35,7 @@ function Nav() {
         <div className="ml-2 hidden items-center gap-7 text-sm text-[var(--color-muted)] md:flex">
           <a href="#how" className="transition-colors hover:text-[var(--color-ink)]">How it works</a>
           <a href="#included" className="transition-colors hover:text-[var(--color-ink)]">What's included</a>
+          <a href="#templates" className="transition-colors hover:text-[var(--color-ink)]">Templates</a>
           <a href="#apps" className="transition-colors hover:text-[var(--color-ink)]">Showcase</a>
         </div>
         <div className="ml-auto flex items-center gap-3">
@@ -193,6 +194,39 @@ function Included() {
   );
 }
 
+/* Two templates: web (primary) + mobile sibling */
+function Templates() {
+  return (
+    <section id="templates" className="border-t border-white/[0.06]">
+      <div className="mx-auto max-w-6xl px-6 py-24">
+        <div className="max-w-2xl">
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">One workflow. Two stacks.</h2>
+          <p className="mt-4 text-lg text-[var(--color-muted)]">The same prompt-to-deploy template comes in a web and a mobile flavor: same spec gate, same OIDC deploys, no stored keys.</p>
+        </div>
+        <div className="mt-12 grid gap-5 md:grid-cols-2">
+          <div className="card flex flex-col p-7">
+            <div className="mono text-xs font-semibold uppercase tracking-[0.16em] text-[var(--color-accent)]">Web</div>
+            <div className="mt-3 flex items-center gap-2.5"><Mark className="h-5 w-5" /><span className="text-lg font-semibold">platform</span></div>
+            <p className="mt-3 flex-1 text-sm leading-relaxed text-[var(--color-muted)]">Next.js apps on AWS serverless, Lambda, S3, and CloudFront via CDK. The stack the rest of this page describes.</p>
+            <div className="mono mt-5 text-sm text-[var(--color-faint)]">3 apps live in production</div>
+            <div className="mt-5"><a href={REPO} className="text-sm font-medium text-[var(--color-accent)] hover:underline">View on GitHub</a></div>
+          </div>
+          <div className="card flex flex-col p-7">
+            <div className="mono text-xs font-semibold uppercase tracking-[0.16em] text-[var(--color-violet)]">Mobile</div>
+            <div className="mt-3 flex items-center gap-2.5"><Mark className="h-5 w-5" color="var(--color-violet)" /><span className="text-lg font-semibold">mobile-platform</span></div>
+            <p className="mt-3 flex-1 text-sm leading-relaxed text-[var(--color-muted)]">Expo (React Native) apps with a NestJS API on AWS. Native call and SMS screening in Swift and Kotlin via Expo config plugins, plus EAS build, submit, and OTA.</p>
+            <div className="mono mt-5 text-sm text-[var(--color-faint)]">Reference: ScamShield (preview)</div>
+            <div className="mt-5 flex items-center gap-4 text-sm font-medium">
+              <a href="https://elleskay.github.io/scamshield/" className="text-[var(--color-accent)] hover:underline">Preview</a>
+              <a href="https://github.com/elleskay/mobile-platform" className="text-[var(--color-muted)] transition-colors hover:text-[var(--color-ink)]">Repo</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* Showcase, live apps */
 function Apps() {
   const apps = [
@@ -263,6 +297,7 @@ export default function Page() {
       <Proof />
       <How />
       <Included />
+      <Templates />
       <Apps />
       <CTA />
       <Footer />
