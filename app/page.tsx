@@ -75,9 +75,8 @@ function Hero() {
         </p>
         <div className="mt-9"><HeroCommand /></div>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-          <a href={REPO} className="rounded-lg bg-[var(--color-accent)] px-6 py-3 text-sm font-semibold text-[#0a0b16] transition-colors hover:bg-[var(--color-accent-strong)]">Use the web template</a>
-          <a href={MOBILE_REPO} className="rounded-lg bg-[var(--color-violet)] px-6 py-3 text-sm font-semibold text-[#0a0b16] transition-opacity hover:opacity-90">Use the mobile template</a>
-          <a href="#how" className="rounded-lg border border-white/12 bg-white/[0.03] px-6 py-3 text-sm font-semibold transition-colors hover:border-white/25">See how it works</a>
+          <a href="#how" className="rounded-lg bg-[var(--color-accent)] px-6 py-3 text-sm font-semibold text-[#0a0b16] transition-colors hover:bg-[var(--color-accent-strong)]">How it works</a>
+          <a href="#apps" className="rounded-lg border border-white/12 bg-white/[0.03] px-6 py-3 text-sm font-semibold transition-colors hover:border-white/25">View demos</a>
         </div>
         <div className="mt-14 grid grid-cols-3 gap-3 sm:grid-cols-6">
           {stats.map(([n, l]) => (
