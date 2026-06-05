@@ -1,3 +1,4 @@
+import { siNextdotjs, siExpo, siNestjs, siPostgresql, siGithubactions } from "simple-icons";
 import HeroCommand from "./components/HeroCommand";
 import Gallery from "./components/Gallery";
 
@@ -146,18 +147,27 @@ function Features() {
   );
 }
 
+// Real brand logos for the techs that publish them freely (Simple Icons).
+const BRAND: Record<string, { path: string }> = {
+  next: siNextdotjs,
+  expo: siExpo,
+  nest: siNestjs,
+  db: siPostgresql,
+  actions: siGithubactions,
+};
+// AWS does not license its service logos for free reuse, so these stay generic.
+const AWS_MARK: Record<string, React.ReactNode> = {
+  lambda: <path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z" />,
+  cdn: <><circle cx="12" cy="12" r="9" /><path d="M3 12h18" /><path d="M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18" /></>,
+  cdk: <><path d="M12 2l9 5-9 5-9-5 9-5z" /><path d="M3 7v10l9 5 9-5V7" /><path d="M12 12v10" /></>,
+};
+
 function TechIcon({ name, className = "h-5 w-5" }: { name: string; className?: string }) {
-  const p: Record<string, React.ReactNode> = {
-    next: <><rect x="3" y="4" width="18" height="16" rx="2" /><path d="M3 9h18" /></>,
-    expo: <><rect x="7" y="3" width="10" height="18" rx="2" /><path d="M10.5 18h3" /></>,
-    nest: <><rect x="3" y="4" width="18" height="7" rx="1.5" /><rect x="3" y="13" width="18" height="7" rx="1.5" /><path d="M7 7.5h.01M7 16.5h.01" /></>,
-    lambda: <path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z" />,
-    cdn: <><circle cx="12" cy="12" r="9" /><path d="M3 12h18" /><path d="M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18" /></>,
-    cdk: <><path d="M12 2l9 5-9 5-9-5 9-5z" /><path d="M3 7v10l9 5 9-5V7" /><path d="M12 12v10" /></>,
-    db: <><ellipse cx="12" cy="6" rx="8" ry="3" /><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6" /><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3" /></>,
-    actions: <><path d="M21 12a9 9 0 1 1-3-6.7" /><path d="M21 4v4h-4" /></>,
-  };
-  return <svg viewBox="0 0 24 24" className={className} fill="none" stroke="var(--color-accent)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">{p[name]}</svg>;
+  const brand = BRAND[name];
+  if (brand) {
+    return <svg viewBox="0 0 24 24" className={className} fill="var(--color-ink)"><path d={brand.path} /></svg>;
+  }
+  return <svg viewBox="0 0 24 24" className={className} fill="none" stroke="var(--color-ink)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">{AWS_MARK[name]}</svg>;
 }
 
 /* Stacks: the technologies wired into the templates */
