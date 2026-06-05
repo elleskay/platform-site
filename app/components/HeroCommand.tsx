@@ -3,19 +3,19 @@
 import { useEffect, useState } from "react";
 
 const WEB_TASKS = [
-  "build a customer feedback portal with an admin dashboard",
-  "build a SaaS billing dashboard with Stripe and teams",
-  "build an internal helpdesk with ticketing and SLAs",
-  "build a job board with an employer portal",
-  "build a CMS with drafts, roles, and publishing",
+  "build an AI contract reviewer that flags risky clauses with citations",
+  "build a multi-tenant SaaS with org billing and audit logs",
+  "build a realtime ops dashboard with role-based access",
+  "build an AI support copilot grounded in your own docs",
+  "build a marketplace with Stripe payouts and reviews",
 ];
 
 const MOBILE_TASKS = [
-  "build a scam-reporting app with call screening",
-  "build a delivery driver app with offline routes",
-  "build a habit tracker with reminders and streaks",
-  "build a field-inspection app with photo capture",
-  "build a community safety app with SMS verification",
+  "build a scam-call blocker that screens and reports numbers",
+  "build a field-service app with offline jobs and signatures",
+  "build a live delivery tracker with push ETAs",
+  "build an authenticator with SMS codes and biometrics",
+  "build a safety check-in app with SOS and SMS fallback",
 ];
 
 function useTypewriter(tasks: string[]) {
