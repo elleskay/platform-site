@@ -97,7 +97,7 @@ function Hero() {
           Ship production-grade apps, <span className="bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-violet)] bg-clip-text text-transparent">fast.</span>
         </h1>
         <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-[var(--color-muted)]">
-          Your AI agent can write the app in minutes. Shipping it to secure, production AWS is the part that still takes weeks. platform closes that gap: a Next.js and AWS template your agent can deploy to. Prompt it with an idea, and out comes a real, live app, with zero infrastructure work from you.
+          Your AI agent can write the app in minutes. Shipping it to secure, production AWS is the part that still takes weeks. platform closes that gap: a Next.js and AWS template your agent can deploy to. Prompt it with an idea, and it ships a real, live app, with no infrastructure to build.
         </p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
           <a href={REPO} className="rounded-lg bg-[var(--color-accent)] px-6 py-3 text-sm font-semibold text-[#0a0b16] transition-colors hover:bg-[var(--color-accent-strong)]">Use the template</a>
@@ -207,8 +207,8 @@ function Templates() {
           <div className="card flex flex-col p-7">
             <div className="mono text-xs font-semibold uppercase tracking-[0.16em] text-[var(--color-accent)]">Web</div>
             <div className="mt-3 flex items-center gap-2.5"><Mark className="h-5 w-5" /><span className="text-lg font-semibold">platform</span></div>
-            <p className="mt-3 flex-1 text-sm leading-relaxed text-[var(--color-muted)]">Next.js apps on AWS serverless, Lambda, S3, and CloudFront via CDK. The stack the rest of this page describes.</p>
-            <div className="mono mt-5 text-sm text-[var(--color-faint)]">3 apps live in production</div>
+            <p className="mt-3 flex-1 text-sm leading-relaxed text-[var(--color-muted)]">Next.js apps on AWS serverless, Lambda, S3, and CloudFront via CDK. The stack this page is about.</p>
+            <div className="mono mt-5 text-sm text-[var(--color-faint)]">Proven by the apps below</div>
             <div className="mt-5"><a href={REPO} className="text-sm font-medium text-[var(--color-accent)] hover:underline">View on GitHub</a></div>
           </div>
           <div className="card flex flex-col p-7">
