@@ -246,7 +246,7 @@ function CTA() {
       <div className="relative mx-auto max-w-6xl overflow-hidden px-6 py-28">
         <div className="pointer-events-none absolute inset-0" style={{ background: "radial-gradient(560px 280px at 50% 120%, rgba(139,149,255,0.2), transparent 65%)" }} />
         <div className="relative text-center">
-          <h2 className="mx-auto max-w-2xl text-4xl font-bold tracking-tight sm:text-5xl">Ship your next app, not your infrastructure.</h2>
+          <h2 className="mx-auto max-w-2xl text-4xl font-bold tracking-tight sm:text-5xl">Ready to ship production-grade apps, <span className="bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-violet)] bg-clip-text text-transparent">fast?</span></h2>
           <p className="mx-auto mt-5 max-w-md text-lg text-[var(--color-muted)]">Point your agent at the platform repo and describe your first app. It builds, connects, and ships to a live AWS URL.</p>
           <div className="mt-7 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-[var(--color-muted)]">
             {features.map((f) => (
