@@ -11,7 +11,7 @@ const WEB_TASKS = [
 ];
 
 const MOBILE_TASKS = [
-  "build a scam-call blocker that screens and reports numbers",
+  "build a telehealth app with appointments and secure chat",
   "build a field-service app with offline jobs and signatures",
   "build a live delivery tracker with push ETAs",
   "build an authenticator with SMS codes and biometrics",
