@@ -1,4 +1,9 @@
+import Image from "next/image";
 import UseTemplate from "./components/UseTemplate";
+import HeroCommand from "./components/HeroCommand";
+import coverShot from "./shots/coverlens.png";
+import cancerShot from "./shots/cancer.png";
+import armouryShot from "./shots/armoury.png";
 
 const REPO = "https://github.com/elleskay/platform";
 
@@ -49,79 +54,44 @@ function Nav() {
   );
 }
 
-/* Hero centerpiece: prompt to live app */
-function PromptConsole() {
-  return (
-    <div className="card mx-auto max-w-2xl overflow-hidden text-left shadow-2xl shadow-black/40">
-      <div className="flex items-center gap-2 border-b border-white/[0.07] px-4 py-2.5">
-        <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
-        <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
-        <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
-        <span className="mono ml-2 text-[12px] text-[var(--color-faint)]">claude code</span>
-      </div>
-      <div className="mono space-y-2 p-5 text-[13px] leading-relaxed">
-        <div className="text-[var(--color-ink)]">
-          <span className="text-[var(--color-accent)]">›</span> use <span className="text-[var(--color-accent)]">github.com/elleskay/platform</span> to build a customer feedback portal with login and an admin dashboard
-        </div>
-        <div className="h-1.5" />
-        <div className="flex items-start gap-2 text-[var(--color-muted)]"><Check className="mt-[3px] h-3.5 w-3.5" /><span>scaffolded from the platform template</span></div>
-        <div className="flex items-start gap-2 text-[var(--color-muted)]"><Check className="mt-[3px] h-3.5 w-3.5" /><span>wrote the app and its spec tests</span></div>
-        <div className="h-1.5" />
-        <div className="flex items-start gap-2 text-[var(--color-ink)]">
-          <span className="mt-[1px] text-[var(--color-accent)]">?</span>
-          <span>ready to deploy. connect GitHub and AWS? <span className="text-[var(--color-accent)]">yes</span></span>
-        </div>
-        <div className="flex items-start gap-2 text-[var(--color-muted)]"><Check className="mt-[3px] h-3.5 w-3.5" /><span>connected: OIDC role, database, secrets</span></div>
-        <div className="flex items-start gap-2 text-[var(--color-muted)]"><Check className="mt-[3px] h-3.5 w-3.5" /><span>pushed. github actions: ci, security, gate 100%, deploy</span></div>
-        <div className="h-1.5" />
-        <div className="flex items-center gap-2 text-[var(--color-ink)]">
-          <span className="text-[var(--color-ok)]">●</span>
-          <span>live at <span className="text-[var(--color-accent)]">your-app.cloudfront.net</span></span>
-          <span className="caret ml-0.5 inline-block h-3.5 w-[7px] bg-[var(--color-accent)]" />
-        </div>
-      </div>
-    </div>
-  );
-}
-
 function Hero() {
+  const agents = ["Claude Code", "Codex", "Cursor", "Windsurf", "Cline"];
+  const stats: [string, string][] = [
+    ["100%", "Spec coverage"],
+    ["9", "Smoke checks"],
+    ["0", "Stored keys"],
+    ["3", "Live apps"],
+    ["2", "Templates"],
+    ["MIT", "License"],
+  ];
   return (
     <section id="top" className="relative overflow-hidden">
-      <div className="dots pointer-events-none absolute inset-0 [mask-image:radial-gradient(700px_420px_at_50%_0%,#000,transparent)]" />
-      <div className="pointer-events-none absolute inset-0" style={{ background: "radial-gradient(620px 360px at 50% -8%, rgba(139,149,255,0.18), transparent 60%), radial-gradient(560px 360px at 82% 4%, rgba(192,132,252,0.13), transparent 60%)" }} />
-      <div className="relative mx-auto max-w-4xl px-6 pb-20 pt-20 text-center sm:pt-28">
-        <a href="#how" className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3.5 py-1.5 text-[13px] text-[var(--color-muted)] transition-colors hover:border-white/20">
-          <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-accent)]" /> Open source · Next.js on AWS · for AI agents
-        </a>
-        <h1 className="mx-auto mt-6 max-w-3xl text-[42px] font-bold leading-[1.05] tracking-tight sm:text-[68px]">
+      <div className="dots pointer-events-none absolute inset-0 [mask-image:radial-gradient(720px_440px_at_50%_0%,#000,transparent)]" />
+      <div className="pointer-events-none absolute inset-0" style={{ background: "radial-gradient(640px 380px at 50% -6%, rgba(139,149,255,0.2), transparent 60%), radial-gradient(560px 360px at 82% 6%, rgba(192,132,252,0.14), transparent 60%)" }} />
+      <div className="relative mx-auto max-w-5xl px-6 pb-20 pt-16 text-center sm:pt-20">
+        <div className="mono mb-7 flex flex-wrap items-center justify-center gap-x-2.5 gap-y-2 text-xs text-[var(--color-faint)]">
+          <span className="uppercase tracking-[0.16em]">Works with</span>
+          {agents.map((a) => (
+            <span key={a} className="rounded-full border border-white/10 bg-white/[0.03] px-2.5 py-1 text-[var(--color-muted)]">{a}</span>
+          ))}
+        </div>
+        <h1 className="mx-auto max-w-3xl text-[42px] font-bold leading-[1.05] tracking-tight sm:text-[68px]">
           Ship production-grade apps, <span className="bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-violet)] bg-clip-text text-transparent">fast.</span>
         </h1>
         <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-[var(--color-muted)]">
-          Your AI agent can write the app in minutes. Shipping it to secure, production AWS is the part that still takes weeks. platform closes that gap: a Next.js and AWS template your agent can deploy to. Prompt it with an idea, and it ships a real, live app, with no infrastructure to build.
+          Open-source Next.js and AWS templates your AI coding agent can deploy to. Point it at a repo, describe an idea, and it ships a real, live app, with no infrastructure to build.
         </p>
+        <div className="mt-9"><HeroCommand /></div>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
           <UseTemplate variant="hero" label="Use the template" />
           <a href="#how" className="rounded-lg border border-white/12 bg-white/[0.03] px-6 py-3 text-sm font-semibold transition-colors hover:border-white/25">See how it works</a>
         </div>
-        <div className="mt-14"><PromptConsole /></div>
-      </div>
-    </section>
-  );
-}
-
-function Proof() {
-  const apps = [
-    { name: "CoverLens", live: LIVE.coverlens },
-    { name: "Cancer Navigator", live: LIVE.cancer },
-    { name: "Armoury", live: LIVE.armoury },
-  ];
-  return (
-    <section className="border-y border-white/[0.06]">
-      <div className="mx-auto flex max-w-6xl flex-col items-center gap-5 px-6 py-8 sm:flex-row sm:justify-center sm:gap-10">
-        <span className="text-[13px] uppercase tracking-[0.14em] text-[var(--color-faint)]">Live in production</span>
-        <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm font-medium text-[var(--color-muted)]">
-          {apps.map((a) => (
-            <a key={a.name} href={a.live} className="flex items-center gap-2 transition-colors hover:text-[var(--color-ink)]"><Mark className="h-4 w-4" /> {a.name}</a>
+        <div className="mt-14 grid grid-cols-3 gap-3 sm:grid-cols-6">
+          {stats.map(([n, l]) => (
+            <div key={l} className="card p-4 text-center">
+              <div className="text-2xl font-bold tracking-tight">{n}</div>
+              <div className="mono mt-1 text-[10px] uppercase tracking-[0.12em] text-[var(--color-faint)]">{l}</div>
+            </div>
           ))}
         </div>
       </div>
@@ -227,30 +197,41 @@ function Templates() {
   );
 }
 
-/* Showcase, live apps */
-function Apps() {
+/* Showcase, live apps as screenshot cards with a demo button */
+function Gallery() {
   const apps = [
-    { name: "CoverLens", note: "AI insurance policy checker. Grounded LangGraph extraction, every finding quote-backed.", live: LIVE.coverlens, repo: "https://github.com/elleskay/insurance-dashboard" },
-    { name: "Cancer Navigator", note: "A roadmap for newly diagnosed cancer patients in Singapore, with subsidy coverage.", live: LIVE.cancer, repo: "https://github.com/elleskay/cancer-navigator" },
-    { name: "Armoury", note: "Digital equipment checklists for frontline agencies, with an HQ readiness dashboard.", live: LIVE.armoury, repo: "https://github.com/elleskay/armoury" },
+    { name: "CoverLens", tag: "AI · Insurance", tagColor: "var(--color-accent)", note: "AI insurance policy checker. Grounded LangGraph extraction, every finding quote-backed.", live: LIVE.coverlens, repo: "https://github.com/elleskay/insurance-dashboard", shot: coverShot },
+    { name: "Cancer Navigator", tag: "Healthcare", tagColor: "var(--color-violet)", note: "A roadmap for newly diagnosed cancer patients in Singapore, with subsidy coverage.", live: LIVE.cancer, repo: "https://github.com/elleskay/cancer-navigator", shot: cancerShot },
+    { name: "Armoury", tag: "GovTech", tagColor: "var(--color-ok)", note: "Digital equipment checklists for frontline agencies, with an HQ readiness dashboard.", live: LIVE.armoury, repo: "https://github.com/elleskay/armoury", shot: armouryShot },
   ];
   return (
-    <section id="apps" className="mx-auto max-w-6xl px-6 py-24">
-      <div className="max-w-2xl">
-        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Built on the platform. Live right now.</h2>
-        <p className="mt-4 text-lg text-[var(--color-muted)]">Each is a full vertical slice shipped on the template, real auth, real data, a real AWS deploy.</p>
-      </div>
-      <div className="mt-12 grid gap-5 sm:grid-cols-3">
-        {apps.map((a) => (
-          <div key={a.name} className="card card-hover flex flex-col p-7">
-            <div className="flex items-center gap-2.5"><Mark className="h-5 w-5" /><span className="font-semibold">{a.name}</span></div>
-            <p className="mt-3 flex-1 text-sm leading-relaxed text-[var(--color-muted)]">{a.note}</p>
-            <div className="mt-6 flex items-center gap-4 text-sm font-medium">
-              <a href={a.live} className="text-[var(--color-accent)] hover:underline">Visit live</a>
-              <a href={a.repo} className="text-[var(--color-muted)] transition-colors hover:text-[var(--color-ink)]">Repo</a>
+    <section id="apps" className="border-t border-white/[0.06] bg-[var(--color-bg-2)]">
+      <div className="mx-auto max-w-6xl px-6 py-24">
+        <div className="max-w-2xl">
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Built on the platform. Live right now.</h2>
+          <p className="mt-4 text-lg text-[var(--color-muted)]">Real apps shipped on the template, real auth, real data, a real AWS deploy. Open any of them.</p>
+        </div>
+        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {apps.map((a) => (
+            <div key={a.name} className="card card-hover flex flex-col overflow-hidden">
+              <a href={a.live} className="relative block aspect-[16/10] overflow-hidden border-b border-white/[0.06]">
+                <Image src={a.shot} alt={`${a.name} screenshot`} fill sizes="(max-width: 1024px) 100vw, 400px" className="object-cover object-top" placeholder="blur" />
+                <span className="absolute right-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-black/55 px-2.5 py-1 text-[11px] font-medium text-white backdrop-blur">
+                  <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-ok)]" /> Live
+                </span>
+              </a>
+              <div className="flex flex-1 flex-col p-5">
+                <div className="mono text-[11px] font-semibold uppercase tracking-[0.12em]" style={{ color: a.tagColor }}>{a.tag}</div>
+                <h3 className="mt-2 font-semibold">{a.name}</h3>
+                <p className="mt-1.5 flex-1 text-sm leading-relaxed text-[var(--color-muted)]">{a.note}</p>
+                <div className="mt-5 flex items-center gap-3">
+                  <a href={a.live} className="rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-[#0a0b16] transition-colors hover:bg-[var(--color-accent-strong)]">Demo</a>
+                  <a href={a.repo} className="text-sm font-medium text-[var(--color-muted)] transition-colors hover:text-[var(--color-ink)]">Repo</a>
+                </div>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -294,11 +275,10 @@ export default function Page() {
     <main>
       <Nav />
       <Hero />
-      <Proof />
       <How />
       <Included />
       <Templates />
-      <Apps />
+      <Gallery />
       <CTA />
       <Footer />
     </main>
