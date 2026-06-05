@@ -26,18 +26,18 @@ function Check({ className = "h-4 w-4", color = "var(--color-ok)" }: { className
 function Nav() {
   return (
     <header className="sticky top-0 z-50 border-b border-white/[0.06] bg-[var(--color-bg)]/80 backdrop-blur-xl">
-      <nav className="mx-auto flex max-w-6xl items-center gap-6 px-6 py-3.5">
+      <nav className="relative mx-auto flex max-w-6xl items-center justify-between px-6 py-3.5">
         <a href="#top" className="flex items-center gap-2">
           <Mark className="h-5 w-5" />
           <span className="font-semibold tracking-tight">platform</span>
         </a>
-        <div className="ml-2 hidden items-center gap-7 text-sm text-[var(--color-muted)] md:flex">
+        <div className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-7 text-sm text-[var(--color-muted)] md:flex">
           <a href="#features" className="transition-colors hover:text-[var(--color-ink)]">Features</a>
           <a href="#stacks" className="transition-colors hover:text-[var(--color-ink)]">Stacks</a>
           <a href="#how" className="transition-colors hover:text-[var(--color-ink)]">How it works</a>
           <a href="#apps" className="transition-colors hover:text-[var(--color-ink)]">Showcase</a>
         </div>
-        <div className="ml-auto flex items-center gap-2.5">
+        <div className="flex items-center gap-2.5">
           <a href={REPO} className="hidden text-sm text-[var(--color-muted)] transition-colors hover:text-[var(--color-ink)] sm:block">GitHub</a>
           <a href={REPO} className="rounded-lg bg-[var(--color-accent)] px-3.5 py-2 text-sm font-semibold text-[#0a0b16] transition-colors hover:bg-[var(--color-accent-strong)]">Web</a>
           <a href={MOBILE_REPO} className="rounded-lg bg-[var(--color-violet)] px-3.5 py-2 text-sm font-semibold text-[#0a0b16] transition-opacity hover:opacity-90">Mobile</a>
