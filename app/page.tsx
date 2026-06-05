@@ -146,17 +146,31 @@ function Features() {
   );
 }
 
+function TechIcon({ name, className = "h-5 w-5" }: { name: string; className?: string }) {
+  const p: Record<string, React.ReactNode> = {
+    next: <><rect x="3" y="4" width="18" height="16" rx="2" /><path d="M3 9h18" /></>,
+    expo: <><rect x="7" y="3" width="10" height="18" rx="2" /><path d="M10.5 18h3" /></>,
+    nest: <><rect x="3" y="4" width="18" height="7" rx="1.5" /><rect x="3" y="13" width="18" height="7" rx="1.5" /><path d="M7 7.5h.01M7 16.5h.01" /></>,
+    lambda: <path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z" />,
+    cdn: <><circle cx="12" cy="12" r="9" /><path d="M3 12h18" /><path d="M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18" /></>,
+    cdk: <><path d="M12 2l9 5-9 5-9-5 9-5z" /><path d="M3 7v10l9 5 9-5V7" /><path d="M12 12v10" /></>,
+    db: <><ellipse cx="12" cy="6" rx="8" ry="3" /><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6" /><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3" /></>,
+    actions: <><path d="M21 12a9 9 0 1 1-3-6.7" /><path d="M21 4v4h-4" /></>,
+  };
+  return <svg viewBox="0 0 24 24" className={className} fill="none" stroke="var(--color-accent)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">{p[name]}</svg>;
+}
+
 /* Stacks: the technologies wired into the templates */
 function Stacks() {
-  const stacks: [string, string, string][] = [
-    ["Next.js", "Web", "App Router, SSR on Lambda via OpenNext."],
-    ["Expo", "Mobile", "React Native app, EAS build and OTA updates."],
-    ["NestJS", "Mobile", "Typed API on Lambda and API Gateway."],
-    ["AWS Lambda", "Cloud", "Serverless compute that scales to zero."],
-    ["S3 + CloudFront", "Cloud", "Static assets on a global CDN."],
-    ["AWS CDK", "Infra", "Infrastructure as code, one construct."],
-    ["Neon Postgres", "Data", "Serverless Postgres with connection pooling."],
-    ["GitHub Actions", "CI/CD", "OIDC deploys, no stored keys."],
+  const stacks: [string, string, string, string][] = [
+    ["Next.js", "Web", "App Router, SSR on Lambda via OpenNext.", "next"],
+    ["Expo", "Mobile", "React Native app, EAS build and OTA updates.", "expo"],
+    ["NestJS", "Mobile", "Typed API on Lambda and API Gateway.", "nest"],
+    ["AWS Lambda", "Cloud", "Serverless compute that scales to zero.", "lambda"],
+    ["S3 + CloudFront", "Cloud", "Static assets on a global CDN.", "cdn"],
+    ["AWS CDK", "Infra", "Infrastructure as code, one construct.", "cdk"],
+    ["Neon Postgres", "Data", "Serverless Postgres with connection pooling.", "db"],
+    ["GitHub Actions", "CI/CD", "OIDC deploys, no stored keys.", "actions"],
   ];
   return (
     <section id="stacks" className="border-t border-white/[0.06]">
@@ -166,13 +180,16 @@ function Stacks() {
           <p className="mt-4 text-lg text-[var(--color-muted)]">Across two templates, web (<a href={REPO} className="text-[var(--color-accent)] hover:underline">platform</a>) and mobile (<a href={MOBILE_REPO} className="text-[var(--color-violet)] hover:underline">mobile-platform</a>), configured and deploying on day one.</p>
         </div>
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {stacks.map(([name, kind, note]) => (
+          {stacks.map(([name, kind, note, icon]) => (
             <div key={name} className="card card-hover p-6">
               <div className="flex items-center justify-between">
-                <span className="font-semibold">{name}</span>
+                <div className="flex items-center gap-2.5">
+                  <span className="inline-flex rounded-lg border border-white/[0.08] bg-white/[0.03] p-2"><TechIcon name={icon} /></span>
+                  <span className="font-semibold">{name}</span>
+                </div>
                 <span className="mono rounded-md border border-white/[0.08] px-2 py-0.5 text-[10px] uppercase tracking-[0.1em] text-[var(--color-faint)]">{kind}</span>
               </div>
-              <p className="mt-2.5 text-sm leading-relaxed text-[var(--color-muted)]">{note}</p>
+              <p className="mt-3 text-sm leading-relaxed text-[var(--color-muted)]">{note}</p>
             </div>
           ))}
         </div>
