@@ -1,4 +1,3 @@
-import UseTemplate from "./components/UseTemplate";
 import HeroCommand from "./components/HeroCommand";
 import Gallery from "./components/Gallery";
 
@@ -37,9 +36,10 @@ function Nav() {
           <a href="#how" className="transition-colors hover:text-[var(--color-ink)]">How it works</a>
           <a href="#apps" className="transition-colors hover:text-[var(--color-ink)]">Showcase</a>
         </div>
-        <div className="ml-auto flex items-center gap-3">
+        <div className="ml-auto flex items-center gap-2.5">
           <a href={REPO} className="hidden text-sm text-[var(--color-muted)] transition-colors hover:text-[var(--color-ink)] sm:block">GitHub</a>
-          <UseTemplate variant="nav" label="Use template" />
+          <a href={REPO} className="rounded-lg bg-[var(--color-accent)] px-3.5 py-2 text-sm font-semibold text-[#0a0b16] transition-colors hover:bg-[var(--color-accent-strong)]">Web</a>
+          <a href={MOBILE_REPO} className="rounded-lg bg-[var(--color-violet)] px-3.5 py-2 text-sm font-semibold text-[#0a0b16] transition-opacity hover:opacity-90">Mobile</a>
         </div>
       </nav>
     </header>
@@ -75,7 +75,8 @@ function Hero() {
         </p>
         <div className="mt-9"><HeroCommand /></div>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-          <UseTemplate variant="hero" label="Use the template" />
+          <a href={REPO} className="rounded-lg bg-[var(--color-accent)] px-6 py-3 text-sm font-semibold text-[#0a0b16] transition-colors hover:bg-[var(--color-accent-strong)]">Use the web template</a>
+          <a href={MOBILE_REPO} className="rounded-lg bg-[var(--color-violet)] px-6 py-3 text-sm font-semibold text-[#0a0b16] transition-opacity hover:opacity-90">Use the mobile template</a>
           <a href="#how" className="rounded-lg border border-white/12 bg-white/[0.03] px-6 py-3 text-sm font-semibold transition-colors hover:border-white/25">See how it works</a>
         </div>
         <div className="mt-14 grid grid-cols-3 gap-3 sm:grid-cols-6">
@@ -227,8 +228,8 @@ function CTA() {
             ))}
           </div>
           <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
-            <UseTemplate variant="hero" label="Use the template" />
-            <a href={REPO} className="rounded-lg border border-white/12 bg-white/[0.03] px-6 py-3 text-sm font-semibold transition-colors hover:border-white/25">Browse the code</a>
+            <a href={REPO} className="rounded-lg bg-[var(--color-accent)] px-6 py-3 text-sm font-semibold text-[#0a0b16] transition-colors hover:bg-[var(--color-accent-strong)]">Use the web template</a>
+            <a href={MOBILE_REPO} className="rounded-lg bg-[var(--color-violet)] px-6 py-3 text-sm font-semibold text-[#0a0b16] transition-opacity hover:opacity-90">Use the mobile template</a>
           </div>
         </div>
       </div>
