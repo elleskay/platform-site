@@ -40,9 +40,9 @@ function Nav() {
           <span className="font-semibold tracking-tight">platform</span>
         </a>
         <div className="ml-2 hidden items-center gap-7 text-sm text-[var(--color-muted)] md:flex">
+          <a href="#included" className="transition-colors hover:text-[var(--color-ink)]">Features</a>
+          <a href="#templates" className="transition-colors hover:text-[var(--color-ink)]">Stacks</a>
           <a href="#how" className="transition-colors hover:text-[var(--color-ink)]">How it works</a>
-          <a href="#included" className="transition-colors hover:text-[var(--color-ink)]">What's included</a>
-          <a href="#templates" className="transition-colors hover:text-[var(--color-ink)]">Templates</a>
           <a href="#apps" className="transition-colors hover:text-[var(--color-ink)]">Showcase</a>
         </div>
         <div className="ml-auto flex items-center gap-3">
@@ -107,55 +107,70 @@ function How() {
     ["It ships", "From then on, every idea you prompt is built, tested, and deployed to a live AWS URL automatically."],
   ];
   return (
-    <section id="how" className="mx-auto max-w-6xl px-6 py-24">
-      <div className="mx-auto max-w-2xl text-center">
-        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Prompt your idea. It does the rest.</h2>
-        <p className="mt-4 text-lg text-[var(--color-muted)]">You describe the app. The agent does the building, the one-time cloud setup, and the deploy.</p>
-      </div>
-      <div className="relative mt-16 grid gap-12 md:grid-cols-3 md:gap-8">
-        <div className="absolute left-0 right-0 top-5 hidden h-px bg-white/10 md:block" />
-        {steps.map(([t, body], i) => (
-          <div key={t} className="relative text-center md:text-left">
-            <div className="relative z-10 mx-auto grid h-10 w-10 place-items-center rounded-full border border-white/15 bg-[var(--color-bg)] text-sm font-semibold text-[var(--color-accent)] md:mx-0">{i + 1}</div>
-            <h3 className="mt-5 text-lg font-semibold">{t}</h3>
-            <p className="mt-2.5 text-sm leading-relaxed text-[var(--color-muted)]">{body}</p>
-          </div>
-        ))}
+    <section id="how" className="border-t border-white/[0.06]">
+      <div className="mx-auto max-w-6xl px-6 py-24">
+        <div className="mx-auto max-w-2xl text-center">
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Prompt your idea. It does the rest.</h2>
+          <p className="mt-4 text-lg text-[var(--color-muted)]">You describe the app. The agent does the building, the one-time cloud setup, and the deploy.</p>
+        </div>
+        <div className="relative mt-16 grid gap-12 md:grid-cols-3 md:gap-8">
+          <div className="absolute left-0 right-0 top-5 hidden h-px bg-white/10 md:block" />
+          {steps.map(([t, body], i) => (
+            <div key={t} className="relative text-center md:text-left">
+              <div className="relative z-10 mx-auto grid h-10 w-10 place-items-center rounded-full border border-white/15 bg-[var(--color-bg)] text-sm font-semibold text-[var(--color-accent)] md:mx-0">{i + 1}</div>
+              <h3 className="mt-5 text-lg font-semibold">{t}</h3>
+              <p className="mt-2.5 text-sm leading-relaxed text-[var(--color-muted)]">{body}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
 }
 
-/* What's included, checklist of the prebuilt layer */
+function FeatureIcon({ name, className = "h-5 w-5" }: { name: string; className?: string }) {
+  const paths: Record<string, React.ReactNode> = {
+    gate: <><circle cx="12" cy="12" r="9" /><path d="M8 12l3 3 5-6" /></>,
+    oidc: <><circle cx="8" cy="12" r="3" /><path d="M11 12h9l-2 2m2-2l-2-2" /></>,
+    cloud: <><path d="M12 2l9 5-9 5-9-5 9-5z" /><path d="M3 12l9 5 9-5" /></>,
+    ci: <><path d="M21 12a9 9 0 1 1-3-6.7" /><path d="M21 4v4h-4" /></>,
+    sec: <path d="M12 3l8 3v6c0 4.5-3.2 7.6-8 9-4.8-1.4-8-4.5-8-9V6l8-3z" />,
+    smoke: <path d="M3 12h4l2 6 4-14 2 8h6" />,
+    auth: <><rect x="3" y="11" width="18" height="10" rx="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></>,
+    eye: <><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z" /><circle cx="12" cy="12" r="3" /></>,
+    valid: <><path d="M9 11l3 3L22 4" /><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" /></>,
+  };
+  return <svg viewBox="0 0 24 24" className={className} fill="none" stroke="var(--color-accent)" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">{paths[name]}</svg>;
+}
+
+/* Features: capability cards for the prebuilt layer */
 function Included() {
-  const items: [string, string][] = [
-    ["Spec-driven test gate", "Every requirement is bound to a test. 100% coverage, or it does not ship."],
-    ["OIDC deploys", "GitHub assumes a short-lived role to deploy. No stored AWS keys, ever."],
-    ["Next.js on AWS serverless", "Your app runs on Lambda, S3, and CloudFront, provisioned by one CDK construct."],
-    ["CI/CD pipeline", "Typecheck, lint, build, and a full cdk synth on every push."],
-    ["Security scanning", "CodeQL, gitleaks, npm audit, and strict security headers."],
-    ["Post-deploy smoke test", "Nine live checks confirm every deploy actually works."],
-    ["Auth and database", "Auth.js v5 sessions and Neon Postgres, ready to use."],
-    ["Observability", "Sentry and PostHog hooks wired and waiting for a key."],
-    ["Validation", "Zod at every server action boundary."],
+  const items: [string, string, string][] = [
+    ["gate", "Spec-driven test gate", "Every requirement is bound to a test. 100% coverage, or it does not ship."],
+    ["oidc", "OIDC deploys", "GitHub assumes a short-lived role to deploy. No stored AWS keys, ever."],
+    ["cloud", "Next.js on AWS serverless", "Your app runs on Lambda, S3, and CloudFront, provisioned by one CDK construct."],
+    ["ci", "CI/CD pipeline", "Typecheck, lint, build, and a full cdk synth on every push."],
+    ["sec", "Security scanning", "CodeQL, gitleaks, npm audit, and strict security headers."],
+    ["smoke", "Post-deploy smoke test", "Nine live checks confirm every deploy actually works."],
+    ["auth", "Auth and database", "Auth.js v5 sessions and Neon Postgres, ready to use."],
+    ["eye", "Observability", "Sentry and PostHog hooks wired and waiting for a key."],
+    ["valid", "Validation", "Zod at every server action boundary."],
   ];
   return (
     <section id="included" className="border-t border-white/[0.06] bg-[var(--color-bg-2)]">
       <div className="mx-auto max-w-6xl px-6 py-24">
-        <div className="max-w-2xl">
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Nothing to wire. It's all built.</h2>
+        <div className="mx-auto max-w-2xl text-center">
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Everything you need, already built.</h2>
           <p className="mt-4 text-lg text-[var(--color-muted)]">Your agent inherits a complete Next.js and AWS production stack, so it spends its time on your product, not the plumbing.</p>
         </div>
-        <div className="mt-12 grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
-          {items.map(([t, body]) => (
-            <div key={t} className="flex gap-3.5">
-              <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[var(--color-accent)]/12">
-                <Check className="h-3.5 w-3.5" color="var(--color-accent)" />
+        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {items.map(([icon, t, body]) => (
+            <div key={t} className="card card-hover p-6">
+              <span className="inline-flex rounded-lg border border-white/[0.08] bg-white/[0.03] p-2.5">
+                <FeatureIcon name={icon} />
               </span>
-              <div>
-                <h3 className="font-semibold">{t}</h3>
-                <p className="mt-1 text-sm leading-relaxed text-[var(--color-muted)]">{body}</p>
-              </div>
+              <h3 className="mt-4 font-semibold">{t}</h3>
+              <p className="mt-1.5 text-sm leading-relaxed text-[var(--color-muted)]">{body}</p>
             </div>
           ))}
         </div>
@@ -205,7 +220,7 @@ function Gallery() {
     { name: "Armoury", tag: "GovTech", tagColor: "var(--color-ok)", note: "Digital equipment checklists for frontline agencies, with an HQ readiness dashboard.", live: LIVE.armoury, repo: "https://github.com/elleskay/armoury", shot: armouryShot },
   ];
   return (
-    <section id="apps" className="border-t border-white/[0.06] bg-[var(--color-bg-2)]">
+    <section id="apps" className="border-t border-white/[0.06]">
       <div className="mx-auto max-w-6xl px-6 py-24">
         <div className="max-w-2xl">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Built on the platform. Live right now.</h2>
@@ -275,9 +290,9 @@ export default function Page() {
     <main>
       <Nav />
       <Hero />
-      <How />
       <Included />
       <Templates />
+      <How />
       <Gallery />
       <CTA />
       <Footer />
