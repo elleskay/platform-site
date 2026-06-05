@@ -54,11 +54,11 @@ export default function UseTemplate({
       {open ? (
         <div role="menu" className={`absolute z-50 mt-2 w-72 overflow-hidden rounded-xl border border-white/10 bg-[var(--color-bg-2)] p-1.5 shadow-2xl shadow-black/50 ${menuPos}`}>
           <a role="menuitem" href={WEB_REPO} className="block rounded-lg px-3 py-2.5 text-left transition-colors hover:bg-white/[0.05]">
-            <div className="text-sm font-semibold text-[var(--color-ink)]">Web, platform</div>
+            <div className="text-sm font-semibold text-[var(--color-ink)]">Web · platform</div>
             <div className="mt-0.5 text-xs text-[var(--color-muted)]">Next.js apps on AWS serverless</div>
           </a>
           <a role="menuitem" href={MOBILE_REPO} className="block rounded-lg px-3 py-2.5 text-left transition-colors hover:bg-white/[0.05]">
-            <div className="text-sm font-semibold text-[var(--color-ink)]">Mobile, mobile-platform</div>
+            <div className="text-sm font-semibold text-[var(--color-ink)]">Mobile · mobile-platform</div>
             <div className="mt-0.5 text-xs text-[var(--color-muted)]">Expo and NestJS on AWS</div>
           </a>
         </div>
