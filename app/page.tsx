@@ -129,12 +129,12 @@ function Features() {
         </div>
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {items.map(([icon, t, tags]) => (
-            <div key={t} className="card card-hover p-6">
-              <span className="inline-flex rounded-lg border border-white/[0.08] bg-white/[0.03] p-2.5">
+            <div key={t} className="card card-hover p-6 text-center">
+              <span className="mx-auto inline-flex rounded-lg border border-white/[0.08] bg-white/[0.03] p-2.5">
                 <FeatureIcon name={icon} />
               </span>
               <h3 className="mt-4 font-semibold">{t}</h3>
-              <div className="mono mt-3 flex flex-wrap gap-2 text-[12px]">
+              <div className="mono mt-3 flex flex-wrap justify-center gap-2 text-[12px]">
                 {tags.map((tag) => (
                   <span key={tag} className="rounded-md border border-white/[0.07] bg-white/[0.02] px-2 py-1 text-[var(--color-muted)]">{tag}</span>
                 ))}
@@ -191,15 +191,13 @@ function Stacks() {
         </div>
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {stacks.map(([name, kind, note, icon]) => (
-            <div key={name} className="card card-hover p-6">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2.5">
-                  <span className="inline-flex rounded-lg border border-white/[0.08] bg-white/[0.03] p-2"><TechIcon name={icon} /></span>
-                  <span className="font-semibold">{name}</span>
-                </div>
+            <div key={name} className="card card-hover p-6 text-center">
+              <span className="mx-auto inline-flex rounded-lg border border-white/[0.08] bg-white/[0.03] p-2"><TechIcon name={icon} /></span>
+              <div className="mt-3 flex items-center justify-center gap-2">
+                <span className="font-semibold">{name}</span>
                 <span className="mono rounded-md border border-white/[0.08] px-2 py-0.5 text-[10px] uppercase tracking-[0.1em] text-[var(--color-faint)]">{kind}</span>
               </div>
-              <p className="mt-3 text-sm leading-relaxed text-[var(--color-muted)]">{note}</p>
+              <p className="mt-2.5 text-sm leading-relaxed text-[var(--color-muted)]">{note}</p>
             </div>
           ))}
         </div>
@@ -227,8 +225,8 @@ function How() {
         <div className="relative mt-16 grid gap-10 md:grid-cols-5 md:gap-6">
           <div className="absolute left-0 right-0 top-5 hidden h-px bg-white/10 md:block" />
           {steps.map(([t, body], i) => (
-            <div key={t} className="relative text-center md:text-left">
-              <div className="relative z-10 mx-auto grid h-10 w-10 place-items-center rounded-full border border-white/15 bg-[var(--color-bg-2)] text-sm font-semibold text-[var(--color-accent)] md:mx-0">{i + 1}</div>
+            <div key={t} className="relative text-center">
+              <div className="relative z-10 mx-auto grid h-10 w-10 place-items-center rounded-full border border-white/15 bg-[var(--color-bg-2)] text-sm font-semibold text-[var(--color-accent)]">{i + 1}</div>
               <h3 className="mt-5 font-semibold">{t}</h3>
               <p className="mt-2 text-sm leading-relaxed text-[var(--color-muted)]">{body}</p>
             </div>

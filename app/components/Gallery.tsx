@@ -26,7 +26,7 @@ export default function Gallery() {
           <p className="mt-4 text-lg text-[var(--color-muted)]">Real apps shipped on the template, real auth, real data, a real AWS deploy. Open any of them.</p>
         </div>
 
-        <div className="mt-8 flex flex-wrap items-center gap-2">
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
           {CATS.map((c) => (
             <button
               key={c}
@@ -41,7 +41,7 @@ export default function Gallery() {
               {c}
             </button>
           ))}
-          <span className="mono ml-auto text-xs text-[var(--color-faint)]">Showing {apps.length} of {APPS.length}</span>
+          <span className="mono text-xs text-[var(--color-faint)]">Showing {apps.length} of {APPS.length}</span>
         </div>
 
         <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -53,11 +53,11 @@ export default function Gallery() {
                   <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-ok)]" /> Live
                 </span>
               </a>
-              <div className="flex flex-1 flex-col p-5">
+              <div className="flex flex-1 flex-col p-5 text-center">
                 <div className="mono text-[11px] font-semibold uppercase tracking-[0.12em]" style={{ color: a.color }}>{a.tag}</div>
                 <h3 className="mt-2 font-semibold">{a.name}</h3>
                 <p className="mt-1.5 flex-1 text-sm leading-relaxed text-[var(--color-muted)]">{a.note}</p>
-                <div className="mt-5 flex items-center gap-3">
+                <div className="mt-5 flex items-center justify-center gap-3">
                   <a href={a.live} className="rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-[#0a0b16] transition-colors hover:bg-[var(--color-accent-strong)]">Demo</a>
                   <a href={a.repo} className="text-sm font-medium text-[var(--color-muted)] transition-colors hover:text-[var(--color-ink)]">Repo</a>
                 </div>
