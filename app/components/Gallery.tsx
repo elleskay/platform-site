@@ -3,16 +3,22 @@
 import { useState } from "react";
 import Image from "next/image";
 import coverShot from "../shots/coverlens.png";
+import irasShot from "../shots/iras.png";
 import cancerShot from "../shots/cancer.png";
+import scamShot from "../shots/scamshield.png";
 import armouryShot from "../shots/armoury.png";
+import driveShot from "../shots/drivebuddy.png";
 
 const APPS = [
-  { name: "CoverLens", cat: "AI", tag: "AI · Insurance", color: "var(--color-accent)", note: "AI insurance policy checker. Grounded LangGraph extraction, every finding quote-backed.", live: "https://d33z7oya883ugt.cloudfront.net", repo: "https://github.com/elleskay/insurance-dashboard", shot: coverShot },
+  { name: "CoverLens", cat: "Insurance", tag: "AI · Insurance", color: "var(--color-accent)", note: "AI insurance policy checker. Grounded LangGraph extraction, every finding quote-backed.", live: "https://d33z7oya883ugt.cloudfront.net", repo: "https://github.com/elleskay/insurance-dashboard", shot: coverShot },
+  { name: "IRAS Tax Assistant", cat: "GovTech", tag: "AI · Tax", color: "#38bdf8", note: "Conversational Singapore tax help: GST, income, corporate, and SRS, with multi-model routing and human escalation.", live: "https://d1yl1box414d2i.cloudfront.net", repo: "https://github.com/elleskay/iras-tax-assistant", shot: irasShot },
   { name: "Cancer Navigator", cat: "Healthcare", tag: "Healthcare", color: "var(--color-violet)", note: "A roadmap for newly diagnosed cancer patients in Singapore, with subsidy coverage.", live: "https://d1z96o21m62u9i.cloudfront.net", repo: "https://github.com/elleskay/cancer-navigator", shot: cancerShot },
-  { name: "Armoury", cat: "GovTech", tag: "GovTech", color: "var(--color-ok)", note: "Digital equipment checklists for frontline agencies, with an HQ readiness dashboard.", live: "https://d6a3alh51t58d.cloudfront.net", repo: "https://github.com/elleskay/armoury", shot: armouryShot },
+  { name: "ScamShield", cat: "GovTech", tag: "GovTech · Safety", color: "var(--color-ok)", note: "Check a message, number, or email for an instant verdict, report scams, and watch a reviewer verify them.", live: "https://elleskay.github.io/scamshield/", repo: "https://github.com/elleskay/scamshield", shot: scamShot },
+  { name: "Armoury", cat: "GovTech", tag: "GovTech", color: "#fbbf24", note: "Digital equipment checklists for frontline agencies, with an HQ readiness dashboard.", live: "https://d6a3alh51t58d.cloudfront.net", repo: "https://github.com/elleskay/armoury", shot: armouryShot },
+  { name: "DriveBuddy", cat: "Mobility", tag: "Mobility", color: "#818cf8", note: "AI driving companion for Singapore: live trip tracking, cost breakdowns, real-time ERP and traffic, and a voice assistant.", live: "https://elleskay.github.io/drivebuddy/", repo: "https://github.com/elleskay/drivebuddy", shot: driveShot },
 ];
 
-const CATS = ["All", "AI", "Healthcare", "GovTech"];
+const CATS = ["All", "GovTech", "Healthcare", "Insurance", "Mobility"];
 
 export default function Gallery() {
   const [cat, setCat] = useState("All");
@@ -23,7 +29,7 @@ export default function Gallery() {
       <div className="mx-auto max-w-6xl px-6 py-24">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Don&apos;t take our word for it.</h2>
-          <p className="mt-4 text-lg text-[var(--color-muted)]">Real apps shipped on the template, real auth, real data, a real AWS deploy. Open any of them.</p>
+          <p className="mt-4 text-lg text-[var(--color-muted)]">Real apps I have shipped, real auth, real data, live on AWS right now. Open any of them.</p>
         </div>
 
         <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
