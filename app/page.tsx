@@ -38,7 +38,6 @@ function Nav() {
           <a href="#apps" className="transition-colors hover:text-[var(--color-ink)]">Showcase</a>
         </div>
         <div className="flex items-center gap-2.5">
-          <a href={REPO} className="hidden text-sm text-[var(--color-muted)] transition-colors hover:text-[var(--color-ink)] sm:block">GitHub</a>
           <a href={REPO} className="rounded-lg bg-[var(--color-accent)] px-3.5 py-2 text-sm font-semibold text-[#0a0b16] transition-colors hover:bg-[var(--color-accent-strong)]">Web</a>
           <a href={MOBILE_REPO} className="rounded-lg bg-[var(--color-violet)] px-3.5 py-2 text-sm font-semibold text-[#0a0b16] transition-opacity hover:opacity-90">Mobile</a>
         </div>
