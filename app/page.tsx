@@ -52,7 +52,7 @@ function Hero() {
     ["100%", "Spec coverage"],
     ["9", "Smoke checks"],
     ["0", "Stored keys"],
-    ["3", "Live apps"],
+    ["6", "Live apps"],
     ["2", "Templates"],
     ["MIT", "License"],
   ];

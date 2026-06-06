@@ -29,7 +29,7 @@ export default function Gallery() {
       <div className="mx-auto max-w-6xl px-6 py-24">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Don&apos;t take our word for it.</h2>
-          <p className="mt-4 text-lg text-[var(--color-muted)]">Real apps I have shipped, real auth, real data, live on AWS right now. Open any of them.</p>
+          <p className="mt-4 text-lg text-[var(--color-muted)]">Real apps I have shipped, real auth, real data, live right now. Open any of them.</p>
         </div>
 
         <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
