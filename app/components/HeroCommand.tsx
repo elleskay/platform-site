@@ -3,19 +3,19 @@
 import { useEffect, useState } from "react";
 
 const WEB_TASKS = [
-  "build an AI contract reviewer: extract every clause, flag risks by severity, cite the exact source span, and block the report until each finding is grounded",
-  "build a multi-tenant SaaS: org-scoped data, owner/admin/member roles, metered Stripe billing, and an append-only audit log of every write",
-  "build an AI support copilot grounded in our docs: cite every source, and answer \"I don't know\" when no document supports the question",
-  "build a realtime ops dashboard: stream metrics over SSE, gate each panel by role, and alert when a threshold stays breached for five minutes",
-  "build a marketplace: Stripe Connect seller payouts, reviews limited to verified buyers, and search ranked by rating then recency",
+  "build a benefits eligibility checker: a citizen answers a short form, sees which subsidies they qualify for, and gets the rule that decided each",
+  "build a grants portal: citizens apply, officers review in a queue, every status change is logged, and applicants are notified at each step",
+  "build a public-records request tracker: citizens file FOI requests, officers assign and respond, and an SLA timer flags anything overdue",
+  "build a permit portal: citizens submit and pay, officers approve or return with reasons, and the citizen sees exactly which items are missing",
+  "build a caseworker dashboard: triage cases by priority, role-gated access to records, and an append-only audit log of every action",
 ];
 
 const MOBILE_TASKS = [
-  "build a telehealth app: book appointments, end-to-end encrypted chat, tokens in secure storage, and a push reminder before each visit",
-  "build a field-service app: work offline, queue jobs and signatures, sync on reconnect, and never lose a record on a dropped connection",
-  "build a delivery tracker: live driver location, push ETA updates, and an order status timeline that survives app restarts",
-  "build an authenticator: TOTP codes, biometric unlock, encrypted backup, and SMS fallback when the camera can't scan a QR",
-  "build a safety check-in app: scheduled check-ins, an SOS button that shares location, and SMS fallback when there's no data connection",
+  "build a municipal issue reporter: a citizen photographs a pothole, it geotags and routes to the right department, and they track it to closed",
+  "build a field-inspection app for officers: offline checklists, photo evidence and signatures, and sync that never drops a report",
+  "build a disaster check-in app: residents mark themselves safe, request help with their location, and officers watch a live needs map",
+  "build an officer dispatch app: assigned jobs with directions, status updates from the field, and a push alert on every high-priority case",
+  "build a benefits check-in app: appointment reminders, secure document upload, and an SMS fallback when there's no data connection",
 ];
 
 function useTypewriter(tasks: string[]) {
