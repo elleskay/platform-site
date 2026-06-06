@@ -3,19 +3,19 @@
 import { useEffect, useState } from "react";
 
 const WEB_TASKS = [
-  "build an AI contract reviewer that flags risky clauses with citations",
-  "build a multi-tenant SaaS with org billing and audit logs",
-  "build a realtime ops dashboard with role-based access",
-  "build an AI support copilot grounded in your own docs",
-  "build a marketplace with Stripe payouts and reviews",
+  "build an AI contract reviewer: extract every clause, flag risks by severity, cite the exact source span, and block the report until each finding is grounded",
+  "build a multi-tenant SaaS: org-scoped data, owner/admin/member roles, metered Stripe billing, and an append-only audit log of every write",
+  "build an AI support copilot grounded in our docs: cite every source, and answer \"I don't know\" when no document supports the question",
+  "build a realtime ops dashboard: stream metrics over SSE, gate each panel by role, and alert when a threshold stays breached for five minutes",
+  "build a marketplace: Stripe Connect seller payouts, reviews limited to verified buyers, and search ranked by rating then recency",
 ];
 
 const MOBILE_TASKS = [
-  "build a telehealth app with appointments and secure chat",
-  "build a field-service app with offline jobs and signatures",
-  "build a live delivery tracker with push ETAs",
-  "build an authenticator with SMS codes and biometrics",
-  "build a safety check-in app with SOS and SMS fallback",
+  "build a telehealth app: book appointments, end-to-end encrypted chat, tokens in secure storage, and a push reminder before each visit",
+  "build a field-service app: work offline, queue jobs and signatures, sync on reconnect, and never lose a record on a dropped connection",
+  "build a delivery tracker: live driver location, push ETA updates, and an order status timeline that survives app restarts",
+  "build an authenticator: TOTP codes, biometric unlock, encrypted backup, and SMS fallback when the camera can't scan a QR",
+  "build a safety check-in app: scheduled check-ins, an SOS button that shares location, and SMS fallback when there's no data connection",
 ];
 
 function useTypewriter(tasks: string[]) {
@@ -32,9 +32,9 @@ function useTypewriter(tasks: string[]) {
     if (reduced) return;
     const full = tasks[i].length;
     let t: ReturnType<typeof setTimeout>;
-    if (!del && n < full) t = setTimeout(() => setN((c) => c + 1), 42 + Math.random() * 28);
-    else if (!del && n >= full) t = setTimeout(() => setDel(true), 1700);
-    else if (del && n > 0) t = setTimeout(() => setN((c) => c - 1), 22);
+    if (!del && n < full) t = setTimeout(() => setN((c) => c + 1), 30 + Math.random() * 20);
+    else if (!del && n >= full) t = setTimeout(() => setDel(true), 2200);
+    else if (del && n > 0) t = setTimeout(() => setN((c) => c - 1), 11);
     else {
       setDel(false);
       setI((p) => (p + 1) % tasks.length);
@@ -58,7 +58,7 @@ function Terminal({ label, color, repo, tasks }: { label: string; color: string;
           {label}
         </span>
       </div>
-      <div className="mono flex min-h-[6.5rem] gap-2 px-5 py-4 text-[13px] leading-relaxed">
+      <div className="mono flex min-h-[9rem] gap-2 px-5 py-4 text-[13px] leading-relaxed">
         <span className="text-[var(--color-accent)]">›</span>
         <span className="text-[var(--color-ink)]">
           use <span style={{ color }}>{repo}</span> to {text}
@@ -71,9 +71,14 @@ function Terminal({ label, color, repo, tasks }: { label: string; color: string;
 
 export default function HeroCommand() {
   return (
-    <div className="mx-auto grid max-w-4xl gap-4 md:grid-cols-2">
-      <Terminal label="Web" color="var(--color-accent)" repo="github.com/elleskay/platform" tasks={WEB_TASKS} />
-      <Terminal label="Mobile" color="var(--color-violet)" repo="github.com/elleskay/mobile-platform" tasks={MOBILE_TASKS} />
+    <div className="mx-auto max-w-4xl">
+      <div className="grid gap-4 md:grid-cols-2">
+        <Terminal label="Web" color="var(--color-accent)" repo="github.com/elleskay/platform" tasks={WEB_TASKS} />
+        <Terminal label="Mobile" color="var(--color-violet)" repo="github.com/elleskay/mobile-platform" tasks={MOBILE_TASKS} />
+      </div>
+      <p className="mx-auto mt-5 max-w-2xl text-center text-sm leading-relaxed text-[var(--color-muted)]">
+        Spec-driven by default: your agent turns each brief into a <span className="text-[var(--color-ink)]">spec</span>, writes the code and the tests together, and CI blocks the deploy until every requirement is covered by a passing test.
+      </p>
     </div>
   );
 }
