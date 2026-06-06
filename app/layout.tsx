@@ -21,7 +21,7 @@ const mono = JetBrains_Mono({
 const ORIGIN = "https://elleskay.github.io";
 const SITE = `${ORIGIN}/platform-site`;
 const DESC =
-  "An open-source Next.js and AWS template for AI coding agents. Point your agent at the repo, describe an idea, and it builds the app, sets up your cloud once, and ships it to a live AWS URL, with no stored keys.";
+  "Open-source Next.js and Expo templates on AWS, built for AI coding agents. Point your agent at a repo, describe an idea, and it builds the app, sets up your cloud once, and ships it to a live AWS URL, with no stored keys.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(ORIGIN),
