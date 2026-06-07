@@ -49,12 +49,12 @@ function Terminal({ label, color, repo, tasks }: { label: string; color: string;
   const text = useTypewriter(tasks);
   return (
     <div className="card overflow-hidden text-left shadow-2xl shadow-black/40">
-      <div className="flex items-center gap-2 border-b border-white/[0.07] px-4 py-2.5">
-        <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
-        <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
-        <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
+      <div className="flex items-center gap-2 border-b border-[var(--color-border)] px-4 py-2.5">
+        <span className="h-2.5 w-2.5 rounded-full bg-[var(--color-surface-strong)]" />
+        <span className="h-2.5 w-2.5 rounded-full bg-[var(--color-surface-strong)]" />
+        <span className="h-2.5 w-2.5 rounded-full bg-[var(--color-surface-strong)]" />
         <span className="mono ml-2 text-[12px] text-[var(--color-faint)]">claude code</span>
-        <span className="mono ml-auto rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.1em]" style={{ color, background: "rgba(255,255,255,0.05)" }}>
+        <span className="mono ml-auto rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.1em]" style={{ color, background: "var(--color-surface-strong)" }}>
           {label}
         </span>
       </div>

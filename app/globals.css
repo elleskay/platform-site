@@ -1,8 +1,29 @@
 @import "tailwindcss";
 
-/* Clean modern product site: near-black, restrained, one emerald accent,
-   subtle gradient glow, soft rounded surfaces. */
+/* Light is the default theme. Dark values live under html.theme-dark.
+   Surfaces, borders, and "on accent" text are tokens so both themes are
+   first-class (no per-theme overrides scattered in components). */
 @theme {
+  --color-bg: #ffffff;
+  --color-bg-2: #f4f6f9;
+  --color-ink: #0b0d12;
+  --color-muted: #555d6a;
+  --color-faint: #8a929c;
+  --color-accent: #6366f1;
+  --color-accent-strong: #4f46e5;
+  --color-violet: #9333ea;
+  --color-ok: #059669;
+  --color-on-accent: #ffffff;
+  --color-border: rgba(0, 0, 0, 0.10);
+  --color-border-strong: rgba(0, 0, 0, 0.22);
+  --color-surface: rgba(0, 0, 0, 0.03);
+  --color-surface-strong: rgba(0, 0, 0, 0.10);
+  --color-dot: rgba(0, 0, 0, 0.07);
+  --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-mono), ui-monospace, monospace;
+}
+
+html.theme-dark {
   --color-bg: #08090b;
   --color-bg-2: #0b0d10;
   --color-ink: #f4f6f8;
@@ -12,8 +33,12 @@
   --color-accent-strong: #6f7bf7;
   --color-violet: #c084fc;
   --color-ok: #34d399;
-  --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-mono), ui-monospace, monospace;
+  --color-on-accent: #0a0b16;
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-border-strong: rgba(255, 255, 255, 0.20);
+  --color-surface: rgba(255, 255, 255, 0.03);
+  --color-surface-strong: rgba(255, 255, 255, 0.10);
+  --color-dot: rgba(255, 255, 255, 0.06);
 }
 
 html {
@@ -26,6 +51,9 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   letter-spacing: -0.011em;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
 }
 
 ::selection {
@@ -39,8 +67,8 @@ body {
 
 /* Soft surface card */
 .card {
-  background: rgba(255, 255, 255, 0.025);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: 16px;
   transition:
     border-color 0.2s ease,
@@ -48,19 +76,19 @@ body {
     transform 0.2s ease;
 }
 .card-hover:hover {
-  border-color: rgba(255, 255, 255, 0.18);
-  background: rgba(255, 255, 255, 0.045);
+  border-color: var(--color-border-strong);
+  background: var(--color-surface-strong);
   transform: translateY(-2px);
 }
 
 /* Hairline used for section separators and frames */
 .hair {
-  border-color: rgba(255, 255, 255, 0.08);
+  border-color: var(--color-border);
 }
 
 /* Subtle dotted texture for depth */
 .dots {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-image: radial-gradient(var(--color-dot) 1px, transparent 1px);
   background-size: 22px 22px;
 }
 
@@ -79,5 +107,8 @@ body {
   }
   .card-hover:hover {
     transform: none;
+  }
+  body {
+    transition: none;
   }
 }

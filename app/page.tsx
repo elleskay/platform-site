@@ -1,6 +1,7 @@
 import { siNextdotjs, siExpo, siNestjs, siPostgresql, siGithubactions } from "simple-icons";
 import HeroCommand from "./components/HeroCommand";
 import Gallery from "./components/Gallery";
+import ThemeToggle from "./components/ThemeToggle";
 
 const REPO = "https://github.com/elleskay/platform";
 const MOBILE_REPO = "https://github.com/elleskay/mobile-platform";
@@ -25,7 +26,7 @@ function Check({ className = "h-4 w-4", color = "var(--color-ok)" }: { className
 
 function Nav() {
   return (
-    <header className="sticky top-0 z-50 border-b border-white/[0.06] bg-[var(--color-bg)]/80 backdrop-blur-xl">
+    <header className="sticky top-0 z-50 border-b border-[var(--color-border)] bg-[var(--color-bg)]/80 backdrop-blur-xl">
       <nav className="relative mx-auto flex max-w-6xl items-center justify-between px-6 py-3.5">
         <a href="#top" className="flex items-center gap-2">
           <Mark className="h-5 w-5" />
@@ -38,8 +39,9 @@ function Nav() {
           <a href="#apps" className="transition-colors hover:text-[var(--color-ink)]">Showcase</a>
         </div>
         <div className="flex items-center gap-2.5">
-          <a href={REPO} className="rounded-lg bg-[var(--color-accent)] px-3.5 py-2 text-sm font-semibold text-[#0a0b16] transition-colors hover:bg-[var(--color-accent-strong)]">Web</a>
-          <a href={MOBILE_REPO} className="rounded-lg bg-[var(--color-violet)] px-3.5 py-2 text-sm font-semibold text-[#0a0b16] transition-opacity hover:opacity-90">Mobile</a>
+          <ThemeToggle />
+          <a href={REPO} className="rounded-lg bg-[var(--color-accent)] px-3.5 py-2 text-sm font-semibold text-[var(--color-on-accent)] transition-colors hover:bg-[var(--color-accent-strong)]">Web</a>
+          <a href={MOBILE_REPO} className="rounded-lg bg-[var(--color-violet)] px-3.5 py-2 text-sm font-semibold text-[var(--color-on-accent)] transition-opacity hover:opacity-90">Mobile</a>
         </div>
       </nav>
     </header>
@@ -64,7 +66,7 @@ function Hero() {
         <div className="mono mb-7 flex flex-wrap items-center justify-center gap-x-2.5 gap-y-2 text-xs text-[var(--color-faint)]">
           <span className="uppercase tracking-[0.16em]">Works with</span>
           {agents.map((a) => (
-            <span key={a} className="rounded-full border border-white/10 bg-white/[0.03] px-2.5 py-1 text-[var(--color-muted)]">{a}</span>
+            <span key={a} className="rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] px-2.5 py-1 text-[var(--color-muted)]">{a}</span>
           ))}
         </div>
         <h1 className="mx-auto max-w-3xl text-[42px] font-bold leading-[1.05] tracking-tight sm:text-[68px]">
@@ -75,8 +77,8 @@ function Hero() {
         </p>
         <div className="mt-9"><HeroCommand /></div>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-          <a href="#how" className="rounded-lg bg-[var(--color-accent)] px-6 py-3 text-sm font-semibold text-[#0a0b16] transition-colors hover:bg-[var(--color-accent-strong)]">How it works</a>
-          <a href="#apps" className="rounded-lg border border-white/12 bg-white/[0.03] px-6 py-3 text-sm font-semibold transition-colors hover:border-white/25">View demos</a>
+          <a href="#how" className="rounded-lg bg-[var(--color-accent)] px-6 py-3 text-sm font-semibold text-[var(--color-on-accent)] transition-colors hover:bg-[var(--color-accent-strong)]">How it works</a>
+          <a href="#apps" className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] px-6 py-3 text-sm font-semibold transition-colors hover:border-[var(--color-border-strong)]">View demos</a>
         </div>
         <div className="mt-14 grid grid-cols-3 gap-3 sm:grid-cols-6">
           {stats.map(([n, l]) => (
@@ -120,7 +122,7 @@ function Features() {
     ["valid", "Validation", ["Zod", "every server action", "typed boundaries"]],
   ];
   return (
-    <section id="features" className="border-t border-white/[0.06] bg-[var(--color-bg-2)]">
+    <section id="features" className="border-t border-[var(--color-border)] bg-[var(--color-bg-2)]">
       <div className="mx-auto max-w-6xl px-6 py-24">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Everything you need, already built.</h2>
@@ -129,13 +131,13 @@ function Features() {
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {items.map(([icon, t, tags]) => (
             <div key={t} className="card card-hover p-6 text-center">
-              <span className="mx-auto inline-flex rounded-lg border border-white/[0.08] bg-white/[0.03] p-2.5">
+              <span className="mx-auto inline-flex rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-2.5">
                 <FeatureIcon name={icon} />
               </span>
               <h3 className="mt-4 font-semibold">{t}</h3>
               <div className="mono mt-3 flex flex-wrap justify-center gap-2 text-[12px]">
                 {tags.map((tag) => (
-                  <span key={tag} className="rounded-md border border-white/[0.07] bg-white/[0.02] px-2 py-1 text-[var(--color-muted)]">{tag}</span>
+                  <span key={tag} className="rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] px-2 py-1 text-[var(--color-muted)]">{tag}</span>
                 ))}
               </div>
             </div>
@@ -182,7 +184,7 @@ function Stacks() {
     ["GitHub Actions", "CI/CD", "OIDC deploys, no stored keys.", "actions"],
   ];
   return (
-    <section id="stacks" className="border-t border-white/[0.06]">
+    <section id="stacks" className="border-t border-[var(--color-border)]">
       <div className="mx-auto max-w-6xl px-6 py-24">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Eight technologies, already wired.</h2>
@@ -191,10 +193,10 @@ function Stacks() {
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {stacks.map(([name, kind, note, icon]) => (
             <div key={name} className="card card-hover p-6 text-center">
-              <span className="mx-auto inline-flex rounded-lg border border-white/[0.08] bg-white/[0.03] p-2"><TechIcon name={icon} /></span>
+              <span className="mx-auto inline-flex rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-2"><TechIcon name={icon} /></span>
               <div className="mt-3 flex items-center justify-center gap-2">
                 <span className="font-semibold">{name}</span>
-                <span className="mono rounded-md border border-white/[0.08] px-2 py-0.5 text-[10px] uppercase tracking-[0.1em] text-[var(--color-faint)]">{kind}</span>
+                <span className="mono rounded-md border border-[var(--color-border)] px-2 py-0.5 text-[10px] uppercase tracking-[0.1em] text-[var(--color-faint)]">{kind}</span>
               </div>
               <p className="mt-2.5 text-sm leading-relaxed text-[var(--color-muted)]">{note}</p>
             </div>
@@ -215,17 +217,17 @@ function How() {
     ["It ships", "A live AWS URL, automatically, on every push from then on."],
   ];
   return (
-    <section id="how" className="border-t border-white/[0.06] bg-[var(--color-bg-2)]">
+    <section id="how" className="border-t border-[var(--color-border)] bg-[var(--color-bg-2)]">
       <div className="mx-auto max-w-6xl px-6 py-24">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Prompt your idea. It does the rest.</h2>
           <p className="mt-4 text-lg text-[var(--color-muted)]">You describe the app. The agent builds it, sets up your cloud once, and ships it to AWS.</p>
         </div>
         <div className="relative mt-16 grid gap-10 md:grid-cols-5 md:gap-6">
-          <div className="absolute left-0 right-0 top-5 hidden h-px bg-white/10 md:block" />
+          <div className="absolute left-0 right-0 top-5 hidden h-px bg-[var(--color-surface-strong)] md:block" />
           {steps.map(([t, body], i) => (
             <div key={t} className="relative text-center">
-              <div className="relative z-10 mx-auto grid h-10 w-10 place-items-center rounded-full border border-white/15 bg-[var(--color-bg-2)] text-sm font-semibold text-[var(--color-accent)]">{i + 1}</div>
+              <div className="relative z-10 mx-auto grid h-10 w-10 place-items-center rounded-full border border-[var(--color-border-strong)] bg-[var(--color-bg-2)] text-sm font-semibold text-[var(--color-accent)]">{i + 1}</div>
               <h3 className="mt-5 font-semibold">{t}</h3>
               <p className="mt-2 text-sm leading-relaxed text-[var(--color-muted)]">{body}</p>
             </div>
@@ -239,7 +241,7 @@ function How() {
 function CTA() {
   const features = ["Open source, MIT", "Works with any coding agent", "Production-ready: spec gate + smoke test"];
   return (
-    <section className="border-t border-white/[0.06]">
+    <section className="border-t border-[var(--color-border)]">
       <div className="relative mx-auto max-w-6xl overflow-hidden px-6 py-28">
         <div className="pointer-events-none absolute inset-0" style={{ background: "radial-gradient(560px 280px at 50% 120%, rgba(139,149,255,0.2), transparent 65%)" }} />
         <div className="relative text-center">
@@ -251,8 +253,8 @@ function CTA() {
             ))}
           </div>
           <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
-            <a href={REPO} className="rounded-lg bg-[var(--color-accent)] px-6 py-3 text-sm font-semibold text-[#0a0b16] transition-colors hover:bg-[var(--color-accent-strong)]">Use the web template</a>
-            <a href={MOBILE_REPO} className="rounded-lg bg-[var(--color-violet)] px-6 py-3 text-sm font-semibold text-[#0a0b16] transition-opacity hover:opacity-90">Use the mobile template</a>
+            <a href={REPO} className="rounded-lg bg-[var(--color-accent)] px-6 py-3 text-sm font-semibold text-[var(--color-on-accent)] transition-colors hover:bg-[var(--color-accent-strong)]">Use the web template</a>
+            <a href={MOBILE_REPO} className="rounded-lg bg-[var(--color-violet)] px-6 py-3 text-sm font-semibold text-[var(--color-on-accent)] transition-opacity hover:opacity-90">Use the mobile template</a>
           </div>
         </div>
       </div>
@@ -262,7 +264,7 @@ function CTA() {
 
 function Footer() {
   return (
-    <footer className="border-t border-white/[0.06]">
+    <footer className="border-t border-[var(--color-border)]">
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 py-8 text-sm text-[var(--color-faint)] sm:flex-row">
         <div className="flex items-center gap-2"><Mark className="h-4 w-4" /> platform, an open-source template. MIT.</div>
         <div className="flex items-center gap-6">

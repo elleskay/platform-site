@@ -48,7 +48,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${sans.variable} ${mono.variable}`}>
-      <body>{children}</body>
+      <body>
+        {/* Apply the saved theme before paint. Light is the default (no class). */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "try{if(localStorage.getItem('theme')==='dark'){document.documentElement.classList.add('theme-dark')}}catch(e){}",
+          }}
+        />
+        {children}
+      </body>
     </html>
   );
 }
