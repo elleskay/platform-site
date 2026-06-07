@@ -1,6 +1,6 @@
 # platform-site
 
-The marketing landing page for the [**platform**](https://github.com/elleskay/platform) template, a reusable TypeScript monorepo for shipping Next.js apps to AWS serverless.
+The marketing landing page for the [**platform**](https://github.com/elleskay/platform) (web) and [**mobile-platform**](https://github.com/elleskay/mobile-platform) (mobile) templates, open-source starters for shipping production-grade apps to AWS with an AI coding agent. It showcases the six real apps built on them.
 
 **Live:** https://elleskay.github.io/platform-site
 
