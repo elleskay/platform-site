@@ -53,7 +53,7 @@ export default function Gallery() {
         <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {apps.map((a) => (
             <div key={a.name} className="card card-hover flex flex-col overflow-hidden">
-              <a href={a.live} className="relative block aspect-[16/10] overflow-hidden border-b border-[var(--color-border)]">
+              <a href={a.live} className="relative block aspect-[16/7] overflow-hidden border-b border-[var(--color-border)]">
                 <Image src={a.shot} alt={`${a.name} screenshot`} fill sizes="(max-width: 1024px) 100vw, 400px" className="object-cover object-top" placeholder="blur" />
                 <span className="absolute right-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-black/55 px-2.5 py-1 text-[11px] font-medium text-white backdrop-blur">
                   <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-ok)]" /> Live
