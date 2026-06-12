@@ -73,7 +73,7 @@ function Hero() {
           Ship production-grade apps, <span className="bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-violet)] bg-clip-text text-transparent">fast.</span>
         </h1>
         <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-[var(--color-muted)]">
-          Open-source Next.js and Expo templates on AWS, built for your AI coding agent. Point it at a repo, describe an idea, and it ships a real, live app, with no infrastructure to build.
+          Open-source Next.js and Expo templates on AWS, built for your AI coding agent. Point it at a repo, describe an idea, and it ships a real, live app, with the infrastructure, CI/CD, and security scanning already wired.
         </p>
         <div className="mt-9"><HeroCommand /></div>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
