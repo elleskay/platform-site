@@ -51,10 +51,18 @@ There is no database. The content is the data, held in typed arrays in the sourc
 
 There is no API. The site is static files served over HTTP, plus file-based metadata images.
 
+The single page route serves the one statically exported HTML document at the site root, the landing page that stitches together every section (hero, features, stacks, how, gallery, CTA). Because the whole site is a single page, this one route is the entire public surface a visitor ever requests.
+
 ```
-GET /                       the single exported page (hero, features, stacks, how, gallery, CTA)
-GET /opengraph-image        Open Graph card, file-based route
-GET /icon, /twitter-image   favicon and Twitter card, file-based routes
+GET /  -> the single exported page (hero, features, stacks, how, gallery, CTA)
+```
+
+The file-based metadata routes are images the framework emits as static files at build time from convention-named source files, one per social and icon use (Open Graph card for link unfurls, favicon for the browser tab, Twitter card for tweet previews). Each is a fixed asset on the CDN, not a function, so a request just returns the prebuilt image.
+
+```
+GET /opengraph-image  -> Open Graph card (file-based metadata route)
+GET /icon             -> favicon (file-based metadata route)
+GET /twitter-image    -> Twitter card (file-based metadata route)
 ```
 
 Everything is prebuilt at deploy time and served from the GitHub Pages CDN.
@@ -69,37 +77,74 @@ We build the design one functional requirement at a time.
 
 The page is composed from typed content arrays: feature cards, a grid of eight wired technologies, and a five-step build flow. A hero shows two animated terminal mockups typing realistic agent prompts (one web, one mobile), built as a client typewriter that respects reduced-motion. All of it is server-rendered to static HTML at build time.
 
+We start with content to a static page: typed arrays render to HTML at build time, with the hero typewriter as a small client touch.
+
+```mermaid
+flowchart LR
+  Content[("Typed content arrays")]
+  Build["GitHub Actions build<br/>- next build<br/>- static export"]
+  Page["Static page<br/>- hero, features, stacks, how"]
+  Hero["Hero typewriter island<br/>- client component<br/>- respects reduced-motion"]
+  Visitor["Visitor browser"]
+  Content -->|"next build, static export"| Build
+  Build -->|"renders to static HTML at build"| Page
+  Hero -->|"client typewriter"| Page
+  Page --> Visitor
+```
+
 ### 2) A visitor browses and filters the showcase
 
 The gallery is a client island holding the six apps as a static in-module list. Category buttons set client state and filter the list instantly, with no navigation and no request. Each card links straight to the live demo and the repo, and screenshots use the framework image component with blur placeholders and fixed aspect boxes so nothing shifts as they load.
 
+We add the first client island: the gallery, filtering an in-memory list with no request.
+
 ```mermaid
 flowchart LR
-  V[Visitor] --> Page[Static page from the CDN]
-  Page --> G[Gallery client island]
-  G --> Cat{Category selected}
-  Cat -->|All| List[Show all six apps]
-  Cat -->|one category| Filt[Filter the in-memory list]
-  List --> Cards[App cards link to live demo and repo]
+  Content[("Typed content arrays")]
+  Build["GitHub Actions build<br/>- next build<br/>- static export"]
+  Page["Static page<br/>- from the CDN"]
+  Visitor["Visitor browser"]
+  Gallery["Gallery island<br/>- in-memory list of six apps"]
+  All["Show all six apps"]
+  Filt["Filter the in-memory list"]
+  Cards["Cards<br/>- link to live demo and repo"]
+  Content -->|"next build, static export"| Build
+  Build -->|"renders to static HTML at build"| Page
+  Page --> Visitor
+  Page --> Gallery
+  Gallery -->|"category All"| All
+  Gallery -->|"filter in memory"| Filt
+  All --> Cards
   Filt --> Cards
 ```
 
 ### 3) A visitor switches theme and it sticks
 
-A small inline script in the document head reads the saved theme from localStorage and applies the dark class before first paint, so there is no flash. A toggle button flips the class and writes the new choice back to localStorage. Light is the default when nothing is saved.
+A small inline script at the top of the document body reads the saved theme from localStorage and applies the theme-dark class before first paint, so there is no flash. A toggle button flips the class and writes the new choice back to localStorage. Light is the default when nothing is saved.
 
-### Physical deployment
-
-The site is exported to static files and served by GitHub Pages from its CDN. A workflow on every push to main builds the export and publishes it. There is no server and no secret.
+We add the second client island: the theme, applied before first paint from localStorage. That completes the client-side picture.
 
 ```mermaid
-flowchart TD
-  Push[Push to main] --> CI[GitHub Actions build job]
-  CI --> Build[next build, output export to out]
-  Build --> Art[Upload Pages artifact]
-  Art --> Dep[Deploy Pages job]
-  Dep --> CDN[GitHub Pages CDN at the platform-site subpath]
-  CDN --> Browser[Visitor browser]
+flowchart LR
+  Content[("Typed content arrays")]
+  Build["GitHub Actions build<br/>- next build<br/>- static export"]
+  Page["Static page<br/>- from the CDN"]
+  Visitor["Visitor browser"]
+  Gallery["Gallery island<br/>- filter in memory"]
+  Cards["Cards<br/>- link to live demo and repo"]
+  Pre["Pre-paint script, top of body"]
+  Theme["Theme island<br/>- apply saved theme before first paint"]
+  Toggle["Theme toggle"]
+  LS[("localStorage")]
+  Content -->|"next build, static export"| Build
+  Build -->|"renders to static HTML at build"| Page
+  Page --> Visitor
+  Page --> Gallery
+  Gallery -->|"filter in memory"| Cards
+  Pre -->|"pre-paint from localStorage"| Theme
+  Theme --> Page
+  Toggle --> LS
+  LS --> Pre
 ```
 
 ---
@@ -169,7 +214,7 @@ Use a CSS media query to match the operating system theme. No flash, but it igno
 <details>
 <summary><strong>Great solution: persist the choice and apply it before paint</strong></summary>
 
-Save the chosen theme to localStorage, and run a tiny inline script in the document head that reads it and sets the dark class before first paint. The toggle writes the choice back. The visitor's explicit choice wins, and there is no flash. This is what the site runs.
+Save the chosen theme to localStorage, and run a tiny inline script at the top of the document body that reads it and sets the theme-dark class before first paint. The toggle writes the choice back. The visitor's explicit choice wins, and there is no flash. This is what the site runs.
 </details>
 
 ### 4) How do we filter the showcase without a backend?
@@ -217,6 +262,25 @@ Use the framework image component in unoptimized mode (there is no image server 
 </details>
 
 ---
+
+## The complete design
+
+Pulling the high-level design and the deep dives together, here is the whole system in one view. It deploys as static files on the GitHub Pages CDN, rebuilt and published by a workflow on every push to main, with no server and no secret.
+
+```mermaid
+flowchart LR
+  Content[("Typed content arrays")]
+  Build["GitHub Actions build<br/>- next build<br/>- static export"]
+  CDN["GitHub Pages CDN<br/>- static files<br/>- on push to main<br/>- no server, no secret"]
+  Page["Static page"]
+  Gallery["Gallery island<br/>- filter in memory"]
+  Theme["Theme island<br/>- pre-paint from localStorage"]
+  Content -->|"next build, static export"| Build
+  Build -->|publishes| CDN
+  CDN --> Page
+  Page -->|"filter in memory"| Gallery
+  Page -->|"pre-paint from localStorage"| Theme
+```
 
 ## Tech stack
 
