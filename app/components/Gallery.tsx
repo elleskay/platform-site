@@ -5,8 +5,6 @@ import Image from "next/image";
 import coverShot from "../shots/coverlens.png";
 import irasShot from "../shots/iras.png";
 import cancerShot from "../shots/cancer.png";
-import scamShot from "../shots/scamshield.png";
-import armouryShot from "../shots/armoury.png";
 import driveShot from "../shots/drivebuddy.png";
 
 const APPS = [
@@ -14,11 +12,9 @@ const APPS = [
   { name: "DriveBuddy", cat: "Mobility", tag: "AI · Mobility", color: "#818cf8", note: "AI driving companion for Singapore: live ERP, traffic, weather and parking, drive tracking with in-drive voice alerts, post-trip cost breakdowns, and an AI assistant.", live: "https://elleskay.github.io/drivebuddy/", repo: "https://github.com/elleskay/drivebuddy", shot: driveShot },
   { name: "CoverLens", cat: "Insurance", tag: "AI · Insurance", color: "var(--color-accent)", note: "AI insurance policy checker. Grounded LangGraph extraction, every finding quote-backed.", live: "https://coverlens.soonkeong.dev", repo: "https://github.com/elleskay/insurance-dashboard", shot: coverShot },
   { name: "Cancer Navigator", cat: "Healthcare", tag: "Healthcare", color: "var(--color-violet)", note: "Plain-language roadmaps by cancer type for newly diagnosed patients in Singapore, with instant Cancer Drug List coverage lookup.", live: "https://cancer.soonkeong.dev", repo: "https://github.com/elleskay/cancer-navigator", shot: cancerShot },
-  { name: "ScamShield (Unofficial)", cat: "OGP Reconstruction", tag: "OGP Reconstruction", color: "var(--color-ok)", note: "Check a message, number, or email for an instant verdict, report scams, and watch a reviewer verify them. Rebuilt from OGP's public product updates to understand how they approach the problem. Not affiliated with OGP.", live: "https://elleskay.github.io/scamshield/", repo: "https://github.com/elleskay/scamshield", shot: scamShot },
-  { name: "Armoury (Unofficial)", cat: "OGP Reconstruction", tag: "OGP Reconstruction", color: "#d97706", note: "Digital equipment checklists for frontline agencies, with an HQ readiness dashboard. Rebuilt from OGP's public product updates to understand how they approach the problem. Not affiliated with OGP.", live: "https://armoury.soonkeong.dev", repo: "https://github.com/elleskay/armoury", shot: armouryShot },
 ];
 
-const CATS = ["All", "Tax", "Healthcare", "Insurance", "Mobility", "OGP Reconstruction"];
+const CATS = ["All", "Tax", "Healthcare", "Insurance", "Mobility"];
 
 export default function Gallery() {
   const [cat, setCat] = useState("All");
