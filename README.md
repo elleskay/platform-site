@@ -3,7 +3,7 @@
 [![Deploy](https://github.com/elleskay/platform-site/actions/workflows/deploy.yml/badge.svg)](https://github.com/elleskay/platform-site/actions/workflows/deploy.yml)
 [![CI](https://github.com/elleskay/platform-site/actions/workflows/ci.yml/badge.svg)](https://github.com/elleskay/platform-site/actions/workflows/ci.yml)
 
-> A system design breakdown of the marketing and showcase site for two open-source app templates, [**platform**](https://github.com/elleskay/platform) (web) and [**mobile-platform**](https://github.com/elleskay/mobile-platform) (mobile). It explains what the templates give an AI coding agent, and proves it with a filterable gallery of four real apps that are live right now.
+> A system design breakdown of the marketing and showcase site for two open-source app templates, [**platform**](https://github.com/elleskay/platform) (web) and [**mobile-platform**](https://github.com/elleskay/mobile-platform) (mobile). It explains what the templates give an AI coding agent, and proves it with a filterable gallery of three real apps that are live right now.
 >
 > **Live** at https://elleskay.github.io/platform-site
 
@@ -11,7 +11,7 @@
 
 ## Understanding the Problem
 
-This is a brochure, not an application. There are no users to authenticate, no data to store, and nothing to compute on a request. The job is to explain the templates clearly, look credible, and link out to four live demos and their repos.
+This is a brochure, not an application. There are no users to authenticate, no data to store, and nothing to compute on a request. The job is to explain the templates clearly, look credible, and link out to three live demos and their repos.
 
 That sounds trivial, and the content is. The interesting constraints are all in the delivery. The site has to serve as pure static files so it costs nothing and never goes down, it has to render correctly both at a local root and under a GitHub Pages repo subpath, it has to remember a light or dark theme without flashing the wrong one on load, and a push to the repo has to redeploy it with no human in the loop. So the design problem is "ship a fast, free, self-deploying static site that behaves correctly under a subpath," not "serve scale" or "model a domain."
 
@@ -45,7 +45,7 @@ The whole site is one Next.js project exported to static HTML, CSS, and JavaScri
 
 There is no database. The content is the data, held in typed arrays in the source and rendered at build time.
 
-- **App showcase**, the list of four live apps with name, category, blurb, live URL, repo URL, and screenshot.
+- **App showcase**, the list of three live apps with name, category, blurb, live URL, repo URL, and screenshot.
 - **Capability content**, the feature cards, the wired technology stacks, and the build-flow steps.
 - **Theme**, light or dark, the visitor's choice, held in browser localStorage.
 - **Selected category**, the active gallery filter, held in client state for the session.
@@ -92,14 +92,14 @@ flowchart LR
 
 ### 2) A visitor browses and filters the showcase
 
-The gallery is a client island holding the four apps as a static in-module list. Category buttons set client state and filter the list instantly, with no navigation and no request. Each card links straight to the live demo and the repo, and screenshots use the framework image component with blur placeholders and fixed aspect boxes so nothing shifts as they load.
+The gallery is a client island holding the three apps as a static in-module list. Category buttons set client state and filter the list instantly, with no navigation and no request. Each card links straight to the live demo and the repo, and screenshots use the framework image component with blur placeholders and fixed aspect boxes so nothing shifts as they load.
 
 We add the second client island: the gallery, filtering an in-memory list with no request.
 
 ```mermaid
 flowchart LR
   CDN["GitHub Pages CDN"] -->|"GET /"| Page["Static page"]
-  Page -->|"render"| Gallery["Gallery island<br/>- in-memory list of four apps"]
+  Page -->|"render"| Gallery["Gallery island<br/>- in-memory list of three apps"]
   Gallery -->|"filter in memory"| Filter["Filter in memory<br/>- by category, no request"]
   Filter -->|"link to live demo and repo"| Cards["Cards<br/>- link to live demo and repo"]
 ```
@@ -195,7 +195,7 @@ Visitors want to narrow the gallery by category, but there is no server to query
 <details>
 <summary><strong>Bad solution: a page per category</strong></summary>
 
-Pre-render a separate page for each category and link between them. Every filter change is a full navigation and reload, which feels heavy for flipping a tag on four cards.
+Pre-render a separate page for each category and link between them. Every filter change is a full navigation and reload, which feels heavy for flipping a tag on three cards.
 </details>
 
 <details>
@@ -207,7 +207,7 @@ Encode the category in the URL and re-render on change. Shareable, but each clic
 <details>
 <summary><strong>Great solution: client-side filter over a static list</strong></summary>
 
-Hold the four apps as a typed in-module list and filter them in client state, so changing category is instant with no navigation and no request. The list is tiny, so there is nothing to paginate or fetch. This is what the site runs.
+Hold the three apps as a typed in-module list and filter them in client state, so changing category is instant with no navigation and no request. The list is tiny, so there is nothing to paginate or fetch. This is what the site runs.
 </details>
 
 ### 5) How do we keep images fast on a host with no image server?
