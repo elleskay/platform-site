@@ -1,6 +1,9 @@
 # Platform Site System Design
 
-> A system design breakdown of the marketing and showcase site for two open-source app templates, [**platform**](https://github.com/elleskay/platform) (web) and [**mobile-platform**](https://github.com/elleskay/mobile-platform) (mobile). It explains what the templates give an AI coding agent, and proves it with a filterable gallery of six real apps that are live right now.
+[![Deploy](https://github.com/elleskay/platform-site/actions/workflows/deploy.yml/badge.svg)](https://github.com/elleskay/platform-site/actions/workflows/deploy.yml)
+[![CI](https://github.com/elleskay/platform-site/actions/workflows/ci.yml/badge.svg)](https://github.com/elleskay/platform-site/actions/workflows/ci.yml)
+
+> A system design breakdown of the marketing and showcase site for two open-source app templates, [**platform**](https://github.com/elleskay/platform) (web) and [**mobile-platform**](https://github.com/elleskay/mobile-platform) (mobile). It explains what the templates give an AI coding agent, and proves it with a filterable gallery of four real apps that are live right now.
 >
 > **Live** at https://elleskay.github.io/platform-site
 
@@ -8,7 +11,7 @@
 
 ## Understanding the Problem
 
-This is a brochure, not an application. There are no users to authenticate, no data to store, and nothing to compute on a request. The job is to explain the templates clearly, look credible, and link out to six live demos and their repos.
+This is a brochure, not an application. There are no users to authenticate, no data to store, and nothing to compute on a request. The job is to explain the templates clearly, look credible, and link out to four live demos and their repos.
 
 That sounds trivial, and the content is. The interesting constraints are all in the delivery. The site has to serve as pure static files so it costs nothing and never goes down, it has to render correctly both at a local root and under a GitHub Pages repo subpath, it has to remember a light or dark theme without flashing the wrong one on load, and a push to the repo has to redeploy it with no human in the loop. So the design problem is "ship a fast, free, self-deploying static site that behaves correctly under a subpath," not "serve scale" or "model a domain."
 
@@ -36,13 +39,13 @@ Out of scope: no accounts, no backend, no database, no server-side compute. It i
 
 ### Planning the Approach
 
-The whole site is one Next.js project exported to static HTML, CSS, and JavaScript. There is no server at request time. Content lives in source as typed arrays, the page renders from them at build, and the only runtime behavior is two small client islands: the theme toggle and the gallery filter. GitHub Pages serves the exported files from its CDN, and a workflow rebuilds on every push to main. Because the output is static, the design is about correct paths, no-flash theming, and a clean deploy, not infrastructure.
+The whole site is one Next.js project exported to static HTML, CSS, and JavaScript. There is no server at request time. Content lives in source as typed arrays, the page renders from them at build, and the only runtime behavior is three small client islands: the hero typewriter, the gallery filter, and the theme toggle. GitHub Pages serves the exported files from its CDN, and a workflow rebuilds on every push to main. Because the output is static, the design is about correct paths, no-flash theming, and a clean deploy, not infrastructure.
 
 ### Defining the Core Entities
 
 There is no database. The content is the data, held in typed arrays in the source and rendered at build time.
 
-- **App showcase**, the list of six live apps with name, category, blurb, live URL, repo URL, and screenshot.
+- **App showcase**, the list of four live apps with name, category, blurb, live URL, repo URL, and screenshot.
 - **Capability content**, the feature cards, the wired technology stacks, and the build-flow steps.
 - **Theme**, light or dark, the visitor's choice, held in browser localStorage.
 - **Selected category**, the active gallery filter, held in client state for the session.
@@ -77,74 +80,42 @@ We build the design one functional requirement at a time.
 
 The page is composed from typed content arrays: feature cards, a grid of eight wired technologies, and a five-step build flow. A hero shows two animated terminal mockups typing realistic agent prompts (one web, one mobile), built as a client typewriter that respects reduced-motion. All of it is server-rendered to static HTML at build time.
 
-We start with content to a static page: typed arrays render to HTML at build time, with the hero typewriter as a small client touch.
+We start with content to a static page: typed arrays render to HTML at build time, with the hero typewriter as the first client island.
 
 ```mermaid
 flowchart LR
-  Content[("Typed content arrays")]
-  Build["GitHub Actions build<br/>- next build<br/>- static export"]
-  Page["Static page<br/>- hero, features, stacks, how"]
-  Hero["Hero typewriter island<br/>- client component<br/>- respects reduced-motion"]
-  Visitor["Visitor browser"]
-  Content -->|"next build, static export"| Build
-  Build -->|"renders to static HTML at build"| Page
-  Hero -->|"client typewriter"| Page
-  Page --> Visitor
+  Content[("Typed content arrays")] -->|"next build"| Build["GitHub Actions<br/>- next build<br/>- static export"]
+  Build -->|"deploy on push to main"| CDN["GitHub Pages CDN"]
+  CDN -->|"GET /"| Page["Static page<br/>- hero, features, stacks, how"]
+  Page -->|"render"| Hero["Hero typewriter island<br/>- client, reduced-motion"]
 ```
 
 ### 2) A visitor browses and filters the showcase
 
-The gallery is a client island holding the six apps as a static in-module list. Category buttons set client state and filter the list instantly, with no navigation and no request. Each card links straight to the live demo and the repo, and screenshots use the framework image component with blur placeholders and fixed aspect boxes so nothing shifts as they load.
+The gallery is a client island holding the four apps as a static in-module list. Category buttons set client state and filter the list instantly, with no navigation and no request. Each card links straight to the live demo and the repo, and screenshots use the framework image component with blur placeholders and fixed aspect boxes so nothing shifts as they load.
 
-We add the first client island: the gallery, filtering an in-memory list with no request.
+We add the second client island: the gallery, filtering an in-memory list with no request.
 
 ```mermaid
 flowchart LR
-  Content[("Typed content arrays")]
-  Build["GitHub Actions build<br/>- next build<br/>- static export"]
-  Page["Static page<br/>- from the CDN"]
-  Visitor["Visitor browser"]
-  Gallery["Gallery island<br/>- in-memory list of six apps"]
-  All["Show all six apps"]
-  Filt["Filter the in-memory list"]
-  Cards["Cards<br/>- link to live demo and repo"]
-  Content -->|"next build, static export"| Build
-  Build -->|"renders to static HTML at build"| Page
-  Page --> Visitor
-  Page --> Gallery
-  Gallery -->|"category All"| All
-  Gallery -->|"filter in memory"| Filt
-  All --> Cards
-  Filt --> Cards
+  CDN["GitHub Pages CDN"] -->|"GET /"| Page["Static page"]
+  Page -->|"render"| Gallery["Gallery island<br/>- in-memory list of four apps"]
+  Gallery -->|"filter in memory"| Filter["Filter in memory<br/>- by category, no request"]
+  Filter -->|"link to live demo and repo"| Cards["Cards<br/>- link to live demo and repo"]
 ```
 
 ### 3) A visitor switches theme and it sticks
 
 A small inline script at the top of the document body reads the saved theme from localStorage and applies the theme-dark class before first paint, so there is no flash. A toggle button flips the class and writes the new choice back to localStorage. Light is the default when nothing is saved.
 
-We add the second client island: the theme, applied before first paint from localStorage. That completes the client-side picture.
+We add the third client island: the theme, applied before first paint from localStorage. That completes the client-side picture.
 
 ```mermaid
 flowchart LR
-  Content[("Typed content arrays")]
-  Build["GitHub Actions build<br/>- next build<br/>- static export"]
-  Page["Static page<br/>- from the CDN"]
-  Visitor["Visitor browser"]
-  Gallery["Gallery island<br/>- filter in memory"]
-  Cards["Cards<br/>- link to live demo and repo"]
-  Pre["Pre-paint script, top of body"]
-  Theme["Theme island<br/>- apply saved theme before first paint"]
-  Toggle["Theme toggle"]
-  LS[("localStorage")]
-  Content -->|"next build, static export"| Build
-  Build -->|"renders to static HTML at build"| Page
-  Page --> Visitor
-  Page --> Gallery
-  Gallery -->|"filter in memory"| Cards
-  Pre -->|"pre-paint from localStorage"| Theme
-  Theme --> Page
-  Toggle --> LS
-  LS --> Pre
+  LS[("localStorage")] -->|"read theme"| Pre["Pre-paint script<br/>- top of body"]
+  Pre -->|"apply before paint"| Theme["Theme island<br/>- applies theme-dark class<br/>- before first paint"]
+  Theme -->|"set theme-dark class"| Page["Static page"]
+  Theme -->|"render toggle"| Toggle["Theme toggle<br/>- writes choice to localStorage"]
 ```
 
 ---
@@ -192,7 +163,7 @@ Set the base path to `/platform-site` everywhere. Production is correct, but loc
 <details>
 <summary><strong>Great solution: an env-switchable base path</strong></summary>
 
-Default the base path to `/platform-site` for CI, and let `PAGES_BASE=""` override it to the root for local preview, so both environments resolve assets correctly. Set the metadata base to the origin only, since the framework already prefixes the subpath onto file-based image routes, which avoids doubling it on the Open Graph card. This is what the site runs.
+Read the base path from one `PAGES_BASE` environment variable: the deploy workflow sets it to `/platform-site`, and local dev and preview leave it unset and default to the root. Both environments resolve assets correctly, and nothing depends on exporting an empty variable, which some shells cannot even express. Set the metadata base to the origin only, since the framework already prefixes the subpath onto file-based image routes, which avoids doubling it on the Open Graph card. This is what the site runs.
 </details>
 
 ### 3) How do we apply the saved theme with no flash?
@@ -224,7 +195,7 @@ Visitors want to narrow the gallery by category, but there is no server to query
 <details>
 <summary><strong>Bad solution: a page per category</strong></summary>
 
-Pre-render a separate page for each category and link between them. Every filter change is a full navigation and reload, which feels heavy for flipping a tag on six cards.
+Pre-render a separate page for each category and link between them. Every filter change is a full navigation and reload, which feels heavy for flipping a tag on four cards.
 </details>
 
 <details>
@@ -236,7 +207,7 @@ Encode the category in the URL and re-render on change. Shareable, but each clic
 <details>
 <summary><strong>Great solution: client-side filter over a static list</strong></summary>
 
-Hold the six apps as a typed in-module list and filter them in client state, so changing category is instant with no navigation and no request. The list is tiny, so there is nothing to paginate or fetch. This is what the site runs.
+Hold the four apps as a typed in-module list and filter them in client state, so changing category is instant with no navigation and no request. The list is tiny, so there is nothing to paginate or fetch. This is what the site runs.
 </details>
 
 ### 5) How do we keep images fast on a host with no image server?
@@ -269,18 +240,28 @@ Pulling the high-level design and the deep dives together, here is the whole sys
 
 ```mermaid
 flowchart LR
-  Content[("Typed content arrays")]
-  Build["GitHub Actions build<br/>- next build<br/>- static export"]
-  CDN["GitHub Pages CDN<br/>- static files<br/>- on push to main<br/>- no server, no secret"]
-  Page["Static page"]
-  Gallery["Gallery island<br/>- filter in memory"]
-  Theme["Theme island<br/>- pre-paint from localStorage"]
-  Content -->|"next build, static export"| Build
-  Build -->|publishes| CDN
-  CDN --> Page
-  Page -->|"filter in memory"| Gallery
-  Page -->|"pre-paint from localStorage"| Theme
+  Content[("Typed content arrays")] -->|"next build"| Build["GitHub Actions<br/>- next build<br/>- static export"]
+  Build -->|"deploy on push to main"| CDN["GitHub Pages CDN<br/>- on push to main<br/>- no server, no secret"]
+  CDN -->|"GET /"| Page["Static page"]
+  Page -->|"render"| Hero["Hero typewriter island<br/>- client, reduced-motion"]
+  Page -->|"render"| Gallery["Gallery island<br/>- filter in memory"]
+  Page -->|"pre-paint"| Theme["Theme island<br/>- pre-paint, top of body"]
 ```
+
+## Running it locally
+
+Use the Node version in `.nvmrc` (24), then:
+
+```bash
+npm install
+npm run dev        # dev server at http://localhost:3000
+npm run lint       # ESLint (next/core-web-vitals + next/typescript)
+npm run typecheck  # next typegen, then tsc --noEmit
+npm run build      # static export to out/
+npx serve out      # preview the exported site
+```
+
+Local builds default to a root base path. CI sets `PAGES_BASE=/platform-site` so the deployed site resolves assets under the GitHub Pages subpath.
 
 ## Tech stack
 
@@ -290,9 +271,10 @@ flowchart LR
 | Styling | Tailwind CSS v4, CSS variables for theming |
 | Icons | Simple Icons for the brands that license free reuse, hand-drawn marks for the rest |
 | Fonts | Inter and JetBrains Mono via the framework font loader |
-| Client islands | theme toggle and gallery filter, everything else is static |
+| Client islands | hero typewriter, gallery filter, and theme toggle, everything else is static |
 | Hosting | GitHub Pages CDN, served under the platform-site subpath |
-| Deploy | GitHub Actions on push to main, build export then publish Pages |
+| Deploy | GitHub Actions on push to main: lint, typecheck, build, then publish to Pages; pull requests run the same checks without deploying |
+| Dependencies | Dependabot, weekly grouped updates for npm and GitHub Actions |
 
 ## License
 

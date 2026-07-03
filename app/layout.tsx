@@ -47,7 +47,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${sans.variable} ${mono.variable}`}>
+    // suppressHydrationWarning: the pre-paint script below may add the
+    // theme-dark class before React hydrates, which is an expected mismatch.
+    <html lang="en" className={`${sans.variable} ${mono.variable}`} suppressHydrationWarning>
       <body>
         {/* Apply the saved theme before paint. Light is the default (no class). */}
         <script

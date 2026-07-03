@@ -2,6 +2,7 @@ import { siNextdotjs, siExpo, siNestjs, siPostgresql, siGithubactions } from "si
 import HeroCommand from "./components/HeroCommand";
 import Gallery from "./components/Gallery";
 import ThemeToggle from "./components/ThemeToggle";
+import { APPS } from "./content";
 
 const REPO = "https://github.com/elleskay/platform";
 const MOBILE_REPO = "https://github.com/elleskay/mobile-platform";
@@ -54,7 +55,7 @@ function Hero() {
     ["100%", "Spec coverage"],
     ["9", "Smoke checks"],
     ["0", "Stored keys"],
-    ["6", "Live apps"],
+    [`${APPS.length}`, "Live apps"],
     ["2", "Templates"],
     ["MIT", "License"],
   ];
@@ -93,24 +94,25 @@ function Hero() {
   );
 }
 
-function FeatureIcon({ name, className = "h-5 w-5" }: { name: string; className?: string }) {
-  const paths: Record<string, React.ReactNode> = {
-    gate: <><circle cx="12" cy="12" r="9" /><path d="M8 12l3 3 5-6" /></>,
-    ci: <><path d="M21 12a9 9 0 1 1-3-6.7" /><path d="M21 4v4h-4" /></>,
-    sec: <path d="M12 3l8 3v6c0 4.5-3.2 7.6-8 9-4.8-1.4-8-4.5-8-9V6l8-3z" />,
-    oidc: <><circle cx="8" cy="12" r="3" /><path d="M11 12h9l-2 2m2-2l-2-2" /></>,
-    cloud: <><path d="M12 2l9 5-9 5-9-5 9-5z" /><path d="M3 12l9 5 9-5" /></>,
-    smoke: <path d="M3 12h4l2 6 4-14 2 8h6" />,
-    auth: <><rect x="3" y="11" width="18" height="10" rx="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></>,
-    eye: <><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z" /><circle cx="12" cy="12" r="3" /></>,
-    valid: <><path d="M9 11l3 3L22 4" /><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" /></>,
-  };
-  return <svg viewBox="0 0 24 24" className={className} fill="none" stroke="var(--color-accent)" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">{paths[name]}</svg>;
+const FEATURE_ICONS = {
+  gate: <><circle cx="12" cy="12" r="9" /><path d="M8 12l3 3 5-6" /></>,
+  ci: <><path d="M21 12a9 9 0 1 1-3-6.7" /><path d="M21 4v4h-4" /></>,
+  sec: <path d="M12 3l8 3v6c0 4.5-3.2 7.6-8 9-4.8-1.4-8-4.5-8-9V6l8-3z" />,
+  oidc: <><circle cx="8" cy="12" r="3" /><path d="M11 12h9l-2 2m2-2l-2-2" /></>,
+  cloud: <><path d="M12 2l9 5-9 5-9-5 9-5z" /><path d="M3 12l9 5 9-5" /></>,
+  smoke: <path d="M3 12h4l2 6 4-14 2 8h6" />,
+  auth: <><rect x="3" y="11" width="18" height="10" rx="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></>,
+  eye: <><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z" /><circle cx="12" cy="12" r="3" /></>,
+  valid: <><path d="M9 11l3 3L22 4" /><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" /></>,
+} satisfies Record<string, React.ReactNode>;
+
+function FeatureIcon({ name, className = "h-5 w-5" }: { name: keyof typeof FEATURE_ICONS; className?: string }) {
+  return <svg viewBox="0 0 24 24" className={className} fill="none" stroke="var(--color-accent)" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">{FEATURE_ICONS[name]}</svg>;
 }
 
 /* Features: capability cards, each with example tags */
 function Features() {
-  const items: [string, string, string[]][] = [
+  const items: [keyof typeof FEATURE_ICONS, string, string[]][] = [
     ["gate", "Spec-driven gate", ["bound tests", "100% coverage", "blocks deploy"]],
     ["ci", "CI/CD pipeline", ["typecheck", "lint", "cdk synth"]],
     ["sec", "Security scanning", ["CodeQL", "gitleaks", "npm audit"]],
@@ -149,31 +151,32 @@ function Features() {
 }
 
 // Real brand logos for the techs that publish them freely (Simple Icons).
-const BRAND: Record<string, { path: string }> = {
+const BRAND = {
   next: siNextdotjs,
   expo: siExpo,
   nest: siNestjs,
   db: siPostgresql,
   actions: siGithubactions,
-};
+} satisfies Record<string, { path: string }>;
 // AWS does not license its service logos for free reuse, so these stay generic.
-const AWS_MARK: Record<string, React.ReactNode> = {
+const AWS_MARK = {
   lambda: <path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z" />,
   cdn: <><circle cx="12" cy="12" r="9" /><path d="M3 12h18" /><path d="M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18" /></>,
   cdk: <><path d="M12 2l9 5-9 5-9-5 9-5z" /><path d="M3 7v10l9 5 9-5V7" /><path d="M12 12v10" /></>,
-};
+} satisfies Record<string, React.ReactNode>;
 
-function TechIcon({ name, className = "h-5 w-5" }: { name: string; className?: string }) {
-  const brand = BRAND[name];
-  if (brand) {
-    return <svg viewBox="0 0 24 24" className={className} fill="var(--color-ink)"><path d={brand.path} /></svg>;
+type TechIconName = keyof typeof BRAND | keyof typeof AWS_MARK;
+
+function TechIcon({ name, className = "h-5 w-5" }: { name: TechIconName; className?: string }) {
+  if (name in BRAND) {
+    return <svg viewBox="0 0 24 24" className={className} fill="var(--color-ink)"><path d={BRAND[name as keyof typeof BRAND].path} /></svg>;
   }
-  return <svg viewBox="0 0 24 24" className={className} fill="none" stroke="var(--color-ink)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">{AWS_MARK[name]}</svg>;
+  return <svg viewBox="0 0 24 24" className={className} fill="none" stroke="var(--color-ink)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">{AWS_MARK[name as keyof typeof AWS_MARK]}</svg>;
 }
 
 /* Stacks: the technologies wired into the templates */
 function Stacks() {
-  const stacks: [string, string, string, string][] = [
+  const stacks: [string, string, string, TechIconName][] = [
     ["Next.js", "Web", "App Router, SSR on Lambda via OpenNext.", "next"],
     ["Expo", "Mobile", "React Native app, EAS build and OTA updates.", "expo"],
     ["NestJS", "Mobile", "Typed API on Lambda and API Gateway.", "nest"],
@@ -278,15 +281,17 @@ function Footer() {
 
 export default function Page() {
   return (
-    <main>
+    <>
       <Nav />
-      <Hero />
-      <Features />
-      <Stacks />
-      <How />
-      <Gallery />
-      <CTA />
+      <main>
+        <Hero />
+        <Features />
+        <Stacks />
+        <How />
+        <Gallery />
+        <CTA />
+      </main>
       <Footer />
-    </main>
+    </>
   );
 }

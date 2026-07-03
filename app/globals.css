@@ -81,11 +81,6 @@ body {
   transform: translateY(-2px);
 }
 
-/* Hairline used for section separators and frames */
-.hair {
-  border-color: var(--color-border);
-}
-
 /* Subtle dotted texture for depth */
 .dots {
   background-image: radial-gradient(var(--color-dot) 1px, transparent 1px);
