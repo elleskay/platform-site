@@ -27,6 +27,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(ORIGIN),
   title: "platform, ship production-grade apps fast with AI coding agents",
   description: DESC,
+  robots: { index: false, follow: false },
   openGraph: {
     title: "platform, ship production-grade apps, fast",
     description: DESC,
