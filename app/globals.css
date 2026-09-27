@@ -1,56 +1,86 @@
 @import "tailwindcss";
 
-/* Light is the default theme. Dark values live under html.theme-dark.
-   Surfaces, borders, and "on accent" text are tokens so both themes are
-   first-class (no per-theme overrides scattered in components). */
+/* Linear-style tokens. Dark is the default theme: the markup ships with
+   html.theme-dark, and the pre-paint script removes it when the visitor saved
+   light. Light values live in @theme, dark values under html.theme-dark, so
+   every utility (text-ink, bg-panel, border-line, ...) follows the theme. */
 @theme {
-  --color-bg: #ffffff;
-  --color-bg-2: #f4f6f9;
-  --color-ink: #0b0d12;
-  --color-muted: #555d6a;
-  --color-faint: #8a929c;
-  --color-accent: #6366f1;
-  --color-accent-strong: #4f46e5;
-  --color-violet: #9333ea;
-  --color-ok: #059669;
-  --color-on-accent: #ffffff;
-  --color-border: rgba(0, 0, 0, 0.10);
-  --color-border-strong: rgba(0, 0, 0, 0.22);
+  --color-canvas: #ffffff;
+  --color-panel: #f8f8f8;
+  --color-panel-2: #f4f4f4;
+  --color-panel-3: #f0f0f0;
+  --color-ink: #282a30;
+  --color-ink-2: #3c4149;
+  --color-muted: #6f6e77;
+  --color-faint: #86848d;
+  --color-line: #e9e8ea;
+  --color-line-2: #dcdbdd;
+  --color-border: rgba(0, 0, 0, 0.05);
+  --color-border-strong: rgba(0, 0, 0, 0.08);
   --color-surface: rgba(0, 0, 0, 0.03);
-  --color-surface-strong: rgba(0, 0, 0, 0.10);
-  --color-dot: rgba(0, 0, 0, 0.07);
-  --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-mono), ui-monospace, monospace;
+  --color-surface-strong: rgba(0, 0, 0, 0.06);
+  --color-accent: #5e6ad2;
+  --color-violet: #9333ea;
+  --color-ok: #27a36b;
+  --color-warn: #bf8700;
+  --color-claude: #c2613f;
+  --color-invert: #282a30;
+  --color-on-invert: #ffffff;
+  --color-header: rgba(255, 255, 255, 0.8);
+
+  --shadow-high: 0px 7px 24px rgba(0, 0, 0, 0.06);
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+  --font-weight-medium: 510;
+  --font-weight-semibold: 590;
+  --tracking-title: -0.022em;
 }
 
 html.theme-dark {
-  --color-bg: #08090b;
-  --color-bg-2: #0b0d10;
-  --color-ink: #f4f6f8;
-  --color-muted: #a4abb5;
-  --color-faint: #6c727c;
-  --color-accent: #8b95ff;
-  --color-accent-strong: #6f7bf7;
+  --color-canvas: #08090a;
+  --color-panel: #0f1011;
+  --color-panel-2: #141516;
+  --color-panel-3: #191a1b;
+  --color-ink: #f7f8f8;
+  --color-ink-2: #d0d6e0;
+  --color-muted: #8a8f98;
+  --color-faint: #62666d;
+  --color-line: #23252a;
+  --color-line-2: #34343a;
+  --color-border: rgba(255, 255, 255, 0.05);
+  --color-border-strong: rgba(255, 255, 255, 0.08);
+  --color-surface: rgba(255, 255, 255, 0.05);
+  --color-surface-strong: rgba(255, 255, 255, 0.09);
+  --color-accent: #828fff;
   --color-violet: #c084fc;
-  --color-ok: #34d399;
-  --color-on-accent: #0a0b16;
-  --color-border: rgba(255, 255, 255, 0.08);
-  --color-border-strong: rgba(255, 255, 255, 0.20);
-  --color-surface: rgba(255, 255, 255, 0.03);
-  --color-surface-strong: rgba(255, 255, 255, 0.10);
-  --color-dot: rgba(255, 255, 255, 0.06);
+  --color-ok: #4cb782;
+  --color-warn: #d29922;
+  --color-claude: #d97757;
+  --color-invert: #e5e5e6;
+  --color-on-invert: #08090a;
+  --color-header: rgba(11, 11, 11, 0.8);
+
+  --shadow-high: 0px 7px 32px rgba(0, 0, 0, 0.35);
+
+  color-scheme: dark;
 }
 
 html {
+  color-scheme: light;
   scroll-behavior: smooth;
+  scroll-padding-top: 4rem;
 }
 
 body {
-  background: var(--color-bg);
+  background: var(--color-canvas);
   color: var(--color-ink);
   font-family: var(--font-sans);
-  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "cv01", "ss03";
+  font-size: 15px;
+  line-height: 1.6;
   letter-spacing: -0.011em;
+  -webkit-font-smoothing: antialiased;
   transition:
     background-color 0.2s ease,
     color 0.2s ease;
@@ -61,30 +91,64 @@ body {
   color: var(--color-ink);
 }
 
-.mono {
-  font-family: var(--font-mono);
+@layer components {
+  .mono {
+    font-family: var(--font-mono);
+    letter-spacing: 0;
+  }
+
+  /* Pill buttons: "invert" is the primary (light on dark, dark on light),
+     "ghost" the translucent secondary. Size comes from utilities. */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.375rem;
+    border-radius: 9999px;
+    font-weight: 510;
+    white-space: nowrap;
+    transition:
+      background-color 0.15s ease,
+      color 0.15s ease;
+  }
+  .btn-invert {
+    background: var(--color-invert);
+    color: var(--color-on-invert);
+  }
+  .btn-invert:hover {
+    background: color-mix(in srgb, var(--color-invert) 86%, var(--color-canvas));
+  }
+  .btn-ghost {
+    background: var(--color-surface);
+    color: var(--color-ink);
+  }
+  .btn-ghost:hover {
+    background: var(--color-surface-strong);
+  }
+
+  /* Tiny uppercase mono caption (figure labels, dates, stat labels) */
+  .caption {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    line-height: 1.4;
+    letter-spacing: 0;
+    text-transform: uppercase;
+    color: var(--color-faint);
+  }
 }
 
-/* Soft surface card */
-.card {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: 16px;
+/* Scroll reveal (Reveal.tsx): only elements still below the fold on load are
+   hidden, and the attribute is removed once shown so hover transitions are
+   untouched. */
+[data-shown="false"] {
+  opacity: 0;
+  transform: translateY(18px);
+}
+[data-shown="true"] {
   transition:
-    border-color 0.2s ease,
-    background 0.2s ease,
-    transform 0.2s ease;
-}
-.card-hover:hover {
-  border-color: var(--color-border-strong);
-  background: var(--color-surface-strong);
-  transform: translateY(-2px);
-}
-
-/* Subtle dotted texture for depth */
-.dots {
-  background-image: radial-gradient(var(--color-dot) 1px, transparent 1px);
-  background-size: 22px 22px;
+    opacity 0.8s cubic-bezier(0.215, 0.61, 0.355, 1),
+    transform 0.8s cubic-bezier(0.215, 0.61, 0.355, 1);
+  transition-delay: var(--reveal-delay, 0ms);
 }
 
 /* Blinking caret */
@@ -99,9 +163,6 @@ body {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
-  }
-  .card-hover:hover {
-    transform: none;
   }
   body {
     transition: none;

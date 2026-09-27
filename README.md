@@ -3,7 +3,7 @@
 [![Deploy](https://github.com/elleskay/platform-site/actions/workflows/deploy.yml/badge.svg)](https://github.com/elleskay/platform-site/actions/workflows/deploy.yml)
 [![CI](https://github.com/elleskay/platform-site/actions/workflows/ci.yml/badge.svg)](https://github.com/elleskay/platform-site/actions/workflows/ci.yml)
 
-> A system design breakdown of the marketing and showcase site for two open-source app templates, [**platform**](https://github.com/elleskay/platform) (web) and [**mobile-platform**](https://github.com/elleskay/mobile-platform) (mobile). It explains what the templates give an AI coding agent, and proves it with a filterable gallery of three real apps that are live right now.
+> A system design breakdown of the marketing and showcase site for two open-source app templates, [**platform**](https://github.com/elleskay/platform) (web) and [**mobile-platform**](https://github.com/elleskay/mobile-platform) (mobile). It explains what the templates give an AI coding agent, and proves it with a filterable gallery of two real apps that are live right now.
 >
 > **Live** at https://elleskay.github.io/platform-site
 
@@ -11,7 +11,7 @@
 
 ## Understanding the Problem
 
-This is a brochure, not an application. There are no users to authenticate, no data to store, and nothing to compute on a request. The job is to explain the templates clearly, look credible, and link out to three live demos and their repos.
+This is a brochure, not an application. There are no users to authenticate, no data to store, and nothing to compute on a request. The job is to explain the templates clearly, look credible, and link out to two live demos and their repos.
 
 That sounds trivial, and the content is. The interesting constraints are all in the delivery. The site has to serve as pure static files so it costs nothing and never goes down, it has to render correctly both at a local root and under a GitHub Pages repo subpath, it has to remember a light or dark theme without flashing the wrong one on load, and a push to the repo has to redeploy it with no human in the loop. So the design problem is "ship a fast, free, self-deploying static site that behaves correctly under a subpath," not "serve scale" or "model a domain."
 
@@ -39,13 +39,13 @@ Out of scope: no accounts, no backend, no database, no server-side compute. It i
 
 ### Planning the Approach
 
-The whole site is one Next.js project exported to static HTML, CSS, and JavaScript. There is no server at request time. Content lives in source as typed arrays, the page renders from them at build, and the only runtime behavior is three small client islands: the hero typewriter, the gallery filter, and the theme toggle. GitHub Pages serves the exported files from its CDN, and a workflow rebuilds on every push to main. Because the output is static, the design is about correct paths, no-flash theming, and a clean deploy, not infrastructure.
+The whole site is one Next.js project exported to static HTML, CSS, and JavaScript. There is no server at request time. Content lives in source as typed arrays, the page renders from them at build, and the only runtime behavior is six small client islands: the hero Claude Code session, the pipeline run, the how-it-works timeline, the gallery filter, the theme toggle, and the scroll reveal. GitHub Pages serves the exported files from its CDN, and a workflow rebuilds on every push to main. Because the output is static, the design is about correct paths, no-flash theming, and a clean deploy, not infrastructure.
 
 ### Defining the Core Entities
 
 There is no database. The content is the data, held in typed arrays in the source and rendered at build time.
 
-- **App showcase**, the list of three live apps with name, category, blurb, live URL, repo URL, and screenshot.
+- **App showcase**, the list of two live apps with name, category, blurb, live URL, repo URL, and screenshot.
 - **Capability content**, the feature cards, the wired technology stacks, and the build-flow steps.
 - **Theme**, light or dark, the visitor's choice, held in browser localStorage.
 - **Selected category**, the active gallery filter, held in client state for the session.
@@ -54,10 +54,10 @@ There is no database. The content is the data, held in typed arrays in the sourc
 
 There is no API. The site is static files served over HTTP, plus file-based metadata images.
 
-The single page route serves the one statically exported HTML document at the site root, the landing page that stitches together every section (hero, features, stacks, how, gallery, CTA). Because the whole site is a single page, this one route is the entire public surface a visitor ever requests.
+The single page route serves the one statically exported HTML document at the site root, the landing page that stitches together every section (hero, pipeline, stacks, how, gallery, CTA). Because the whole site is a single page, this one route is the entire public surface a visitor ever requests.
 
 ```
-GET /  -> the single exported page (hero, features, stacks, how, gallery, CTA)
+GET /  -> the single exported page (hero, pipeline, stacks, how, gallery, CTA)
 ```
 
 The file-based metadata routes are images the framework emits as static files at build time from convention-named source files, one per social and icon use (Open Graph card for link unfurls, favicon for the browser tab, Twitter card for tweet previews). Each is a fixed asset on the CDN, not a function, so a request just returns the prebuilt image.
@@ -78,43 +78,43 @@ We build the design one functional requirement at a time.
 
 ### 1) A visitor reads what the templates offer
 
-The page is composed from typed content arrays: feature cards, a grid of eight wired technologies, and a five-step build flow. A hero shows two animated terminal mockups typing realistic agent prompts (one web, one mobile), built as a client typewriter that respects reduced-motion. All of it is server-rendered to static HTML at build time.
+The page is composed from typed content arrays: the pipeline's numbers, a grid of eight wired technologies plus what else the web template wires, and a five-step build flow that plays as an animated timeline. The hero is an animated Claude Code session built in HTML: a realistic prompt types out, then the agent reads the template's CLAUDE.md, writes the spec, the code, and the tests, runs setup, opens a pull request, waits for its required checks, merges, and watches the deploy, alternating between the web and mobile templates. With reduced motion it shows one finished session. Below it, an animated pull request runs the template's real workflows: the required checks (spec gate, security scans, CI) pass, branch protection allows the merge, and the merge deploys over OIDC, ending with the smoke test's nine PASS lines. It starts when scrolled into view and pauses off screen. Sections fade up as they scroll into view, except for anything already on screen at load. All of it is server-rendered to static HTML at build time.
 
-We start with content to a static page: typed arrays render to HTML at build time, with the hero typewriter as the first client island.
+We start with content to a static page: typed arrays render to HTML at build time, with the hero Claude Code session as the first client island.
 
 ```mermaid
 flowchart LR
   Content[("Typed content arrays")] -->|"next build"| Build["GitHub Actions<br/>- next build<br/>- static export"]
   Build -->|"deploy on push to main"| CDN["GitHub Pages CDN"]
-  CDN -->|"GET /"| Page["Static page<br/>- hero, features, stacks, how"]
-  Page -->|"render"| Hero["Hero typewriter island<br/>- client, reduced-motion"]
+  CDN -->|"GET /"| Page["Static page<br/>- hero, pipeline, stacks, how"]
+  Page -->|"render"| Hero["Hero session island<br/>- client, reduced-motion"]
 ```
 
 ### 2) A visitor browses and filters the showcase
 
-The gallery is a client island holding the three apps as a static in-module list. Category buttons set client state and filter the list instantly, with no navigation and no request. Each card links straight to the live demo and the repo, and screenshots use the framework image component with blur placeholders and fixed aspect boxes so nothing shifts as they load.
+The gallery is a client island holding the two apps as a static in-module list. Category buttons set client state and filter the list instantly, with no navigation and no request. Each app links straight to the live demo and the repo. Screenshots are retina WebP captures framed as a browser window or, for mobile apps, a phone, and they use the framework image component with blur placeholders and fixed aspect boxes so nothing shifts as they load.
 
 We add the second client island: the gallery, filtering an in-memory list with no request.
 
 ```mermaid
 flowchart LR
   CDN["GitHub Pages CDN"] -->|"GET /"| Page["Static page"]
-  Page -->|"render"| Gallery["Gallery island<br/>- in-memory list of three apps"]
+  Page -->|"render"| Gallery["Gallery island<br/>- in-memory list of two apps"]
   Gallery -->|"filter in memory"| Filter["Filter in memory<br/>- by category, no request"]
   Filter -->|"link to live demo and repo"| Cards["Cards<br/>- link to live demo and repo"]
 ```
 
 ### 3) A visitor switches theme and it sticks
 
-A small inline script at the top of the document body reads the saved theme from localStorage and applies the theme-dark class before first paint, so there is no flash. A toggle button flips the class and writes the new choice back to localStorage. Light is the default when nothing is saved.
+The markup ships with the theme-dark class, and a small inline script at the top of the document body reads the saved theme from localStorage and removes the class before first paint when the visitor chose light, so there is no flash. A toggle button flips the class and writes the new choice back to localStorage. Dark is the default when nothing is saved.
 
 We add the third client island: the theme, applied before first paint from localStorage. That completes the client-side picture.
 
 ```mermaid
 flowchart LR
   LS[("localStorage")] -->|"read theme"| Pre["Pre-paint script<br/>- top of body"]
-  Pre -->|"apply before paint"| Theme["Theme island<br/>- applies theme-dark class<br/>- before first paint"]
-  Theme -->|"set theme-dark class"| Page["Static page"]
+  Pre -->|"apply before paint"| Theme["Theme island<br/>- keeps or removes theme-dark class<br/>- before first paint"]
+  Theme -->|"toggle theme-dark class"| Page["Static page"]
   Theme -->|"render toggle"| Toggle["Theme toggle<br/>- writes choice to localStorage"]
 ```
 
@@ -185,7 +185,7 @@ Use a CSS media query to match the operating system theme. No flash, but it igno
 <details>
 <summary><strong>Great solution: persist the choice and apply it before paint</strong></summary>
 
-Save the chosen theme to localStorage, and run a tiny inline script at the top of the document body that reads it and sets the theme-dark class before first paint. The toggle writes the choice back. The visitor's explicit choice wins, and there is no flash. This is what the site runs.
+Save the chosen theme to localStorage, and run a tiny inline script at the top of the document body that reads it and removes the default theme-dark class before first paint when light was chosen. The toggle writes the choice back. The visitor's explicit choice wins, and there is no flash. This is what the site runs.
 </details>
 
 ### 4) How do we filter the showcase without a backend?
@@ -195,7 +195,7 @@ Visitors want to narrow the gallery by category, but there is no server to query
 <details>
 <summary><strong>Bad solution: a page per category</strong></summary>
 
-Pre-render a separate page for each category and link between them. Every filter change is a full navigation and reload, which feels heavy for flipping a tag on three cards.
+Pre-render a separate page for each category and link between them. Every filter change is a full navigation and reload, which feels heavy for flipping a tag on two cards.
 </details>
 
 <details>
@@ -207,7 +207,7 @@ Encode the category in the URL and re-render on change. Shareable, but each clic
 <details>
 <summary><strong>Great solution: client-side filter over a static list</strong></summary>
 
-Hold the three apps as a typed in-module list and filter them in client state, so changing category is instant with no navigation and no request. The list is tiny, so there is nothing to paginate or fetch. This is what the site runs.
+Hold the two apps as a typed in-module list and filter them in client state, so changing category is instant with no navigation and no request. The list is tiny, so there is nothing to paginate or fetch. This is what the site runs.
 </details>
 
 ### 5) How do we keep images fast on a host with no image server?
@@ -243,7 +243,7 @@ flowchart LR
   Content[("Typed content arrays")] -->|"next build"| Build["GitHub Actions<br/>- next build<br/>- static export"]
   Build -->|"deploy on push to main"| CDN["GitHub Pages CDN<br/>- on push to main<br/>- no server, no secret"]
   CDN -->|"GET /"| Page["Static page"]
-  Page -->|"render"| Hero["Hero typewriter island<br/>- client, reduced-motion"]
+  Page -->|"render"| Hero["Hero session island<br/>- client, reduced-motion"]
   Page -->|"render"| Gallery["Gallery island<br/>- filter in memory"]
   Page -->|"pre-paint"| Theme["Theme island<br/>- pre-paint, top of body"]
 ```
@@ -271,7 +271,7 @@ Local builds default to a root base path. CI sets `PAGES_BASE=/platform-site` so
 | Styling | Tailwind CSS v4, CSS variables for theming |
 | Icons | Simple Icons for the brands that license free reuse, hand-drawn marks for the rest |
 | Fonts | Inter and JetBrains Mono via the framework font loader |
-| Client islands | hero typewriter, gallery filter, and theme toggle, everything else is static |
+| Client islands | hero Claude Code session, pipeline run, how-it-works timeline, gallery filter, theme toggle, and scroll reveal, everything else is static |
 | Hosting | GitHub Pages CDN, served under the platform-site subpath |
 | Deploy | GitHub Actions on push to main: lint, typecheck, build, then publish to Pages; pull requests run the same checks without deploying |
 | Dependencies | Dependabot, weekly grouped updates for npm and GitHub Actions |

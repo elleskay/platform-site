@@ -1,13 +1,20 @@
 import { siNextdotjs, siExpo, siNestjs, siPostgresql, siGithubactions } from "simple-icons";
 import HeroCommand from "./components/HeroCommand";
 import Gallery from "./components/Gallery";
+import HowSteps from "./components/HowSteps";
+import PipelineRun from "./components/PipelineRun";
+import Reveal from "./components/Reveal";
+import SectionHead from "./components/SectionHead";
 import ThemeToggle from "./components/ThemeToggle";
 import { APPS } from "./content";
 
 const REPO = "https://github.com/elleskay/platform";
 const MOBILE_REPO = "https://github.com/elleskay/mobile-platform";
 
-function Mark({ className = "h-6 w-6", color = "var(--color-accent)" }: { className?: string; color?: string }) {
+// Page gutter shared by every section, header, and footer.
+const WRAP = "mx-auto max-w-7xl px-6 sm:px-8";
+
+function Mark({ className = "h-6 w-6", color = "var(--color-ink)" }: { className?: string; color?: string }) {
   return (
     <svg viewBox="0 0 24 24" className={className} fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M12 2l9 5-9 5-9-5 9-5z" />
@@ -26,23 +33,29 @@ function Check({ className = "h-4 w-4", color = "var(--color-ok)" }: { className
 }
 
 function Nav() {
+  const links: [string, string][] = [
+    ["Pipeline", "#pipeline"],
+    ["Stacks", "#stacks"],
+    ["How it works", "#how"],
+    ["Showcase", "#apps"],
+  ];
   return (
-    <header className="sticky top-0 z-50 border-b border-[var(--color-border)] bg-[var(--color-bg)]/80 backdrop-blur-xl">
-      <nav className="relative mx-auto flex max-w-6xl items-center justify-between px-6 py-3.5">
-        <a href="#top" className="flex items-center gap-2">
-          <Mark className="h-5 w-5" />
-          <span className="font-semibold tracking-tight">platform</span>
+    <header className="sticky top-0 z-50 border-b border-border bg-header backdrop-blur-[20px]">
+      <nav className={`${WRAP} flex h-16 items-center justify-between`}>
+        <a href="#top" className="flex items-center gap-2.5 text-[17px] font-medium tracking-[-0.012em]">
+          <Mark className="h-[18px] w-[18px]" />
+          platform
         </a>
-        <div className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-7 text-sm text-[var(--color-muted)] md:flex">
-          <a href="#features" className="transition-colors hover:text-[var(--color-ink)]">Features</a>
-          <a href="#stacks" className="transition-colors hover:text-[var(--color-ink)]">Stacks</a>
-          <a href="#how" className="transition-colors hover:text-[var(--color-ink)]">How it works</a>
-          <a href="#apps" className="transition-colors hover:text-[var(--color-ink)]">Showcase</a>
-        </div>
-        <div className="flex items-center gap-2.5">
+        <div className="flex items-center gap-1">
+          <div className="hidden items-center md:flex">
+            {links.map(([label, href]) => (
+              <a key={href} href={href} className="rounded-full px-3 py-1.5 text-[13px] text-muted transition-colors hover:text-ink">{label}</a>
+            ))}
+            <span className="mx-3 h-4 w-px bg-line" />
+          </div>
           <ThemeToggle />
-          <a href={REPO} className="rounded-lg bg-[var(--color-accent)] px-3.5 py-2 text-sm font-semibold text-[var(--color-on-accent)] transition-colors hover:bg-[var(--color-accent-strong)]">Web</a>
-          <a href={MOBILE_REPO} className="rounded-lg bg-[var(--color-violet)] px-3.5 py-2 text-sm font-semibold text-[var(--color-on-accent)] transition-opacity hover:opacity-90">Mobile</a>
+          <a href={MOBILE_REPO} className="rounded-full px-3 py-1.5 text-[13px] text-muted transition-colors hover:text-ink">Mobile</a>
+          <a href={REPO} className="btn btn-invert h-8 px-3 text-[13px]">Web</a>
         </div>
       </nav>
     </header>
@@ -51,96 +64,60 @@ function Nav() {
 
 function Hero() {
   const agents = ["Claude Code", "Codex", "Cursor", "Windsurf", "Cline"];
-  const stats: [string, string][] = [
-    ["100%", "Spec coverage"],
-    ["9", "Smoke checks"],
-    ["0", "Stored keys"],
-    [`${APPS.length}`, "Live apps"],
-    ["2", "Templates"],
-    ["MIT", "License"],
-  ];
   return (
-    <section id="top" className="relative overflow-hidden">
-      <div className="dots pointer-events-none absolute inset-0 [mask-image:radial-gradient(720px_440px_at_50%_0%,#000,transparent)]" />
-      <div className="pointer-events-none absolute inset-0" style={{ background: "radial-gradient(640px 380px at 50% -6%, rgba(139,149,255,0.2), transparent 60%), radial-gradient(560px 360px at 82% 6%, rgba(192,132,252,0.14), transparent 60%)" }} />
-      <div className="relative mx-auto max-w-5xl px-6 pb-20 pt-16 text-center sm:pt-20">
-        <div className="mono mb-7 flex flex-wrap items-center justify-center gap-x-2.5 gap-y-2 text-xs text-[var(--color-faint)]">
-          <span className="uppercase tracking-[0.16em]">Works with</span>
-          {agents.map((a) => (
-            <span key={a} className="rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] px-2.5 py-1 text-[var(--color-muted)]">{a}</span>
-          ))}
-        </div>
-        <h1 className="mx-auto max-w-3xl text-[42px] font-bold leading-[1.05] tracking-tight sm:text-[68px]">
-          Ship production-grade apps, <span className="bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-violet)] bg-clip-text text-transparent">fast.</span>
+    <section id="top">
+      <div className={`${WRAP} pt-20 sm:pt-32`}>
+        <h1 className="max-w-4xl text-[40px] font-medium leading-[1.05] tracking-title sm:text-[64px] sm:leading-none">
+          The production stack your coding agent builds on
         </h1>
-        <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-[var(--color-muted)]">
-          Open-source Next.js and Expo templates on AWS, built for your AI coding agent. Point it at a repo, describe an idea, and it ships a real, live app, with the infrastructure, auth, database, CI/CD, and security scanning already wired.
-        </p>
-        <div className="mt-9"><HeroCommand /></div>
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-          <a href="#how" className="rounded-lg bg-[var(--color-accent)] px-6 py-3 text-sm font-semibold text-[var(--color-on-accent)] transition-colors hover:bg-[var(--color-accent-strong)]">How it works</a>
-          <a href="#apps" className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] px-6 py-3 text-sm font-semibold transition-colors hover:border-[var(--color-border-strong)]">View demos</a>
+        <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+          <p className="max-w-xl text-muted">Open-source Next.js and Expo templates on AWS. Describe an idea, and your agent ships a real, live app.</p>
+          <a href="#apps" className="shrink-0 text-muted transition-colors hover:text-ink">
+            <span className="font-medium text-ink-2">Live</span>&nbsp;&nbsp;{APPS.length} shipped apps <span aria-hidden>→</span>
+          </a>
         </div>
-        <div className="mt-14 grid grid-cols-3 gap-3 sm:grid-cols-6">
-          {stats.map(([n, l]) => (
-            <div key={l} className="card p-4 text-center">
-              <div className="text-2xl font-bold tracking-tight">{n}</div>
-              <div className="mono mt-1 text-[10px] uppercase tracking-[0.12em] text-[var(--color-faint)]">{l}</div>
-            </div>
+      </div>
+      <div className="mx-auto mt-14 max-w-7xl px-4 sm:mt-20 sm:px-6">
+        <HeroCommand />
+      </div>
+      <div data-reveal="0" className={`${WRAP} pt-20 sm:pt-28`}>
+        <div className="flex flex-wrap items-center gap-x-8 gap-y-4 sm:justify-between sm:gap-x-10">
+          {agents.map((a) => (
+            <span key={a} className="text-[20px] font-medium tracking-[-0.02em] text-ink-2 sm:text-[22px]">{a}</span>
           ))}
         </div>
+        <p className="caption mt-6">Works with the coding agent you already use</p>
       </div>
     </section>
   );
 }
 
-const FEATURE_ICONS = {
-  gate: <><circle cx="12" cy="12" r="9" /><path d="M8 12l3 3 5-6" /></>,
-  ci: <><path d="M21 12a9 9 0 1 1-3-6.7" /><path d="M21 4v4h-4" /></>,
-  sec: <path d="M12 3l8 3v6c0 4.5-3.2 7.6-8 9-4.8-1.4-8-4.5-8-9V6l8-3z" />,
-  oidc: <><circle cx="8" cy="12" r="3" /><path d="M11 12h9l-2 2m2-2l-2-2" /></>,
-  cloud: <><path d="M12 2l9 5-9 5-9-5 9-5z" /><path d="M3 12l9 5 9-5" /></>,
-  smoke: <path d="M3 12h4l2 6 4-14 2 8h6" />,
-  auth: <><rect x="3" y="11" width="18" height="10" rx="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></>,
-  eye: <><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z" /><circle cx="12" cy="12" r="3" /></>,
-  valid: <><path d="M9 11l3 3L22 4" /><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" /></>,
-} satisfies Record<string, React.ReactNode>;
-
-function FeatureIcon({ name, className = "h-5 w-5" }: { name: keyof typeof FEATURE_ICONS; className?: string }) {
-  return <svg viewBox="0 0 24 24" className={className} fill="none" stroke="var(--color-accent)" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">{FEATURE_ICONS[name]}</svg>;
-}
-
-/* Features: capability cards, each with example tags */
-function Features() {
-  const items: [keyof typeof FEATURE_ICONS, string, string[]][] = [
-    ["gate", "Spec-driven gate", ["bound tests", "100% coverage", "blocks deploy"]],
-    ["ci", "CI/CD pipeline", ["typecheck", "lint", "cdk synth"]],
-    ["sec", "Security scanning", ["CodeQL", "gitleaks", "npm audit"]],
-    ["oidc", "OIDC deploys", ["short-lived role", "no stored keys", "least-privilege"]],
-    ["cloud", "Next.js on AWS", ["Lambda", "S3", "CloudFront"]],
-    ["smoke", "Post-deploy smoke test", ["health", "headers", "9 checks"]],
-    ["auth", "Auth and database", ["Auth.js v5", "Neon Postgres", "JWT sessions"]],
-    ["eye", "Observability", ["Sentry", "PostHog", "ready for a key"]],
-    ["valid", "Validation", ["Zod", "every server action", "typed boundaries"]],
+/* Pipeline: a two-tone statement, one pull request going from checks to a
+   live deploy, and the three numbers that pipeline guarantees */
+function Pipeline() {
+  const stats: [string, string][] = [
+    ["100%", "Spec coverage to merge"],
+    ["9", "Smoke checks per deploy"],
+    ["0", "Stored AWS keys"],
   ];
   return (
-    <section id="features" className="border-t border-[var(--color-border)] bg-[var(--color-bg-2)]">
-      <div className="mx-auto max-w-6xl px-6 py-24">
-        <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Everything you need, already built.</h2>
-          <p className="mt-4 text-lg text-[var(--color-muted)]">Your agent inherits a complete Next.js and AWS production stack, so it spends its time on your product, not the plumbing.</p>
+    <section id="pipeline">
+      <div className={`${WRAP} py-24 sm:py-36`}>
+        <h2 data-reveal="0" className="max-w-6xl text-pretty text-[28px] font-medium leading-[1.15] tracking-title text-muted sm:text-[48px] sm:leading-none">
+          <span className="text-ink">Nothing ships unproven.</span> Every change clears a spec gate, security scans, and CI on its pull request before it can merge, then deploys over OIDC and gets smoke-tested live.
+        </h2>
+        <div data-reveal="0" className="mt-16 sm:mt-20">
+          <PipelineRun />
+          <p className="mt-4 text-[13px] text-faint">
+            Shown: the web template. The mobile template gates its pull requests the same way, deploys its API over OIDC on merge, and builds the app with EAS.
+          </p>
         </div>
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {items.map(([icon, t, tags]) => (
-            <div key={t} className="card card-hover p-6 text-center">
-              <span className="mx-auto inline-flex rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-2.5">
-                <FeatureIcon name={icon} />
-              </span>
-              <h3 className="mt-4 font-semibold">{t}</h3>
-              <div className="mono mt-3 flex flex-wrap justify-center gap-2 text-[12px]">
-                {tags.map((tag) => (
-                  <span key={tag} className="rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] px-2 py-1 text-[var(--color-muted)]">{tag}</span>
-                ))}
+        <div className="mt-16 grid grid-cols-3 gap-px border-y border-line bg-line">
+          {stats.map(([n, l], i) => (
+            <div key={l} className="bg-canvas px-3 py-6 first:pl-0 sm:px-6">
+              <div data-reveal={i}>
+                <div className="text-[28px] font-medium tracking-title sm:text-[40px]">{n}</div>
+                <div className="caption mt-1">{l}</div>
               </div>
             </div>
           ))}
@@ -184,58 +161,78 @@ function Stacks() {
     ["S3 + CloudFront", "Cloud", "Static assets on a global CDN.", "cdn"],
     ["AWS CDK", "Infra", "Infrastructure as code, one construct.", "cdk"],
     ["Neon Postgres", "Data", "Serverless Postgres with connection pooling.", "db"],
-    ["GitHub Actions", "CI/CD", "OIDC deploys, no stored keys.", "actions"],
+    ["GitHub Actions", "CI/CD", "OIDC deploys, no stored AWS keys.", "actions"],
+  ];
+  const alsoWired: [string, string][] = [
+    ["Auth and database", "Auth.js v5 · JWT sessions · migrations and seed data on every deploy"],
+    ["Observability", "Sentry · PostHog · ready for a key"],
+    ["Validation", "Zod on every server action · typed boundaries"],
   ];
   return (
-    <section id="stacks" className="border-t border-[var(--color-border)]">
-      <div className="mx-auto max-w-6xl px-6 py-24">
-        <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Eight technologies, already wired.</h2>
-          <p className="mt-4 text-lg text-[var(--color-muted)]">Across two templates, web (<a href={REPO} className="text-[var(--color-accent)] hover:underline">platform</a>) and mobile (<a href={MOBILE_REPO} className="text-[var(--color-violet)] hover:underline">mobile-platform</a>), configured and deploying on day one.</p>
+    <section id="stacks" className="border-t border-line">
+      <div className={`${WRAP} py-24 sm:py-36`}>
+        <div data-reveal="0">
+          <SectionHead
+            title={<>Eight technologies,<br />already wired</>}
+            intro="Two templates, web and mobile, configured and deploying on day one."
+            links={[["platform", REPO], ["mobile-platform", MOBILE_REPO]]}
+          />
         </div>
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {stacks.map(([name, kind, note, icon]) => (
-            <div key={name} className="card card-hover p-6 text-center">
-              <span className="mx-auto inline-flex rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-2"><TechIcon name={icon} /></span>
-              <div className="mt-3 flex items-center justify-center gap-2">
-                <span className="font-semibold">{name}</span>
-                <span className="mono rounded-md border border-[var(--color-border)] px-2 py-0.5 text-[10px] uppercase tracking-[0.1em] text-[var(--color-faint)]">{kind}</span>
+        <div className="mt-16 overflow-hidden rounded-xl border border-border-strong bg-line">
+          <div className="grid gap-px sm:grid-cols-2 lg:grid-cols-4">
+            {stacks.map(([name, kind, note, icon], i) => (
+              <div key={name} className="bg-panel p-6 transition-colors hover:bg-panel-2">
+                <div data-reveal={i % 4}>
+                  <div className="flex items-center justify-between">
+                    <TechIcon name={icon} />
+                    <span className="caption">{kind}</span>
+                  </div>
+                  <h3 className="mt-8 font-medium text-ink-2">{name}</h3>
+                  <p className="mt-1 text-muted">{note}</p>
+                </div>
               </div>
-              <p className="mt-2.5 text-sm leading-relaxed text-[var(--color-muted)]">{note}</p>
-            </div>
-          ))}
+            ))}
+          </div>
+        </div>
+        <div className="mt-12">
+          <div className="caption">Also wired into the web template</div>
+          <div className="mt-4 grid gap-6 md:grid-cols-3 md:gap-8">
+            {alsoWired.map(([t, note], i) => (
+              <div key={t} data-reveal={i} className="flex gap-3">
+                <Check className="mt-[5px] h-3.5 w-3.5 shrink-0" />
+                <div>
+                  <h3 className="font-medium text-ink-2">{t}</h3>
+                  <p className="mt-1 text-muted">{note}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
   );
 }
 
-/* How it works: 5-step stepper */
+/* How it works: five steps on a timeline */
 function How() {
   const steps: [string, string][] = [
     ["Prompt your idea", "Describe the app to your AI coding agent and point it at the template repo."],
     ["It scaffolds", "The agent pulls from the template and writes the app, no boilerplate, no config."],
-    ["It connects your cloud", "On the first deploy it wires GitHub and AWS once: an OIDC role, a database, and secrets."],
-    ["CI proves it", "The spec gate hits 100%, security scans pass, and the smoke test confirms the deploy."],
-    ["It ships", "A live AWS URL, automatically, on every push from then on."],
+    ["It connects your cloud", "One setup command wires GitHub and AWS once: an OIDC role, a database, and secrets."],
+    ["CI proves it", "On the pull request, the spec gate must hit 100% and the security scans must pass before it can merge."],
+    ["It ships", "The merge deploys to AWS and the smoke test checks the live URL. Every merge after that redeploys."],
   ];
   return (
-    <section id="how" className="border-t border-[var(--color-border)] bg-[var(--color-bg-2)]">
-      <div className="mx-auto max-w-6xl px-6 py-24">
-        <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Prompt your idea. It does the rest.</h2>
-          <p className="mt-4 text-lg text-[var(--color-muted)]">You describe the app. The agent builds it, sets up your cloud once, and ships it to AWS.</p>
+    <section id="how" className="border-t border-line">
+      <div className={`${WRAP} py-24 sm:py-36`}>
+        <div data-reveal="0">
+          <SectionHead
+            title={<>Idea to<br />live URL</>}
+            intro="You describe the app. The agent builds it, sets up your cloud once, and ships it to AWS."
+            links={[["Read the template guide", REPO]]}
+          />
         </div>
-        <div className="relative mt-16 grid gap-10 md:grid-cols-5 md:gap-6">
-          <div className="absolute left-0 right-0 top-5 hidden h-px bg-[var(--color-surface-strong)] md:block" />
-          {steps.map(([t, body], i) => (
-            <div key={t} className="relative text-center">
-              <div className="relative z-10 mx-auto grid h-10 w-10 place-items-center rounded-full border border-[var(--color-border-strong)] bg-[var(--color-bg-2)] text-sm font-semibold text-[var(--color-accent)]">{i + 1}</div>
-              <h3 className="mt-5 font-semibold">{t}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-[var(--color-muted)]">{body}</p>
-            </div>
-          ))}
-        </div>
+        <HowSteps steps={steps} />
       </div>
     </section>
   );
@@ -244,21 +241,19 @@ function How() {
 function CTA() {
   const features = ["Open source, MIT", "Works with any coding agent", "Production-ready: spec gate + smoke test"];
   return (
-    <section className="border-t border-[var(--color-border)]">
-      <div className="relative mx-auto max-w-6xl overflow-hidden px-6 py-28">
-        <div className="pointer-events-none absolute inset-0" style={{ background: "radial-gradient(560px 280px at 50% 120%, rgba(139,149,255,0.2), transparent 65%)" }} />
-        <div className="relative text-center">
-          <h2 className="mx-auto max-w-2xl text-4xl font-bold tracking-tight sm:text-5xl">Ready to ship production-grade apps, <span className="bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-violet)] bg-clip-text text-transparent">fast?</span></h2>
-          <p className="mx-auto mt-5 max-w-md text-lg text-[var(--color-muted)]">Point your agent at the platform repo and describe your first app. It builds, connects, and ships to a live AWS URL.</p>
-          <div className="mt-7 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-[var(--color-muted)]">
-            {features.map((f) => (
-              <span key={f} className="inline-flex items-center gap-2"><Check className="h-4 w-4" /> {f}</span>
-            ))}
-          </div>
-          <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
-            <a href={REPO} className="rounded-lg bg-[var(--color-accent)] px-6 py-3 text-sm font-semibold text-[var(--color-on-accent)] transition-colors hover:bg-[var(--color-accent-strong)]">Use the web template</a>
-            <a href={MOBILE_REPO} className="rounded-lg bg-[var(--color-violet)] px-6 py-3 text-sm font-semibold text-[var(--color-on-accent)] transition-opacity hover:opacity-90">Use the mobile template</a>
-          </div>
+    <section className="border-t border-line">
+      <div data-reveal="0" className={`${WRAP} py-28 text-center sm:py-44`}>
+        <h2 className="mx-auto max-w-3xl text-balance text-[36px] font-medium leading-[1.05] tracking-title sm:text-[72px] sm:leading-none">
+          Describe the app.<br />Your agent ships it.
+        </h2>
+        <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
+          <a href={REPO} className="btn btn-invert h-11 px-5 text-[16px]">Use the web template</a>
+          <a href={MOBILE_REPO} className="btn btn-ghost h-11 px-5 text-[16px]">Use the mobile template</a>
+        </div>
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[13px] text-muted">
+          {features.map((f) => (
+            <span key={f} className="inline-flex items-center gap-2"><Check className="h-3.5 w-3.5" /> {f}</span>
+          ))}
         </div>
       </div>
     </section>
@@ -266,15 +261,27 @@ function CTA() {
 }
 
 function Footer() {
+  const columns: [string, [string, string][]][] = [
+    ["Templates", [["platform", REPO], ["mobile-platform", MOBILE_REPO]]],
+    ["Showcase", APPS.map((a) => [a.name, a.live])],
+    ["Connect", [["GitHub", "https://github.com/elleskay"]]],
+  ];
   return (
-    <footer className="border-t border-[var(--color-border)]">
-      <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 py-8 text-sm text-[var(--color-faint)] sm:flex-row">
-        <div className="flex items-center gap-2"><Mark className="h-4 w-4" /> platform, an open-source template. MIT.</div>
-        <div className="flex items-center gap-6">
-          <a href={REPO} className="transition-colors hover:text-[var(--color-ink)]">GitHub</a>
-          <a href="https://github.com/elleskay" className="transition-colors hover:text-[var(--color-ink)]">elleskay</a>
-        </div>
+    <footer className="border-t border-line">
+      <div className={`${WRAP} grid gap-10 py-16 sm:grid-cols-[1fr_repeat(3,minmax(0,200px))]`}>
+        <a href="#top" aria-label="platform, back to top"><Mark className="h-5 w-5" /></a>
+        {columns.map(([head, links]) => (
+          <div key={head}>
+            <h3 className="text-[13px] font-medium">{head}</h3>
+            <ul className="mt-4 space-y-2.5">
+              {links.map(([label, href]) => (
+                <li key={href}><a href={href} className="text-[13px] text-muted transition-colors hover:text-ink">{label}</a></li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </div>
+      <div className={`${WRAP} pb-12 text-[13px] text-faint`}>platform, an open-source template. MIT.</div>
     </footer>
   );
 }
@@ -285,13 +292,14 @@ export default function Page() {
       <Nav />
       <main>
         <Hero />
-        <Features />
+        <Pipeline />
         <Stacks />
         <How />
         <Gallery />
         <CTA />
       </main>
       <Footer />
+      <Reveal />
     </>
   );
 }
