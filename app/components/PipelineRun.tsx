@@ -236,7 +236,7 @@ export default function PipelineRun() {
         <span className="h-2.5 w-2.5 rounded-full bg-surface-strong" />
         <svg viewBox="0 0 24 24" className="ml-3 h-3.5 w-3.5 shrink-0" fill="var(--color-muted)"><path d={siGithubactions.path} /></svg>
         <span className="truncate text-muted">
-          you/benefits-checker <span className="text-faint">/</span> <span className="text-ink-2">Pull request #12</span>
+          you/ai-tax-assistant <span className="text-faint">/</span> <span className="text-ink-2">Pull request #12</span>
         </span>
       </div>
 
@@ -244,11 +244,11 @@ export default function PipelineRun() {
         <PrIcon merged={merged} />
         <div className="min-w-0 flex-1">
           <div className="truncate text-[15px] font-medium text-ink">
-            feat: benefits eligibility checker <span className="font-normal text-faint">#12</span>
+            feat: AI tax assistant <span className="font-normal text-faint">#12</span>
           </div>
           <div className="mt-0.5 text-muted">
             {merged ? "Merged into" : "Wants to merge into"} <span className="mono inline-block rounded border border-line px-1.5 text-[11px] leading-[18px] text-ink-2">main</span> from{" "}
-            <span className="mono inline-block rounded border border-line px-1.5 text-[11px] leading-[18px] text-ink-2">feat/benefits-checker</span>
+            <span className="mono inline-block rounded border border-line px-1.5 text-[11px] leading-[18px] text-ink-2">feat/ai-tax-assistant</span>
           </div>
         </div>
         <span className="hidden h-6 items-center gap-1.5 rounded-full border border-line px-2.5 text-[12px] font-medium text-ink-2 sm:inline-flex">

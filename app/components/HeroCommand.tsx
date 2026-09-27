@@ -12,20 +12,13 @@ type Task = {
   file: string;
 };
 
+// The prompts describe the two showcase apps, so the hero shows how they were built.
 const WEB_TASKS: Task[] = [
-  { prompt: "build a benefits eligibility checker: a citizen answers a short form, sees which subsidies they qualify for, and gets the rule that decided each", slug: "benefits-checker", id: "BENEFITS-ELIG-001", title: "Each result names the rule that decided it", file: "apps/web/app/check/page.tsx" },
-  { prompt: "build a grants portal: citizens apply, officers review in a queue, every status change is logged, and applicants are notified at each step", slug: "grants-portal", id: "GRANTS-FLOW-001", title: "Every status change is written to the log", file: "apps/web/app/applications/page.tsx" },
-  { prompt: "build a public-records request tracker: citizens file FOI requests, officers assign and respond, and an SLA timer flags anything overdue", slug: "records-tracker", id: "RECORDS-SLA-001", title: "Requests past their SLA are flagged overdue", file: "apps/web/app/requests/page.tsx" },
-  { prompt: "build a permit portal: citizens submit and pay, officers approve or return with reasons, and the citizen sees exactly which items are missing", slug: "permit-portal", id: "PERMIT-REVIEW-001", title: "A returned permit lists every missing item", file: "apps/web/app/permits/page.tsx" },
-  { prompt: "build a caseworker dashboard: triage cases by priority, role-gated access to records, and an append-only audit log of every action", slug: "casework", id: "CASES-AUDIT-001", title: "Every action appends an audit entry", file: "apps/web/app/cases/page.tsx" },
+  { prompt: "build an AI tax assistant for officers: a workspace per department, answers cited from its own documents, every model call routed and costed, and a full audit trail", slug: "ai-tax-assistant", id: "TAX-CITE-001", title: "Every answer cites the document it came from", file: "apps/web/app/assistant/page.tsx" },
 ];
 
 const MOBILE_TASKS: Task[] = [
-  { prompt: "build a municipal issue reporter: a citizen photographs a pothole, it geotags and routes to the right department, and they track it to closed", slug: "issue-reporter", id: "REPORT-ROUTE-001", title: "A photo report is geotagged and routed", file: "apps/app/app/report.tsx" },
-  { prompt: "build a field-inspection app for officers: offline checklists, photo evidence and signatures, and sync that never drops a report", slug: "field-inspections", id: "INSPECT-SYNC-001", title: "Reports made offline sync without loss", file: "apps/app/app/inspection.tsx" },
-  { prompt: "build a disaster check-in app: residents mark themselves safe, request help with their location, and officers watch a live needs map", slug: "safe-check-in", id: "CHECKIN-SAFE-001", title: "A resident can mark themselves safe", file: "apps/app/app/check-in.tsx" },
-  { prompt: "build an officer dispatch app: assigned jobs with directions, status updates from the field, and a push alert on every high-priority case", slug: "officer-dispatch", id: "DISPATCH-ALERT-001", title: "High-priority jobs send a push alert", file: "apps/app/app/jobs.tsx" },
-  { prompt: "build a benefits check-in app: appointment reminders, secure document upload, and an SMS fallback when there's no data connection", slug: "benefits-check-in", id: "CHECKIN-SMS-001", title: "Reminders fall back to SMS offline", file: "apps/app/app/appointments.tsx" },
+  { prompt: "build DriveBuddy, an AI driving companion for Singapore: live ERP and traffic alerts, voice warnings for gantries ahead, trip costs after every drive, and a Claude co-pilot you can talk to", slug: "drivebuddy", id: "DRIVE-ERP-001", title: "A gantry ahead triggers a voice alert", file: "apps/app/app/drive.tsx" },
 ];
 
 const TEMPLATES = {
