@@ -109,7 +109,7 @@ function Icon({ state, className = "h-3.5 w-3.5" }: { state: State; className?: 
 // Pull request glyph: a branch feeding main, colored by where the PR stands.
 function PrIcon({ merged, className = "h-5 w-5" }: { merged: boolean; className?: string }) {
   return (
-    <svg viewBox="0 0 16 16" className={`${className} shrink-0`} fill="none" stroke={merged ? "var(--color-violet)" : "var(--color-ok)"} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg viewBox="0 0 16 16" className={`${className} shrink-0`} fill="none" stroke={merged ? "var(--color-accent-2)" : "var(--color-ok)"} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
       <circle cx="4" cy="3.5" r="1.75" />
       <circle cx="4" cy="12.5" r="1.75" />
       <circle cx="12" cy="12.5" r="1.75" />

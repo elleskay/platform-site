@@ -104,7 +104,12 @@ export default function Gallery() {
                   <span className="h-2 w-2 rounded-full" style={{ background: a.color }} /> {a.tag}
                 </span>
                 <h3 className="mt-4 text-[24px] font-medium leading-tight tracking-[-0.02em]">{a.name}</h3>
-                <p className="mt-3 leading-relaxed text-muted">{a.note}</p>
+                <p className="mt-3 max-w-md leading-relaxed text-muted">{a.note}</p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {a.stack.map((s) => (
+                    <span key={s} className="mono rounded-md border border-line px-2 py-0.5 text-[11px] text-muted">{s}</span>
+                  ))}
+                </div>
                 <div className="mt-6 flex items-center gap-4">
                   <a href={a.live} className="btn btn-invert h-9 px-4 text-[13px]">Open demo</a>
                   <a href={a.repo} className="text-[13px] text-muted transition-colors hover:text-ink">

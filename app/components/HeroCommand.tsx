@@ -30,7 +30,7 @@ const MOBILE_TASKS: Task[] = [
 
 const TEMPLATES = {
   web: { name: "platform", repo: "github.com/elleskay/platform", color: "var(--color-accent)", tasks: WEB_TASKS },
-  mobile: { name: "mobile-platform", repo: "github.com/elleskay/mobile-platform", color: "var(--color-violet)", tasks: MOBILE_TASKS },
+  mobile: { name: "mobile-platform", repo: "github.com/elleskay/mobile-platform", color: "var(--color-accent-2)", tasks: MOBILE_TASKS },
 };
 type Kind = keyof typeof TEMPLATES;
 
@@ -371,7 +371,7 @@ export default function HeroCommand() {
         </div>
         <div className="mt-1.5 flex justify-between px-1 text-[11px] text-faint">
           <span>? for shortcuts</span>
-          <span className="text-violet">⏵⏵ accept edits on</span>
+          <span className="text-accent-2">⏵⏵ accept edits on</span>
         </div>
       </div>
     </div>

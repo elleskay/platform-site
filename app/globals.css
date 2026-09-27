@@ -19,8 +19,8 @@
   --color-border-strong: rgba(0, 0, 0, 0.08);
   --color-surface: rgba(0, 0, 0, 0.03);
   --color-surface-strong: rgba(0, 0, 0, 0.06);
-  --color-accent: #5e6ad2;
-  --color-violet: #9333ea;
+  --color-accent: #0b6bff;
+  --color-accent-2: #4f7d00;
   --color-ok: #27a36b;
   --color-warn: #bf8700;
   --color-claude: #c2613f;
@@ -52,8 +52,8 @@ html.theme-dark {
   --color-border-strong: rgba(255, 255, 255, 0.08);
   --color-surface: rgba(255, 255, 255, 0.05);
   --color-surface-strong: rgba(255, 255, 255, 0.09);
-  --color-accent: #828fff;
-  --color-violet: #c084fc;
+  --color-accent: #3d8eff;
+  --color-accent-2: #c6f135;
   --color-ok: #4cb782;
   --color-warn: #d29922;
   --color-claude: #d97757;

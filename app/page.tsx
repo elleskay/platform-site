@@ -34,9 +34,9 @@ function Check({ className = "h-4 w-4", color = "var(--color-ok)" }: { className
 
 function Nav() {
   const links: [string, string][] = [
+    ["How it works", "#how"],
     ["Pipeline", "#pipeline"],
     ["Stacks", "#stacks"],
-    ["How it works", "#how"],
     ["Showcase", "#apps"],
   ];
   return (
@@ -80,7 +80,7 @@ function Hero() {
       <div className="mx-auto mt-14 max-w-7xl px-4 sm:mt-20 sm:px-6">
         <HeroCommand />
       </div>
-      <div data-reveal="0" className={`${WRAP} pt-20 sm:pt-28`}>
+      <div data-reveal="0" className={`${WRAP} pb-20 pt-20 sm:pb-28 sm:pt-28`}>
         <div className="flex flex-wrap items-center gap-x-8 gap-y-4 sm:justify-between sm:gap-x-10">
           {agents.map((a) => (
             <span key={a} className="text-[20px] font-medium tracking-[-0.02em] text-ink-2 sm:text-[22px]">{a}</span>
@@ -101,15 +101,15 @@ function Pipeline() {
     ["0", "Stored AWS keys"],
   ];
   return (
-    <section id="pipeline">
+    <section id="pipeline" className="border-t border-line">
       <div className={`${WRAP} py-24 sm:py-36`}>
         <h2 data-reveal="0" className="max-w-6xl text-pretty text-[28px] font-medium leading-[1.15] tracking-title text-muted sm:text-[48px] sm:leading-none">
-          <span className="text-ink">Nothing ships unproven.</span> Every change clears a spec gate, security scans, and CI on its pull request before it can merge, then deploys over OIDC and gets smoke-tested live.
+          <span className="text-ink">Nothing ships unproven.</span> Every pull request clears the spec gate, security scans, and CI before it can merge.
         </h2>
         <div data-reveal="0" className="mt-16 sm:mt-20">
           <PipelineRun />
           <p className="mt-4 text-[13px] text-faint">
-            Shown: the web template. The mobile template gates its pull requests the same way, deploys its API over OIDC on merge, and builds the app with EAS.
+            Web template shown. The mobile template ships its API the same way.
           </p>
         </div>
         <div className="mt-16 grid grid-cols-3 gap-px border-y border-line bg-line">
@@ -164,7 +164,7 @@ function Stacks() {
     ["GitHub Actions", "CI/CD", "OIDC deploys, no stored AWS keys.", "actions"],
   ];
   const alsoWired: [string, string][] = [
-    ["Auth and database", "Auth.js v5 · JWT sessions · migrations and seed data on every deploy"],
+    ["Auth and database", "Auth.js v5 · JWT sessions · migrations on deploy"],
     ["Observability", "Sentry · PostHog · ready for a key"],
     ["Validation", "Zod on every server action · typed boundaries"],
   ];
@@ -216,11 +216,11 @@ function Stacks() {
 /* How it works: five steps on a timeline */
 function How() {
   const steps: [string, string][] = [
-    ["Prompt your idea", "Describe the app to your AI coding agent and point it at the template repo."],
-    ["It scaffolds", "The agent pulls from the template and writes the app, no boilerplate, no config."],
-    ["It connects your cloud", "One setup command wires GitHub and AWS once: an OIDC role, a database, and secrets."],
-    ["CI proves it", "On the pull request, the spec gate must hit 100% and the security scans must pass before it can merge."],
-    ["It ships", "The merge deploys to AWS and the smoke test checks the live URL. Every merge after that redeploys."],
+    ["Prompt your idea", "Describe the app and point your agent at the template."],
+    ["It scaffolds", "It writes the spec first, then the code and tests."],
+    ["It connects your cloud", "One command wires GitHub and AWS: OIDC, database, secrets."],
+    ["CI proves it", "The PR can't merge until the spec gate and scans pass."],
+    ["It ships", "The merge deploys, and a smoke test checks it live."],
   ];
   return (
     <section id="how" className="border-t border-line">
@@ -292,9 +292,9 @@ export default function Page() {
       <Nav />
       <main>
         <Hero />
+        <How />
         <Pipeline />
         <Stacks />
-        <How />
         <Gallery />
         <CTA />
       </main>

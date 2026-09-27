@@ -45,7 +45,7 @@ The whole site is one Next.js project exported to static HTML, CSS, and JavaScri
 
 There is no database. The content is the data, held in typed arrays in the source and rendered at build time.
 
-- **App showcase**, the list of two live apps with name, category, blurb, live URL, repo URL, and screenshot.
+- **App showcase**, the list of two live apps with name, category, one-line blurb, tech tags, live URL, repo URL, and screenshot.
 - **Capability content**, the feature cards, the wired technology stacks, and the build-flow steps.
 - **Theme**, light or dark, the visitor's choice, held in browser localStorage.
 - **Selected category**, the active gallery filter, held in client state for the session.
@@ -54,10 +54,10 @@ There is no database. The content is the data, held in typed arrays in the sourc
 
 There is no API. The site is static files served over HTTP, plus file-based metadata images.
 
-The single page route serves the one statically exported HTML document at the site root, the landing page that stitches together every section (hero, pipeline, stacks, how, gallery, CTA). Because the whole site is a single page, this one route is the entire public surface a visitor ever requests.
+The single page route serves the one statically exported HTML document at the site root, the landing page that stitches together every section (hero, how, pipeline, stacks, gallery, CTA). Because the whole site is a single page, this one route is the entire public surface a visitor ever requests.
 
 ```
-GET /  -> the single exported page (hero, pipeline, stacks, how, gallery, CTA)
+GET /  -> the single exported page (hero, how, pipeline, stacks, gallery, CTA)
 ```
 
 The file-based metadata routes are images the framework emits as static files at build time from convention-named source files, one per social and icon use (Open Graph card for link unfurls, favicon for the browser tab, Twitter card for tweet previews). Each is a fixed asset on the CDN, not a function, so a request just returns the prebuilt image.
@@ -86,7 +86,7 @@ We start with content to a static page: typed arrays render to HTML at build tim
 flowchart LR
   Content[("Typed content arrays")] -->|"next build"| Build["GitHub Actions<br/>- next build<br/>- static export"]
   Build -->|"deploy on push to main"| CDN["GitHub Pages CDN"]
-  CDN -->|"GET /"| Page["Static page<br/>- hero, pipeline, stacks, how"]
+  CDN -->|"GET /"| Page["Static page<br/>- hero, how, pipeline, stacks"]
   Page -->|"render"| Hero["Hero session island<br/>- client, reduced-motion"]
 ```
 
